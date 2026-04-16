@@ -339,7 +339,7 @@ async function callAI(dreamText, feedback, isRegen){
     var rawText = (data.content && data.content[0] && data.content[0].text) ? data.content[0].text : (data.text || JSON.stringify(data));
     console.log('RAW RESPONSE:', rawText.substring(0,300));
     var parsed;
-    try { parsed=JSON.parse(rawText.replace(/```json|```/g,'').trim()); } catch(pe) { console.error('PARSE ERROR:', pe, rawText.substring(0,200)); throw pe; }
+    try { parsed=JSON.parse(cleaned); } catch(pe) { var match=cleaned.match(/\{[\s\S]*\}/); if(match){parsed=JSON.parse(match[0]);}else{throw pe;} }
     if(!parsed.emociones) parsed.emociones=[];
     if(!parsed.simbolos) parsed.simbolos=[];
     if(!parsed.resumen) parsed.resumen='Sueño analizado';
