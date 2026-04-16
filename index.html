@@ -338,6 +338,7 @@ async function callAI(dreamText, feedback, isRegen){
     var data=await res.json();
     var rawText = (data.content && data.content[0] && data.content[0].text) ? data.content[0].text : (data.text || JSON.stringify(data));
     console.log('RAW RESPONSE:', rawText.substring(0,300));
+    var cleaned = rawText.replace(/```json/g,'').replace(/```/g,'').trim();
     var parsed;
     try { parsed=JSON.parse(cleaned); } catch(pe) { var match=cleaned.match(/\{[\s\S]*\}/); if(match){parsed=JSON.parse(match[0]);}else{throw pe;} }
     if(!parsed.emociones) parsed.emociones=[];
