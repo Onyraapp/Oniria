@@ -860,12 +860,12 @@ async function shareNative() {
       await navigator.share({
         files: [file],
         title: 'Mi sueño en ONYRA',
-        text: (curResult && curResult.data && curResult.data.resumen ? curResult.data.resumen : '') + ' — ONYRA'
+       text: (curResult && curResult.data && curResult.data.resumen ? curResult.data.resumen : '') + ' — ONYRA\n\nDescubrí qué dicen tus sueños: https://onyraapp.github.io/Oniria/'
       });
     } else if (navigator.share) {
       await navigator.share({
         title: 'Mi sueño en ONYRA',
-        text: (curResult && curResult.data && curResult.data.resumen ? curResult.data.resumen : '') + ' — ONYRA',
+        text: (curResult && curResult.data && curResult.data.resumen ? curResult.data.resumen : '') + ' — ONYRA\n\nDescubrí qué dicen tus sueños: https://onyraapp.github.io/Oniria/'
         url: 'https://onyraapp.github.io/Oniria/'
       });
     } else {
