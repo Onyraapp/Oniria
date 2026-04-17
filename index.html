@@ -688,7 +688,7 @@ function renderHistory(){
   c.innerHTML='';
   dreams.forEach(function(d){
     var div=document.createElement('div'); div.className='hitem';
-    var ds=d.date?d.date.toLocaleDateString('es-AR',{day:'numeric',month:'short'}):'';
+    var ds=d.date?d.date.toLocaleDateString('es-AR',{day:'numeric',month:'short',year:'numeric'}):'';
     var emo=d.data&&d.data.emociones&&d.data.emociones[0]?d.data.emociones[0].nombre:'';
     var titulo=d.data&&d.data.resumen?d.data.resumen:d.dream;
     var thumbHtml=d.imgUrl?'<img src="'+d.imgUrl+'" onerror="this.style.display=\'none\'">':'';
