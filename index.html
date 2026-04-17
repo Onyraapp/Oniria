@@ -526,8 +526,8 @@ async function playAudio() {
 
     if (!res.ok) throw new Error('Error de audio');
 
-    var blob = await res.blob();
-    var audioUrl = URL.createObjectURL(blob);
+   var blob = await res.blob();
+   var audioUrl = URL.createObjectURL(new Blob([await blob.arrayBuffer()], {type: 'audio/mpeg'}));
     audioPlayer = new Audio(audioUrl);
     audioPlayer.onended = function() {
       isPlaying = false;
