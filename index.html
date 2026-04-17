@@ -66,7 +66,7 @@ min-height: -webkit-fill-available; display: flex; flex-direction: column; posit
 
     /* RESULT */
     .result-wrap { background: #0B0B0F; flex: 1; display: flex; flex-direction: column; overflow-y: auto; }
-    .dream-image-wrap { width: 100%; height: 300px; position: relative; flex-shrink: 0; background: #0D1220; display: flex; align-items: center; justify-content: center; overflow: hidden; }
+     margin-top: -1px; { width: 100%; height: 300px; position: relative; flex-shrink: 0; background: #0D1220; display: flex; align-items: center; justify-content: center; overflow: hidden; }
     .dream-image { width: 100%; height: 100%; object-fit: cover; display: none; }
     .dream-image.loaded { display: block; }
     .img-loading { display: flex; flex-direction: column; align-items: center; gap: 12px; }
@@ -363,7 +363,7 @@ min-height: -webkit-fill-available; display: flex; flex-direction: column; posit
   <!-- RESULT -->
   <div class="screen" id="s-result">
     <div class="result-wrap">
-      <div class="dream-image-wrap">
+      <div class="margin-top: -1px;">
         <div class="img-loading" id="img-loading"><div class="img-spinner"></div><div class="img-loading-txt">Generando imagen con FLUX...<br><span style="font-size:0.7rem;color:#4B5563">20-40 segundos</span></div></div>
         <img class="dream-image" id="dream-img" alt="sueño"/>
         <div class="img-error" id="img-error">
