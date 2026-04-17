@@ -363,14 +363,8 @@ async function openDictModal(symbol) {
     document.getElementById('dict-tag').textContent = parsed.categoria || 'Símbolo';
     document.getElementById('dict-text').textContent = parsed.interpretacion || cleaned;
   } catch(e) {
-    var info = DICCIONARIO[symbol];
-    if (info) {
-      document.getElementById('dict-tag').textContent = info.tag;
-      document.getElementById('dict-text').textContent = info.texto;
-    } else {
-      document.getElementById('dict-tag').textContent = 'Símbolo';
-      document.getElementById('dict-text').textContent = 'No se pudo interpretar este símbolo. Intentá de nuevo.';
-    }
+    document.getElementById('dict-tag').textContent = 'Símbolo';
+document.getElementById('dict-text').textContent = 'No se pudo interpretar este símbolo. Intentá de nuevo.';
   }
 }
 
