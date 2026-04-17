@@ -486,8 +486,7 @@ var ANTHROPIC_KEY = 'sk-ant-api03-mT5p7IN1jZ39mRU89i0htC35PNzGMCCcLpFPo_h1yj0IiN
 var TOGETHER_KEY  = 'tgp_v1_Ag86PxRAJr0V6gB6UNKFX9yGf4mKxyIAgmbfEOvDGUc';
 
 var dreams=[],curResult=null,curDreamText='',selEmo='',selCat='',selStyle='Cinemático',curPrompt='',feedbackHistory=[];
-window.addEventListener('load', function(){ checkOnboard(); });
-
+document.addEventListener('DOMContentLoaded', function(){ checkOnboard(); });
 function nextSlide(n) {
   document.querySelectorAll('.onboard-slide').forEach(function(s){ s.classList.remove('active'); });
   document.getElementById('ob'+n).classList.add('active');
