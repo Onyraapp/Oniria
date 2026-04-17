@@ -406,7 +406,7 @@ async function callAI(dreamText, feedback, isRegen){
   var aiPrompt='Analyze this dream and respond ONLY with valid JSON, no backticks.\nCRITICAL: ALL "layers" fields MUST be in ENGLISH ONLY.\n{"resumen":"frase poética en español max 18 palabras","emociones":[{"nombre":"EspañolEmo","pct":65},{"nombre":"EspañolEmo","pct":35}],"simbolos":["S1","S2","S3","S4"],"lectura":"2-3 oraciones en español interpretando sugerentemente","layers":{"scene":"ENGLISH ONLY: specific what is seen. Max 30 words.","atmosphere":"ENGLISH ONLY: time, light, colors, mood. Max 20 words.","composition":"ENGLISH ONLY: camera angle, framing. Max 15 words.","negative":"ENGLISH ONLY: what must NOT appear. Max 12 words."}}\nDream: "'+dreamText+'"\nEmotion: '+(selEmo||'not specified')+'\nStyle: '+selStyle+'\nDream category: '+(selCat||'not specified')+ageNote+feedbackCtx;
 
   try{
-    var res=await fetch('https://onyra-backend.almacenmujica.workers.dev/anthropic',{method:'POST',headers:{'Content-Type':'application/json',},body:JSON.stringify({model:'claude-sonnet-4-5',max_tokens:1400,messages:[{role:'user',content:aiPrompt}]})});
+    var res=await fetch('https://oniria-backend.almacenmujica.workers.dev/anthropic',{method:'POST',headers:{'Content-Type':'application/json',},body:JSON.stringify({model:'claude-sonnet-4-5',max_tokens:1400,messages:[{role:'user',content:aiPrompt}]})});
     var data=await res.json();
     var rawText = (data.content && data.content[0] && data.content[0].text) ? data.content[0].text : (data.text || JSON.stringify(data));
     var cleaned = rawText.replace(/```json/g,'').replace(/```/g,'').trim();
