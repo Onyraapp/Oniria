@@ -499,9 +499,13 @@ function finishOnboard() {
 
 function checkOnboard() {
   setTimeout(function() {
-    if (localStorage.getItem('onyra_onboarded')) {
-      go('home');
-    } else {
+    try {
+      if (localStorage.getItem('onyra_onboarded')) {
+        go('home');
+      } else {
+        go('onboard');
+      }
+    } catch(e) {
       go('onboard');
     }
   }, 3200);
