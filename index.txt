@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -1583,21 +1582,11 @@ async function callAI(dreamText, feedback, isRegen, forceAbstract) {
   var sp = styleParams(selStyle);
   var ageNote = '\nIMPORTANT: For ALL human figures in the image: represent them as silhouettes, shadows or abstract forms WITHOUT visible faces. Never generate realistic human faces.';
   var feedbackCtx = feedback ? '\nUser adjustment: ' + feedback : '';
-  var freudContext = 'Actuá como un psicólogo joven, moderno y empático. Interpretá el sueño usando la lógica de Freud pero explicándola como si se la contaras a un amigo tomando un café.\n' +
-    '- Hablale en segunda persona, de forma cercana y natural.\n' +
-    '- Usá la lógica freudiana (desplazamiento, proyección, deseos reprimidos) pero sin usar esos términos técnicos.\n' +
-    '- Conectá el sueño con algo concreto de la vida real — una emoción, una situación, un conflicto.\n' +
-    '- No diagnostiques. Solo ofrecé perspectivas para la reflexión.\n' +
-    '- Tono: amigable, honesto, un poco incómodo si hace falta, nunca condescendiente ni dulzón.\n' +
-    '- Evitá frases de autoayuda y términos clínicos.\n' +
-    '- Máximo 3 oraciones. Cortás cuando ya dijiste lo importante.';
-
-  var aiPrompt = 'Analyze this dream using Freudian psychoanalytic theory and respond ONLY with valid JSON, no backticks.\n' +
-    'CRITICAL: ALL "layers" fields MUST be in ENGLISH ONLY.\n' +
-    '{"resumen":"frase poética en español max 18 palabras que capture el deseo latente","emociones":[{"nombre":"EspañolEmo","pct":65},{"nombre":"EspañolEmo","pct":35}],"simbolos":["S1","S2","S3","S4"],"lectura":"2-3 oraciones en español interpretando desde el psicoanálisis freudiano: mencioná el deseo latente, los mecanismos del sueño (condensación, desplazamiento, simbolismo) y qué dice del inconsciente del soñante. Tono poético, no clínico.","layers":{"scene":"ENGLISH ONLY: specific what is seen. Max 30 words.","atmosphere":"ENGLISH ONLY: time, light, colors, mood. Max 20 words.","composition":"ENGLISH ONLY: camera angle, framing. Max 15 words.","negative":"ENGLISH ONLY: what must NOT appear. Max 12 words."}}\n' +
-    'Dream: "'+dreamText+'"\n' +
-    'Emotion: '+(selEmo||'not specified')+'\nStyle: '+selStyle+'\nDream category: '+(selCat||'not specified')+'\nIntensity: '+document.getElementById('intensity').value+'/10\n' +
-    freudContext+ageNote+feedbackCtx;
+  var aiPrompt = 'Respond ONLY with valid JSON, no backticks, no explanation.\n' +
+    'CRITICAL: layers fields in ENGLISH ONLY. lectura/resumen in SPANISH.\n' +
+    '{"resumen":"frase poética max 15 palabras","emociones":[{"nombre":"Emocion","pct":65},{"nombre":"Emocion","pct":35}],"simbolos":["S1","S2","S3"],"lectura":"2 oraciones en español, tono cercano y honesto, conectá con vida real, sin términos clínicos.","layers":{"scene":"ENGLISH: what is seen, max 25 words","atmosphere":"ENGLISH: light, colors, mood, max 15 words","composition":"ENGLISH: angle, framing, max 12 words","negative":"ENGLISH: what NOT to show, max 10 words"}}\n' +
+    'Dream: "'+dreamText+'" | Emotion: '+(selEmo||'none')+' | Style: '+selStyle+' | Category: '+(selCat||'none')+' | Intensity: '+document.getElementById('intensity').value+'/10' +
+    (feedbackCtx ? ' | Adjustment: '+feedbackCtx : '');
 
   try {
     // PARALELISMO REAL: disparar Claude e imagen al mismo tiempo
@@ -1610,12 +1599,12 @@ async function callAI(dreamText, feedback, isRegen, forceAbstract) {
     var anthropicPromise = fetch('https://oniria-backend.almacenmujica.workers.dev/anthropic', {
       method:'POST',
       headers:{'Content-Type':'application/json','x-soniar-token':SONIAR_TOKEN},
-      body: JSON.stringify({model:'claude-sonnet-4-5', max_tokens:1400, messages:[{role:'user', content:aiPrompt}]})
+      body: JSON.stringify({model:'claude-sonnet-4-5', max_tokens:800, messages:[{role:'user', content:aiPrompt}]})
     });
     var imagePromise = fetch('https://oniria-backend.almacenmujica.workers.dev/image', {
       method:'POST',
       headers:{'Content-Type':'application/json','x-soniar-token':SONIAR_TOKEN},
-      body: JSON.stringify({dream: quickPrompt})
+      body: JSON.stringify({dream: quickPrompt, style: selStyle})
     });
 
     // Esperamos ambas en paralelo
@@ -1672,7 +1661,7 @@ async function generateImage(prompt, negPrompt, artPrompt, isRetry) {
     var res = await fetch('https://oniria-backend.almacenmujica.workers.dev/image', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json', 'x-soniar-token': SONIAR_TOKEN },
-      body: JSON.stringify({ dream: prompt })
+      body: JSON.stringify({ dream: prompt, style: selStyle })
     });
     var data = await res.json();
     if (data.imageUrl) {
