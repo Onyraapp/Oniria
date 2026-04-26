@@ -951,7 +951,7 @@
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/></svg>
       <div class="bni-dot"></div>
     </div>
-    <div class="bni" id="bni-feed" onclick="navWithPlan('feed')">
+    <div class="bni" id="bni-feed" onclick="go('feed')">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 00-3-3.87M16 3.13a4 4 0 010 7.75"/></svg>
       <div class="bni-dot"></div>
     </div>
@@ -1749,6 +1749,27 @@ async function addReaction(dreamId, type) {
 }
 
 // DREAM SUBMISSION
+// ── fetchWithRetry con exponential backoff ────────────────────────
+async function fetchWithRetry(url, options, retries, backoff) {
+  retries = retries !== undefined ? retries : 3;
+  backoff = backoff !== undefined ? backoff : 1000;
+  try {
+    var response = await fetch(url, options);
+    if (response.status === 429 && retries > 0) {
+      console.warn('Límite alcanzado. Reintentando en ' + backoff + 'ms...');
+      await new Promise(function(resolve){ setTimeout(resolve, backoff); });
+      return fetchWithRetry(url, options, retries - 1, backoff * 2);
+    }
+    return response;
+  } catch (error) {
+    if (retries > 0) {
+      await new Promise(function(resolve){ setTimeout(resolve, backoff); });
+      return fetchWithRetry(url, options, retries - 1, backoff * 2);
+    }
+    throw error;
+  }
+}
+
 async function submitDream() {
   var txt = document.getElementById('dream-input').value.trim();
   if (!txt || txt.length < 5) {
@@ -1769,6 +1790,16 @@ async function submitDream() {
   if (adjBtn) { adjBtn.disabled = false; adjBtn.style.opacity = ''; adjBtn.style.cursor = ''; }
   if (adjInput) { adjInput.disabled = false; adjInput.placeholder = 'O escribí qué cambiarías...'; }
   
+  // Check límite para usuarios sin cuenta (1 sueño total)
+  var isAnon = !currentUser || !currentUser.email;
+  if (isAnon) {
+    var anonDreams = parseInt(localStorage.getItem('soniar_anon_dreams') || '0');
+    if (anonDreams >= 1) {
+      go('upgrade');
+      return;
+    }
+  }
+
   // Check límite mensual para generar (solo free)
   if (currentProfile && currentProfile.plan === 'free') {
     var mesActual = new Date().toISOString().substring(0,7);
@@ -1924,6 +1955,20 @@ async function callAI(dreamText, feedback, isRegen, forceAbstract) {
         }, 1500);
       }
     }
+    // Incrementar contador para usuarios anónimos
+    if (!currentUser || !currentUser.email) {
+      var anonCount = parseInt(localStorage.getItem('soniar_anon_dreams') || '0');
+      localStorage.setItem('soniar_anon_dreams', String(anonCount + 1));
+      setTimeout(function() {
+        var banner = document.getElementById('free-limit-banner');
+        if (banner) {
+          banner.style.display = 'flex';
+          var divs = banner.querySelectorAll('div');
+          if (divs[0]) divs[0].textContent = 'Agotaste tu sueño gratuito 🌙';
+          if (divs[1]) divs[1].textContent = 'Registrate gratis para obtener 3 sueños por mes, o suscribite para acceso ilimitado.';
+        }
+      }, 1500);
+    }
   } catch(ex) { console.error(ex); logError('callAI', ex.message, { dream: dreamText.substring(0,100) }); }
 }
 
@@ -1943,7 +1988,7 @@ async function generateImage(prompt, negPrompt, artPrompt, isRetry) {
   var finalPrompt = prompt + dreamcoreSuffix;
 
   try {
-    var res = await fetch('https://oniria-backend.almacenmujica.workers.dev/image', {
+    var res = await fetchWithRetry('https://oniria-backend.almacenmujica.workers.dev/image', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json', 'x-soniar-token': SONIAR_TOKEN },
       body: JSON.stringify({ dream: finalPrompt, style: selStyle })
@@ -2494,7 +2539,7 @@ async function openDictModal(symbol) {
   var emotionContext = curResult && curResult.data ? (curResult.data.lectura || '') : '';
   try {
     var prompt = 'Analiza el simbolo ' + symbol + ' en el contexto de este sueno. Responde SOLO con JSON: usar categoria e interpretacion como claves. Sueno: ' + dreamContext.substring(0,400);
-    var res = await fetch('https://oniria-backend.almacenmujica.workers.dev/anthropic', { method:'POST', headers:{'Content-Type':'application/json','x-soniar-token':SONIAR_TOKEN}, body: JSON.stringify({model:'claude-sonnet-4-5', max_tokens:400, messages:[{role:'user', content:prompt}]}) });
+    var res = await fetchWithRetry('https://oniria-backend.almacenmujica.workers.dev/anthropic', { method:'POST', headers:{'Content-Type':'application/json','x-soniar-token':SONIAR_TOKEN}, body: JSON.stringify({model:'claude-sonnet-4-5', max_tokens:400, messages:[{role:'user', content:prompt}]}) });
     var data = await res.json();
     var raw = (data.content && data.content[0] && data.content[0].text) ? data.content[0].text : '';
     var bt = String.fromCharCode(96); var cleaned = raw.split(bt+bt+bt+'json').join('').split(bt+bt+bt).join('').trim();
