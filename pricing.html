@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Precios — Soniar</title>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet"/>
+  <style>
+    :root { --bg: #080810; --surface: #12121f; --border: #2a2a45; --purple: #8B6FFF; --purple-soft: #c4b5fd; --text: #F5F3FF; --muted: #9CA3AF; }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body { background: var(--bg); color: var(--text); font-family: 'DM Sans', sans-serif; font-weight: 300; line-height: 1.8; min-height: 100vh; display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 3rem 1.5rem; }
+    .logo { font-family: 'Cormorant Garamond', serif; font-size: 1.8rem; font-weight: 300; letter-spacing: 0.3em; color: var(--text); text-decoration: none; margin-bottom: 1rem; }
+    .tagline { color: var(--muted); font-size: 0.9rem; margin-bottom: 3rem; text-align: center; }
+    .card { background: var(--surface); border: 0.5px solid var(--border); border-radius: 20px; padding: 2.5rem; max-width: 360px; width: 100%; text-align: center; position: relative; }
+    .badge { background: var(--purple); color: #fff; font-size: 0.7rem; font-weight: 500; letter-spacing: 0.1em; padding: 0.25rem 0.75rem; border-radius: 100px; display: inline-block; margin-bottom: 1.5rem; }
+    .plan-name { font-family: 'Cormorant Garamond', serif; font-size: 1.6rem; font-weight: 300; margin-bottom: 0.5rem; }
+    .price { font-size: 3rem; font-weight: 500; color: var(--text); margin-bottom: 0.25rem; }
+    .price span { font-size: 1rem; font-weight: 300; color: var(--muted); }
+    .desc { color: var(--muted); font-size: 0.85rem; margin-bottom: 2rem; }
+    .features { list-style: none; text-align: left; margin-bottom: 2rem; }
+    .features li { color: var(--muted); font-size: 0.88rem; padding: 0.5rem 0; border-bottom: 0.5px solid var(--border); display: flex; align-items: center; gap: 0.75rem; }
+    .features li:last-child { border-bottom: none; }
+    .features li::before { content: '✦'; color: var(--purple); font-size: 0.6rem; flex-shrink: 0; }
+    .btn { background: linear-gradient(135deg, #8B6FFF, #6344E0); color: #fff; border: none; border-radius: 100px; padding: 1rem; font-size: 0.95rem; font-weight: 500; cursor: pointer; width: 100%; font-family: 'DM Sans', sans-serif; text-decoration: none; display: block; }
+    .trial { color: var(--muted); font-size: 0.78rem; margin-top: 1rem; }
+    .back { display: inline-block; margin-top: 2.5rem; color: var(--muted); font-size: 0.85rem; text-decoration: none; }
+  </style>
+</head>
+<body>
+  <a href="https://soniar.app" class="logo">SONIAR</a>
+  <p class="tagline">Descubrí qué dicen tus sueños</p>
+
+  <div class="card">
+    <div class="badge">MÁS POPULAR</div>
+    <div class="plan-name">Soniar Pro</div>
+    <div class="price">$49<span>/mes</span></div>
+    <p class="desc">Acceso completo a todas las funciones</p>
+    <ul class="features">
+      <li>Interpretaciones ilimitadas con IA</li>
+      <li>Imagen onírica generada por IA</li>
+      <li>Análisis de emociones y símbolos</li>
+      <li>Historial completo de sueños</li>
+      <li>Diario onírico personal</li>
+      <li>Soporte prioritario</li>
+    </ul>
+    <a href="https://soniar.app/app.html" class="btn">Comenzar ahora</a>
+    <p class="trial">7 días de prueba gratuita · Cancelá cuando quieras</p>
+  </div>
+
+  <a href="https://soniar.app" class="back">← Volver a Soniar</a>
+</body>
+</html>
