@@ -490,7 +490,7 @@
           <div class="home-cta" style="flex-direction:column;align-items:stretch;gap:0.75rem;">
             <button class="home-btn" onclick="go('compose')" style="justify-content:center;">
               <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 5v14M5 12h14"/></svg>
-              Contar mi sueño
+              <span id="home-btn-txt">Contar mi sueño</span>
             </button>
             <button id="home-feed-btn" onclick="go('feed')" style="background:linear-gradient(135deg,#8B6FFF,#6344E0);border:none;color:#fff;border-radius:100px;padding:0.75rem 1.5rem;font-size:0.85rem;font-weight:700;cursor:pointer;font-family:'DM Sans',sans-serif;transition:all 0.2s;box-shadow:0 4px 16px rgba(124,92,255,0.3);text-align:center;width:100%;">Ver sueños de la comunidad 🌙</button>
           </div>
@@ -650,16 +650,16 @@
       <div class="result-actions" id="result-actions" style="display:flex;flex-direction:column;gap:10px;padding:1rem 1.25rem 1.5rem;">
         <button id="save-btn" onclick="saveDream()" style="display:flex;align-items:center;justify-content:center;gap:8px;background:linear-gradient(135deg,#8B6FFF,#6344E0);color:#fff;border:none;border-radius:100px;padding:0.85rem 1.5rem;font-size:0.95rem;font-weight:700;cursor:pointer;width:100%;font-family:'DM Sans',sans-serif;box-shadow:0 4px 20px rgba(124,92,255,0.35);">
           <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 21H5a2 2 0 01-2-2V5a2 2 0 012-2h11l5 5v11a2 2 0 01-2 2z"/><polyline points="17 21 17 13 7 13 7 21"/><polyline points="7 3 7 8 15 8"/></svg>
-          Guardar en diario y feed
+          <span id="save-btn-txt">Guardar en diario y feed</span>
         </button>
         <div style="display:flex;gap:10px;">
           <button onclick="downloadImageIfAllowed()" style="display:flex;align-items:center;justify-content:center;gap:6px;flex:1;background:linear-gradient(135deg,#8B6FFF,#6344E0);color:#fff;border:none;border-radius:100px;padding:0.75rem 1rem;font-size:0.85rem;font-weight:600;cursor:pointer;font-family:'DM Sans',sans-serif;box-shadow:0 2px 12px rgba(124,92,255,0.25);">
             <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
-            Descargar imagen
+            <span id="result-download-txt">Descargar imagen</span>
           </button>
           <button onclick="shareNative()" style="display:flex;align-items:center;justify-content:center;gap:6px;flex:1;background:linear-gradient(135deg,#8B6FFF,#6344E0);color:#fff;border:none;border-radius:100px;padding:0.75rem 1rem;font-size:0.85rem;font-weight:600;cursor:pointer;font-family:'DM Sans',sans-serif;box-shadow:0 2px 12px rgba(124,92,255,0.25);">
             <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><line x1="8.59" y1="13.51" x2="15.42" y2="17.49"/><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"/></svg>
-            Compartir
+            <span id="result-share-txt">Compartir</span>
           </button>
           <button onclick="go('home')" style="display:flex;align-items:center;justify-content:center;background:linear-gradient(135deg,#8B6FFF,#6344E0);color:#fff;border:none;border-radius:100px;padding:0.75rem 1rem;cursor:pointer;box-shadow:0 2px 12px rgba(124,92,255,0.25);">
             <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/></svg>
@@ -707,7 +707,7 @@
         <div style="font-family:'IM Fell English',serif;font-size:1.1rem;color:#fff;letter-spacing:0.08em;">Soniar</div>
         <button onclick="go('compose')" style="background:linear-gradient(135deg,#8B6FFF,#6344E0);border:none;color:#fff;border-radius:100px;padding:0.45rem 1rem;font-size:0.82rem;font-weight:600;cursor:pointer;font-family:'DM Sans',sans-serif;display:flex;align-items:center;gap:6px;box-shadow:0 2px 12px rgba(139,111,255,0.4);">
           <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M12 5v14M5 12h14"/></svg>
-          Contar sueño
+          <span id="feed-tell-btn-txt">Contar sueño</span>
         </button>
       </div>
       <!-- Filtros -->
@@ -1477,7 +1477,10 @@ var i18n = {
     homeSub: 'Contale a la IA tu sueño. Recibí una interpretación psicoanalítica y una imagen generada al instante.',
     homeBtn: 'Contar mi sueño',
     homeFeedBtn: 'Ver sueños de la comunidad 🌙',
-    trendingTitle: '🔥 Trending hoy',
+    onboardSub: 'Contale a la IA tu sueño de anoche. Recibí una interpretación y una imagen generada al instante.',
+    resultSaveBtn: 'Guardar en diario y feed',
+    resultDownloadBtn: 'Descargar imagen',
+    resultShareBtn: 'Compartir',
     trendingReactions: 'reacciones',
     // Compose
     composeTitle: 'Nuevo sueño',
@@ -1574,6 +1577,14 @@ var i18n = {
     shareCancel: 'Cancelar',
     // Feed filters
     feedAll: 'Todos',
+    feedFilters: ['Todos','Ansiedad','Miedo','Confusión','Tristeza','Paz','Pesadilla','Lúcido','Recurrente','Placentero'],
+    feedTellDream: 'Contar sueño',
+    onboardBtn: 'Contar mi primer sueño',
+    onboardSkip: 'Explorar primero',
+    genderTitle: 'Una cosa más',
+    genderSub: '¿Con qué género te identificás? Lo usamos para que las imágenes de tus sueños te representen mejor.',
+    genderF: 'Femenino', genderM: 'Masculino', genderN: 'Otro',
+    genderSkip: 'Saltar',
     // History
     historyTopbar: 'Historial',
     // Alerts & confirms
@@ -1608,7 +1619,10 @@ var i18n = {
     homeSub: 'Tell the AI your dream. Get a psychoanalytic interpretation and an AI-generated image instantly.',
     homeBtn: 'Tell my dream',
     homeFeedBtn: 'Explore the community 🌙',
-    trendingTitle: '🔥 Trending today',
+    onboardSub: 'Tell the AI your dream. Get an interpretation and an AI-generated image instantly.',
+    resultSaveBtn: 'Save to journal & feed',
+    resultDownloadBtn: 'Download image',
+    resultShareBtn: 'Share',
     trendingReactions: 'reactions',
     // Compose
     composeTitle: 'New dream',
@@ -1702,7 +1716,15 @@ var i18n = {
     shareCancel: 'Cancel',
     // Feed & History
     feedAll: 'All',
+    feedFilters: ['All','Anxiety','Fear','Confusion','Sadness','Peace','Nightmare','Lucid','Recurring','Pleasant'],
+    feedTellDream: 'Tell a dream',
     historyTopbar: 'History',
+    onboardBtn: 'Tell my first dream',
+    onboardSkip: 'Explore first',
+    genderTitle: 'One more thing',
+    genderSub: 'Which gender do you identify with? We use it so dream images represent you better.',
+    genderF: 'Female', genderM: 'Male', genderN: 'Other',
+    genderSkip: 'Skip',
     // Alerts & confirms
     alertRegisterShare: 'Sign up for free to share up to 3 times a month 🌙',
     alertShareLimit: 'You\'ve reached your 3 monthly shares. Upgrade to Premium for unlimited sharing 🌙',
@@ -1735,7 +1757,10 @@ var i18n = {
     homeSub: 'Conte seu sonho para a IA. Receba uma interpretação psicanalítica e uma imagem gerada na hora.',
     homeBtn: 'Contar meu sonho',
     homeFeedBtn: 'Ver sonhos da comunidade 🌙',
-    trendingTitle: '🔥 Trending hoje',
+    onboardSub: 'Conte seu sonho para a IA. Receba uma interpretação e uma imagem gerada na hora.',
+    resultSaveBtn: 'Salvar no diário e feed',
+    resultDownloadBtn: 'Baixar imagem',
+    resultShareBtn: 'Compartilhar',
     trendingReactions: 'reações',
     // Compose
     composeTitle: 'Novo sonho',
@@ -1829,6 +1854,14 @@ var i18n = {
     shareCancel: 'Cancelar',
     // Feed & History
     feedAll: 'Todos',
+    feedFilters: ['Todos','Ansiedade','Medo','Confusão','Tristeza','Paz','Pesadelo','Lúcido','Recorrente','Agradável'],
+    feedTellDream: 'Contar sonho',
+    onboardBtn: 'Contar meu primeiro sonho',
+    onboardSkip: 'Explorar primeiro',
+    genderTitle: 'Uma última coisa',
+    genderSub: 'Com qual gênero você se identifica? Usamos isso para que as imagens dos seus sonhos representem melhor você.',
+    genderF: 'Feminino', genderM: 'Masculino', genderN: 'Outro',
+    genderSkip: 'Pular',
     historyTopbar: 'Histórico',
     // Alerts & confirms
     alertRegisterShare: 'Crie sua conta grátis para compartilhar até 3 vezes por mês 🌙',
@@ -1876,7 +1909,8 @@ function applyLang(lang) {
   var hg = document.getElementById('home-greeting'); if (hg) hg.textContent = t.homeGreeting;
   var ht = document.querySelector('.home-title'); if (ht) ht.innerHTML = t.homeTitle;
   var hs = document.getElementById('home-sub'); if (hs) hs.textContent = t.homeSub;
-  var hb = document.querySelector('.home-btn'); if (hb) hb.innerHTML = '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 5v14M5 12h14"/></svg> ' + t.homeBtn;
+  var homeBtnTxt = document.getElementById('home-btn-txt'); if (homeBtnTxt) homeBtnTxt.textContent = t.homeBtn;
+  var hb = document.querySelector('.home-btn'); if (hb && !homeBtnTxt) hb.innerHTML = '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 5v14M5 12h14"/></svg> ' + t.homeBtn;
   var hfb = document.getElementById('home-feed-btn'); if (hfb) hfb.textContent = t.homeFeedBtn;
 
   // Compose
@@ -1996,9 +2030,51 @@ function applyLang(lang) {
   // History topbar
   var histTop = document.querySelector('#s-history .topbar-logo'); if (histTop) histTop.textContent = t.historyTopbar;
 
-  // Feed filters - solo el primero (Todos/All), los demás son emociones que ya vienen del JSON de Claude
+  // Feed filters - translate all
   var feedFilters = document.querySelectorAll('.feed-filter');
-  if (feedFilters[0]) feedFilters[0].textContent = t.feedAll;
+  if (t.feedFilters) {
+    feedFilters.forEach(function(btn, i) {
+      if (t.feedFilters[i]) btn.textContent = t.feedFilters[i];
+    });
+  } else if (feedFilters[0]) {
+    feedFilters[0].textContent = t.feedAll;
+  }
+
+  var feedTellTxt = document.getElementById('feed-tell-btn-txt');
+  if (feedTellTxt && t.feedTellDream) feedTellTxt.textContent = t.feedTellDream;
+
+  // Save button
+  var saveBtnTxt = document.getElementById('save-btn-txt');
+  if (saveBtnTxt && t.resultSaveBtn) saveBtnTxt.textContent = t.resultSaveBtn;
+  var resultDlTxt = document.getElementById('result-download-txt');
+  if (resultDlTxt && t.resultDownloadBtn) resultDlTxt.textContent = t.resultDownloadBtn;
+  var resultShareTxt = document.getElementById('result-share-txt');
+  if (resultShareTxt && t.resultShareBtn) resultShareTxt.textContent = t.resultShareBtn;
+
+  // Onboard sub text
+  var obSubEl = document.querySelector('#s-onboard [style*="0.9rem"]');
+  if (obSubEl && t.onboardSub) obSubEl.textContent = t.onboardSub;
+
+  // Auth subtitle
+  var authSub = document.getElementById('auth-subtitle');
+  if (authSub) authSub.textContent = t.splashTagline;
+  if (obBtn && t.onboardBtn) obBtn.textContent = t.onboardBtn;
+  var obSkip = document.querySelector('.onboard-skip');
+  if (obSkip && t.onboardSkip) obSkip.textContent = t.onboardSkip;
+
+  // Gender modal
+  var gmTitle = document.querySelector('#gender-modal [style*="Playfair"]');
+  if (gmTitle && t.genderTitle) gmTitle.textContent = t.genderTitle;
+  var gmSub = document.querySelector('#gender-modal [style*="0.85rem"]');
+  if (gmSub && t.genderSub) gmSub.textContent = t.genderSub;
+  var gmBtns = document.querySelectorAll('#gender-modal button[onclick*="saveGender"]');
+  if (gmBtns.length >= 3 && t.genderF) {
+    gmBtns[0].textContent = t.genderF;
+    gmBtns[1].textContent = t.genderM;
+    gmBtns[2].textContent = t.genderN;
+  }
+  var gmSkip = document.querySelector('#gender-modal button[onclick*="null"]');
+  if (gmSkip && t.genderSkip) gmSkip.textContent = t.genderSkip;
 
   // Trial screen
   var trTop = document.getElementById('trial-topbar-title'); if (trTop) trTop.textContent = t.trialTopbar;
