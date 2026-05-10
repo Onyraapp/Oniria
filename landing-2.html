@@ -1,0 +1,584 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>SONIAR — Architecting the Unconscious</title>
+<meta name="description" content="High-Fidelity Neural Dream Reconstruction. 293ms to Truth."/>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;0,700;1,300;1,400&family=Outfit:wght@300;400;500;600;700&family=Space+Mono:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet"/>
+<style>
+  :root {
+    --black: #080810;
+    --deep: #0d0d1a;
+    --ink: #111126;
+    --panel: #161628;
+    --bone: #f0ece0;
+    --cream: #e8e2d0;
+    --muted: #8a85a0;
+    --violet: #7c5cbf;
+    --vivid: #9d6fff;
+    --glow: #b48fff;
+    --gold: #d4a853;
+    --amber: #e8b96a;
+    --rose: #c96b7e;
+    --teal: #3dbfa0;
+    --font-display: 'Cormorant Garamond', serif;
+    --font-body: 'Outfit', sans-serif;
+    --font-mono: 'Space Mono', monospace;
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--black);
+    color: var(--bone);
+    font-family: var(--font-body);
+    font-size: 16px;
+    line-height: 1.7;
+    overflow-x: hidden;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  body::after {
+    content: '';
+    position: fixed; inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.03'/%3E%3C/svg%3E");
+    pointer-events: none; z-index: 999; opacity: 0.5;
+  }
+
+  /* NAV */
+  nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 1.75rem 3rem;
+    transition: background 0.4s, border-color 0.4s;
+  }
+  nav.scrolled {
+    background: rgba(8,8,16,0.96);
+    border-bottom: 1px solid rgba(124,92,191,0.12);
+    backdrop-filter: blur(12px);
+  }
+  .nav-logo {
+    font-family: var(--font-display);
+    font-size: 1.5rem; font-weight: 300;
+    letter-spacing: 0.3em; color: var(--bone);
+    text-decoration: none;
+  }
+  .nav-links { display: flex; align-items: center; gap: 2.5rem; }
+  .nav-link {
+    font-family: var(--font-mono); font-size: 10px;
+    letter-spacing: 0.2em; text-transform: uppercase;
+    color: var(--muted); text-decoration: none; transition: color 0.2s;
+  }
+  .nav-link:hover { color: var(--glow); }
+
+  /* HERO */
+  .hero {
+    min-height: 100vh; display: flex; flex-direction: column;
+    align-items: center; justify-content: center;
+    text-align: center; padding: 8rem 2rem 5rem;
+    position: relative; overflow: hidden;
+  }
+  .hero-bg {
+    position: absolute; inset: 0;
+    background:
+      radial-gradient(ellipse 70% 60% at 50% 60%, rgba(124,92,191,0.2) 0%, transparent 70%),
+      radial-gradient(ellipse 40% 40% at 20% 20%, rgba(61,191,160,0.04) 0%, transparent 60%);
+  }
+  .hero-grid {
+    position: absolute; inset: 0;
+    background-image:
+      linear-gradient(rgba(124,92,191,0.04) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(124,92,191,0.04) 1px, transparent 1px);
+    background-size: 60px 60px;
+    mask-image: radial-gradient(ellipse 80% 80% at 50% 50%, black, transparent);
+  }
+  .hero-eyebrow {
+    font-family: var(--font-mono); font-size: 10px;
+    letter-spacing: 0.35em; color: var(--violet);
+    text-transform: uppercase; margin-bottom: 2rem;
+    display: flex; align-items: center; gap: 12px;
+    opacity: 0; animation: fadeUp 0.8s ease forwards 0.3s;
+    position: relative; z-index: 2;
+  }
+  .hero-eyebrow::before, .hero-eyebrow::after {
+    content: ''; width: 28px; height: 1px;
+    background: var(--violet); opacity: 0.6;
+  }
+  .hero-title {
+    font-family: var(--font-display);
+    font-size: clamp(4rem, 13vw, 10rem);
+    font-weight: 300; line-height: 0.88;
+    letter-spacing: -0.02em; color: var(--bone);
+    margin-bottom: 1.5rem;
+    position: relative; z-index: 2;
+    opacity: 0; animation: fadeUp 1s ease forwards 0.5s;
+  }
+  .hero-title em { font-style: italic; color: var(--vivid); }
+  .hero-sub {
+    font-family: var(--font-body); font-size: 1rem;
+    color: var(--muted); margin-bottom: 3.5rem;
+    max-width: 440px; line-height: 1.8; font-weight: 300;
+    position: relative; z-index: 2;
+    opacity: 0; animation: fadeUp 1s ease forwards 0.7s;
+  }
+  .hero-sub strong { color: var(--amber); font-weight: 500; }
+  .hero-cta {
+    display: flex; gap: 1rem; align-items: center;
+    flex-wrap: wrap; justify-content: center;
+    position: relative; z-index: 2;
+    opacity: 0; animation: fadeUp 1s ease forwards 0.9s;
+  }
+
+  /* BUTTONS */
+  .btn-architect {
+    padding: 1rem 2.5rem;
+    background: var(--vivid); border: 1px solid var(--vivid);
+    border-radius: 100px; color: #fff;
+    font-family: var(--font-mono); font-size: 14px; font-weight: 700;
+    letter-spacing: 0.2em; text-transform: uppercase;
+    cursor: pointer; text-decoration: none;
+    display: inline-flex; flex-direction: column;
+    align-items: center; gap: 3px; transition: all 0.3s;
+    box-shadow: 0 0 40px rgba(157,111,255,0.35), inset 0 1px 0 rgba(255,255,255,0.1);
+  }
+  .btn-architect:hover {
+    box-shadow: 0 0 80px rgba(157,111,255,0.5), 0 0 140px rgba(157,111,255,0.15);
+    transform: translateY(-2px);
+    background: var(--glow); border-color: var(--glow);
+  }
+  .btn-price {
+    font-size: 10px; opacity: 0.75;
+    letter-spacing: 0.1em; font-family: var(--font-body); font-weight: 400;
+  }
+  .btn-feed {
+    padding: 1rem 2.5rem; background: transparent;
+    border: 1px solid rgba(240,236,224,0.15);
+    border-radius: 100px; color: var(--muted);
+    font-family: var(--font-mono); font-size: 14px; font-weight: 700;
+    letter-spacing: 0.2em; text-transform: uppercase;
+    cursor: pointer; text-decoration: none;
+    display: inline-block; transition: all 0.3s;
+  }
+  .btn-feed:hover { border-color: rgba(212,168,83,0.4); color: var(--gold); }
+
+  /* METRICS */
+  .metrics {
+    display: grid; grid-template-columns: repeat(3,1fr);
+    gap: 1px; background: rgba(124,92,191,0.12);
+    border-top: 1px solid rgba(124,92,191,0.12);
+    border-bottom: 1px solid rgba(124,92,191,0.12);
+  }
+  .metric {
+    background: var(--black); padding: 3rem 2rem;
+    text-align: center; transition: background 0.3s;
+  }
+  .metric:hover { background: var(--deep); }
+  .metric-value {
+    font-family: var(--font-display);
+    font-size: clamp(2.5rem, 6vw, 4.5rem);
+    font-weight: 300; color: var(--bone);
+    line-height: 1; margin-bottom: 0.5rem;
+    letter-spacing: -0.02em;
+  }
+  .metric-label {
+    font-family: var(--font-mono); font-size: 9px;
+    letter-spacing: 0.3em; color: var(--muted); text-transform: uppercase;
+  }
+
+  /* SECTIONS */
+  .section { max-width: 1100px; margin: 0 auto; padding: 7rem 3rem; }
+  .label {
+    font-family: var(--font-mono); font-size: 10px;
+    letter-spacing: 0.25em; text-transform: uppercase;
+    color: var(--violet); margin-bottom: 2rem;
+    display: flex; align-items: center; gap: 12px;
+  }
+  .label::after {
+    content: ''; flex: 1; height: 1px;
+    background: rgba(124,92,191,0.2);
+  }
+  .section-title {
+    font-family: var(--font-display);
+    font-size: clamp(2.5rem, 6vw, 4.5rem);
+    font-weight: 300; line-height: 1.05;
+    color: var(--bone); margin-bottom: 1.5rem;
+    letter-spacing: -0.01em;
+  }
+  .section-title em { font-style: italic; color: var(--vivid); }
+  .body-text {
+    font-size: 15px; color: var(--cream);
+    opacity: 0.7; line-height: 1.85;
+    max-width: 560px; font-weight: 300;
+  }
+
+  /* FEATURES */
+  .features-grid {
+    display: grid; grid-template-columns: repeat(auto-fit, minmax(220px,1fr));
+    gap: 1px; background: rgba(124,92,191,0.12);
+    margin-top: 3.5rem; border: 1px solid rgba(124,92,191,0.12);
+  }
+  .feature { background: var(--deep); padding: 2.5rem 2rem; transition: background 0.3s; }
+  .feature:hover { background: var(--panel); }
+  .feature-icon { font-size: 1.3rem; margin-bottom: 1.25rem; display: block; color: var(--glow); }
+  .feature-title { font-family: var(--font-display); font-size: 1.4rem; font-weight: 400; color: var(--bone); margin-bottom: 0.75rem; line-height: 1.2; }
+  .feature-desc { font-size: 13px; line-height: 1.9; color: var(--muted); font-weight: 300; }
+
+  /* STACK */
+  .stack-list { list-style: none; margin-top: 2.5rem; }
+  .stack-item {
+    display: grid; grid-template-columns: 1fr auto 1fr;
+    align-items: center; gap: 2rem;
+    padding: 1.5rem 0;
+    border-bottom: 1px solid rgba(124,92,191,0.1);
+    font-family: var(--font-mono); font-size: 11px; letter-spacing: 0.08em;
+  }
+  .stack-name { color: var(--bone); }
+  .stack-badge {
+    padding: 3px 12px; border: 1px solid rgba(124,92,191,0.4);
+    border-radius: 100px; color: var(--glow);
+    font-size: 9px; letter-spacing: 0.2em;
+    text-transform: uppercase; text-align: center; white-space: nowrap;
+  }
+  .stack-role { color: var(--muted); text-align: right; font-size: 10px; }
+
+  /* PRICING */
+  .pricing-wrap {
+    margin-top: 3.5rem; border: 1px solid rgba(124,92,191,0.2);
+    background: var(--deep); position: relative; overflow: hidden;
+  }
+  .pricing-wrap::before {
+    content: ''; position: absolute; top: 0; left: 0; right: 0; height: 1px;
+    background: linear-gradient(to right, transparent, var(--gold), transparent);
+  }
+  .pricing-glow {
+    position: absolute; top: -40%; right: -15%;
+    width: 500px; height: 500px;
+    background: radial-gradient(circle, rgba(157,111,255,0.12) 0%, transparent 65%);
+    pointer-events: none;
+  }
+  .pricing-inner { padding: 3.5rem; position: relative; z-index: 1; }
+  .pricing-tier {
+    font-family: var(--font-mono); font-size: 10px;
+    letter-spacing: 0.3em; color: var(--gold);
+    text-transform: uppercase; margin-bottom: 1.25rem;
+    display: flex; align-items: center; gap: 10px;
+  }
+  .pricing-tier::before { content: ''; width: 20px; height: 1px; background: var(--gold); opacity: 0.5; }
+  .pricing-price {
+    font-family: var(--font-display);
+    font-size: clamp(4rem, 10vw, 7rem);
+    font-weight: 300; color: var(--bone);
+    line-height: 1; letter-spacing: -0.03em; margin-bottom: 0.25rem;
+  }
+  .pricing-period {
+    font-family: var(--font-mono); font-size: 10px;
+    letter-spacing: 0.2em; color: var(--muted);
+    margin-bottom: 3rem; text-transform: uppercase;
+  }
+  .pricing-cols {
+    display: grid; grid-template-columns: 1fr 1fr;
+    gap: 3rem; margin-bottom: 3rem;
+  }
+  .pricing-features-list { list-style: none; display: flex; flex-direction: column; gap: 1rem; }
+  .pf {
+    display: flex; align-items: flex-start; gap: 0.75rem;
+    font-size: 14px; color: var(--muted); font-weight: 300; line-height: 1.5;
+  }
+  .pf::before { content: '—'; color: var(--gold); opacity: 0.6; flex-shrink: 0; margin-top: 0.1rem; }
+  .pf strong { color: var(--bone); font-weight: 500; }
+  .payment-label {
+    font-family: var(--font-mono); font-size: 9px;
+    letter-spacing: 0.25em; color: var(--muted);
+    text-transform: uppercase; margin-bottom: 1rem;
+  }
+  .payment-badges { display: flex; flex-wrap: wrap; gap: 0.5rem; margin-bottom: 2rem; }
+  .pbadge {
+    font-family: var(--font-mono); font-size: 9px;
+    letter-spacing: 0.15em; padding: 5px 12px;
+    border: 1px solid rgba(240,236,224,0.1);
+    color: var(--muted); border-radius: 4px; text-transform: uppercase;
+  }
+  .pbadge.crypto { border-color: rgba(212,168,83,0.25); color: var(--amber); }
+
+  /* LOOPS */
+  .loops-grid {
+    display: grid; grid-template-columns: 1fr 1fr;
+    gap: 1px; background: rgba(124,92,191,0.12); margin-top: 3rem;
+  }
+  .loop-card { background: var(--deep); padding: 2.5rem; transition: background 0.3s; }
+  .loop-card:hover { background: var(--panel); }
+  .loop-num { font-family: var(--font-mono); font-size: 9px; letter-spacing: 0.25em; color: var(--violet); text-transform: uppercase; margin-bottom: 1rem; }
+  .loop-title { font-family: var(--font-display); font-size: 1.6rem; font-weight: 300; color: var(--bone); margin-bottom: 0.75rem; line-height: 1.2; }
+  .loop-title em { font-style: italic; color: var(--vivid); }
+  .loop-desc { font-size: 13px; color: var(--muted); line-height: 1.85; font-weight: 300; }
+
+  /* CLOSING */
+  .closing { text-align: center; padding: 8rem 2rem; position: relative; overflow: hidden; }
+  .closing-glow {
+    position: absolute; top: 50%; left: 50%;
+    transform: translate(-50%,-50%);
+    width: 600px; height: 600px;
+    background: radial-gradient(circle, rgba(124,92,191,0.15) 0%, transparent 65%);
+    pointer-events: none;
+  }
+  .closing-quote {
+    font-family: var(--font-display);
+    font-size: clamp(1.6rem, 4vw, 3rem);
+    font-weight: 300; font-style: italic;
+    color: var(--bone); line-height: 1.45;
+    max-width: 680px; margin: 0 auto 2rem;
+    position: relative; z-index: 1;
+  }
+  .closing-attr {
+    font-family: var(--font-mono); font-size: 9px;
+    letter-spacing: 0.3em; color: var(--gold);
+    text-transform: uppercase; position: relative; z-index: 1;
+  }
+
+  /* STATS BAR */
+  .stats-bar {
+    display: grid; grid-template-columns: repeat(4,1fr);
+    gap: 1px; background: rgba(124,92,191,0.15);
+    border-top: 1px solid rgba(124,92,191,0.12);
+    border-bottom: 1px solid rgba(124,92,191,0.12);
+  }
+  .stat-cell { background: var(--deep); padding: 2rem 1.5rem; text-align: center; }
+  .stat-value {
+    font-family: var(--font-display); font-size: 2.5rem;
+    font-weight: 600; line-height: 1; margin-bottom: 0.4rem;
+  }
+  .stat-label { font-size: 11px; color: var(--muted); font-weight: 300; }
+
+  /* FOOTER */
+  footer {
+    display: flex; align-items: center; justify-content: space-between;
+    flex-wrap: wrap; gap: 1rem; padding: 2rem 3rem;
+    border-top: 1px solid rgba(124,92,191,0.1);
+  }
+  .footer-logo {
+    font-family: var(--font-display); font-size: 1.1rem;
+    font-weight: 300; letter-spacing: 0.3em; color: var(--muted);
+  }
+  .footer-copy {
+    font-family: var(--font-mono); font-size: 9px;
+    letter-spacing: 0.15em; color: var(--muted);
+    opacity: 0.6; text-transform: uppercase;
+  }
+
+  .divider {
+    height: 1px;
+    background: linear-gradient(to right, transparent, rgba(124,92,191,0.2), transparent);
+  }
+
+  .star-fixed {
+    position: fixed; bottom: 2rem; right: 2rem;
+    color: var(--gold); font-size: 1.2rem; opacity: 0.4;
+    z-index: 50; animation: spin 25s linear infinite; pointer-events: none;
+  }
+
+  .reveal { opacity: 0; transform: translateY(24px); transition: opacity 0.9s ease, transform 0.9s ease; }
+  .reveal.visible { opacity: 1; transform: none; }
+
+  @keyframes fadeUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+  @keyframes spin { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
+
+  @media (max-width: 700px) {
+    nav { padding: 1.25rem 1.5rem; }
+    .nav-links { gap: 1.25rem; }
+    .metrics { grid-template-columns: repeat(3,1fr); }
+    .metric { padding: 2rem 1rem; }
+    .section { padding: 4.5rem 1.5rem; }
+    .stack-item { grid-template-columns: 1fr; gap: 0.5rem; }
+    .stack-role { text-align: left; }
+    .pricing-cols { grid-template-columns: 1fr; gap: 2rem; }
+    .pricing-inner { padding: 2rem 1.5rem; }
+    .loops-grid { grid-template-columns: 1fr; }
+    .stats-bar { grid-template-columns: repeat(2,1fr); }
+    .hero-cta { flex-direction: column; width: 100%; max-width: 320px; }
+    .btn-architect, .btn-feed { width: 100%; justify-content: center; text-align: center; }
+    footer { flex-direction: column; text-align: center; padding: 1.5rem; }
+  }
+</style>
+</head>
+<body>
+
+<nav id="nav">
+  <a href="#" class="nav-logo">SONIAR</a>
+  <div class="nav-links">
+    <a href="#vision" class="nav-link">Vision</a>
+    <a href="#stack" class="nav-link">Stack</a>
+    <a href="#architect" class="nav-link">Architect</a>
+  </div>
+</nav>
+
+<div class="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-grid"></div>
+  <div class="hero-eyebrow">EST. 2026 &nbsp;·&nbsp; NEURAL DREAM ARCHITECTURE</div>
+  <h1 class="hero-title">ARCHITECTING<br><em>THE UNCONSCIOUS</em></h1>
+  <p class="hero-sub">High-Fidelity Neural Dream Reconstruction.<br><strong>293ms to Truth.</strong></p>
+  <div class="hero-cta">
+    <a href="#architect" class="btn-architect">
+      BECOME AN ARCHITECT
+      <span class="btn-price">$49 / month</span>
+    </a>
+    <a href="https://soniar.app" class="btn-feed">EXPLORE PUBLIC FEED</a>
+  </div>
+</div>
+
+<div class="metrics reveal">
+  <div class="metric">
+    <div class="metric-value" style="color:var(--vivid)">293ms</div>
+    <div class="metric-label">Latency</div>
+  </div>
+  <div class="metric">
+    <div class="metric-value" style="color:var(--gold)">3 taps</div>
+    <div class="metric-label">From Dream to Export</div>
+  </div>
+  <div class="metric">
+    <div class="metric-value" style="color:var(--teal)">∞</div>
+    <div class="metric-label">Dream Archive</div>
+  </div>
+</div>
+
+<div class="divider"></div>
+
+<div class="section reveal" id="vision">
+  <div class="label">The Vision</div>
+  <h2 class="section-title">Your unconscious<br>speaks in <em>images.</em></h2>
+  <p class="body-text">Every night, your brain processes 70,000 thoughts. Most are lost by morning. Soniar captures them — reconstructing the architecture of your subconscious with psychoanalytic precision and AI-generated visuals in under 300ms. This is not a dream journal. This is a mirror for the mind.</p>
+
+  <div class="features-grid">
+    <div class="feature">
+      <span class="feature-icon">◈</span>
+      <div class="feature-title">Neural Reconstruction</div>
+      <p class="feature-desc">Freudian, Jungian &amp; Neuroscience frameworks applied simultaneously. Three lenses. One truth.</p>
+    </div>
+    <div class="feature">
+      <span class="feature-icon">◉</span>
+      <div class="feature-title">293ms Visualization</div>
+      <p class="feature-desc">Your dream becomes a cinematic image before you finish describing it. Speed is the luxury.</p>
+    </div>
+    <div class="feature">
+      <span class="feature-icon">◎</span>
+      <div class="feature-title">Global Dream Archive</div>
+      <p class="feature-desc">A public feed of the collective unconscious. Every Architect contributes to the world's first dream database.</p>
+    </div>
+    <div class="feature">
+      <span class="feature-icon">⊕</span>
+      <div class="feature-title">Dreamlink Matching</div>
+      <p class="feature-desc">When a stranger dreams what you dreamed, Soniar connects you. A co-dreamed image neither could create alone.</p>
+    </div>
+  </div>
+</div>
+
+<div class="divider"></div>
+
+<div class="section reveal" id="stack">
+  <div class="label">The Stack</div>
+  <h2 class="section-title">Built on infrastructure<br>that <em>never sleeps.</em></h2>
+  <ul class="stack-list">
+    <li class="stack-item"><span class="stack-name">Cloudflare Workers</span><span class="stack-badge">Edge</span><span class="stack-role">293ms global latency</span></li>
+    <li class="stack-item"><span class="stack-name">Fal.ai</span><span class="stack-badge">AI Vision</span><span class="stack-role">Dream visualization engine</span></li>
+    <li class="stack-item"><span class="stack-name">Claude AI</span><span class="stack-badge">Intelligence</span><span class="stack-role">Psychoanalytic interpretation</span></li>
+    <li class="stack-item"><span class="stack-name">Supabase</span><span class="stack-badge">Data</span><span class="stack-role">Global dream archive &amp; realtime</span></li>
+    <li class="stack-item"><span class="stack-name">GitHub Pages</span><span class="stack-badge">Deploy</span><span class="stack-role">Zero-downtime delivery</span></li>
+  </ul>
+</div>
+
+<div class="divider"></div>
+
+<div class="section reveal" id="architect">
+  <div class="label">The Architect Tier</div>
+  <h2 class="section-title">One plan.<br><em>No compromises.</em></h2>
+
+  <div class="pricing-wrap">
+    <div class="pricing-glow"></div>
+    <div class="pricing-inner">
+      <div class="pricing-tier">Architect</div>
+      <div class="pricing-price">$49</div>
+      <div class="pricing-period">/ month &nbsp;·&nbsp; cancel anytime</div>
+      <div class="pricing-cols">
+        <ul class="pricing-features-list">
+          <li class="pf"><strong>Unlimited</strong> dream interpretations</li>
+          <li class="pf"><strong>All 3 frameworks</strong> — Freud, Jung &amp; Neuroscience</li>
+          <li class="pf"><strong>293ms visualization</strong> — dedicated edge nodes</li>
+          <li class="pf"><strong>Public feed</strong> — your dreams in the global archive</li>
+        </ul>
+        <ul class="pricing-features-list">
+          <li class="pf"><strong>Download &amp; share</strong> — unlimited exports</li>
+          <li class="pf"><strong>Dream Codex</strong> — full history &amp; pattern analysis</li>
+          <li class="pf"><strong>Dreamlink matching</strong> — co-dream with strangers</li>
+          <li class="pf"><strong>Priority processing</strong> — always first in queue</li>
+        </ul>
+      </div>
+      <div class="payment-label">Payments accepted via</div>
+      <div class="payment-badges">
+        <span class="pbadge">Stripe</span>
+        <span class="pbadge crypto">BTC</span>
+        <span class="pbadge crypto">ETH</span>
+        <span class="pbadge crypto">SOL</span>
+        <span class="pbadge crypto">USDC</span>
+      </div>
+      <a href="https://soniar.app" class="btn-architect" style="display:inline-flex;text-decoration:none;">
+        BECOME AN ARCHITECT
+        <span class="btn-price">$49 / month</span>
+      </a>
+    </div>
+  </div>
+</div>
+
+<div class="divider"></div>
+
+<div class="section reveal">
+  <div class="label">Growth Mechanics</div>
+  <h2 class="section-title">Built-in <em>viral</em><br>acquisition loops.</h2>
+  <p class="body-text">Two mechanics that turn the product itself into the marketing channel.</p>
+  <div class="loops-grid">
+    <div class="loop-card">
+      <div class="loop-num">Loop 01 · Dream Matching</div>
+      <div class="loop-title">When a stranger<br>dreamed <em>your dream</em></div>
+      <p class="loop-desc">Every dream is embedded and compared against the archive. When similarity exceeds the threshold, Soniar connects both users. The notification feels like a message from the universe — not a system alert.</p>
+    </div>
+    <div class="loop-card">
+      <div class="loop-num">Loop 02 · Watermarked Exports</div>
+      <div class="loop-title">The mark that makes<br>people <em>ask questions</em></div>
+      <p class="loop-desc">A slowly pulsing sigil in the corner — not a punishment watermark, but an aesthetic feature. When TikTok viewers ask "what is that symbol?" the creator answers: "It's from Soniar."</p>
+    </div>
+  </div>
+</div>
+
+<div class="closing reveal">
+  <div class="closing-glow"></div>
+  <blockquote class="closing-quote">"The dream is the small hidden door in the deepest and most intimate sanctum of the soul."</blockquote>
+  <div class="closing-attr">Carl Gustav Jung &nbsp;·&nbsp; Architect of the Unconscious</div>
+</div>
+
+<div class="stats-bar reveal">
+  <div class="stat-cell"><div class="stat-value" style="color:var(--vivid)">293ms</div><div class="stat-label">Generation latency</div></div>
+  <div class="stat-cell"><div class="stat-value" style="color:var(--gold)">3 taps</div><div class="stat-label">From dream to export</div></div>
+  <div class="stat-cell"><div class="stat-value" style="color:var(--teal)">$49</div><div class="stat-label">Architect tier / month</div></div>
+  <div class="stat-cell"><div class="stat-value" style="color:var(--rose)">∞</div><div class="stat-label">Stories worth dreaming</div></div>
+</div>
+
+<footer>
+  <div class="footer-logo">SONIAR</div>
+  <div class="footer-copy">© 2026 Soniar &nbsp;·&nbsp; Architecting the Unconscious</div>
+</footer>
+
+<div class="star-fixed">✦</div>
+
+<script>
+const nav = document.getElementById('nav');
+window.addEventListener('scroll', () => nav.classList.toggle('scrolled', window.scrollY > 60));
+
+const io = new IntersectionObserver(entries => {
+  entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); io.unobserve(e.target); } });
+}, { threshold: 0.08 });
+document.querySelectorAll('.reveal').forEach(el => io.observe(el));
+</script>
+</body>
+</html>
