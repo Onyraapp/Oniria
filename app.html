@@ -22,8 +22,7 @@
   <link rel="manifest" href="manifest.json"/>
   <link rel="apple-touch-icon" href="icon-192.png"/>
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2" async></script>
-  <script src="https://cdn.paddle.com/paddle/v2/paddle.js"></script>
-  <script src="https://cdn.paddle.com/paddle/v2/paddle.js"></script>
+  
   <style>
     @font-face { font-family: 'Astonpoliz'; src: url('Astonpoliz.ttf') format('truetype'); font-display: swap; }
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -931,7 +930,7 @@
         <input id="coupon-input" type="text" placeholder="Código de descuento" style="flex:1;background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:0.65rem 1rem;font-size:0.82rem;color:var(--text);font-family:'DM Sans',sans-serif;outline:none;text-transform:uppercase;letter-spacing:0.05em;" oninput="this.value=this.value.toUpperCase()"/>
       </div>
       <!-- INICIO PLANES -->
-      <!-- Mensual $49 - Paddle -->
+      <!-- Mensual $49 - Stripe -->
       <button onclick="startCheckout('monthly')" style="background:linear-gradient(135deg,rgba(124,92,255,0.15),rgba(124,92,255,0.05));border:1.5px solid #7C5CFF;border-radius:16px;padding:1rem 1.25rem;cursor:pointer;text-align:left;width:100%;font-family:'DM Sans',sans-serif;position:relative;">
         <div style="display:flex;justify-content:space-between;align-items:center;">
           <div>
@@ -4043,60 +4042,52 @@ function skipUsername() {
 async function startCheckout(plan) {
   plan = plan || 'monthly';
   track('checkout_start', { plan: plan });
-  
-  // Si es trial, verificar que tenga email registrado y no haya usado el trial
+
+  // Si es trial
   if (plan === 'trial') {
-    // Si es usuario anónimo, pedir registro primero
     if (isAnonUser()) {
       go('auth');
       document.getElementById('auth-subtitle').textContent = 'Registrate para activar tu prueba gratuita';
       setAuthMode('register');
       return;
     }
-    // Verificar si ya usó el trial
     if (currentProfile && currentProfile.trial_usado) {
-      alert(currentLang === 'en' ? 'You already used your free trial. Choose a plan to continue.' : 'Ya usaste tu período de prueba gratuita. Elegí un plan para continuar.');
+      alert(currentLang === 'en' ? 'You already used your free trial. Choose a plan to continue.' : 'Ya usaste tu periodo de prueba gratuita. Elegi un plan para continuar.');
       return;
     }
-    // Activar trial sin checkout
     await activateTrial();
     return;
   }
 
-  // Para planes pagos, abrir checkout de Paddle
+  // Para planes pagos usar Stripe via Worker
+  if (isAnonUser()) {
+    go('auth');
+    document.getElementById('auth-subtitle').textContent = 'Registrate para suscribirte';
+    setAuthMode('register');
+    return;
+  }
+
   try {
     var userId = currentUser ? currentUser.id : 'anonymous';
-    var userEmail = currentUser ? currentUser.email : undefined;
+    var btn = event && event.target ? event.target : null;
+    if (btn) { btn.textContent = 'Redirigiendo...'; btn.disabled = true; }
 
-    Paddle.Initialize({
-      token: 'live_af8b120877076a26dda386af434',
-      eventCallback: function(data) {
-        if (data.name === 'checkout.completed') {
-          track('payment_success', { method: 'paddle' });
-          setTimeout(async function() {
-            if (currentUser && sb) {
-              if (sb && currentUser) await sb.from('profiles').update({ plan: 'premium' }).eq('id', currentUser.id);
-              if (currentProfile) currentProfile.plan = 'premium';
-              showUsernameModal();
-            }
-          }, 2000);
-        }
-      }
+    var res = await fetch('https://oniria-backend.almacenmujica.workers.dev/checkout', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json', 'x-soniar-token': SONIAR_TOKEN },
+      body: JSON.stringify({ plan: plan, userId: userId })
     });
-
-    Paddle.Checkout.open({
-      items: [{ priceId: 'pri_01kr9gz2whns8drnzd76jy602z', quantity: 1 }],
-      customer: userEmail ? { email: userEmail } : undefined,
-      customData: { user_id: userId },
-      settings: {
-        successUrl: 'https://soniar.app/app.html?upgrade=success',
-        allowLogout: false
-      }
-    });
-
+    var data = await res.json();
+    if (data.url) {
+      window.location.href = data.url;
+    } else {
+      throw new Error(data.error || 'No se pudo iniciar el checkout');
+    }
   } catch(e) {
     logError('startCheckout', e.message, { plan: plan });
     alert((currentLang === 'en' ? 'Payment error: ' : 'Error al iniciar el pago: ') + e.message);
+    var btn2 = document.querySelector('[onclick*="startCheckout"]');
+    if (btn2) { btn2.disabled = false; }
   }
 }
 
