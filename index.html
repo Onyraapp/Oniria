@@ -2,2259 +2,848 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8"/>
-<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, viewport-fit=cover"/>
-<meta name="apple-mobile-web-app-capable" content="yes"/>
-<title>Soniar — AI Cinematic Video</title>
-<meta name="description" content="Turn your ideas into stunning cinematic videos with AI. Generate, edit and share in seconds."/>
-<meta property="og:title" content="Soniar — AI Cinematic Video"/>
-<meta property="og:description" content="Turn your ideas into stunning cinematic videos with AI."/>
-<meta name="theme-color" content="#7B5CE6"/>
-<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&family=DM+Sans:ital,wght@0,300;0,400;0,500;0,600;1,300&display=swap" rel="stylesheet"/>
-<link href="https://fonts.googleapis.com/css2?family=Geist+Mono:wght@400;500;600&display=swap" rel="stylesheet"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>SONIAR — Architecting the Unconscious</title>
+<meta name="description" content="High-Fidelity Neural Dream Reconstruction. 293ms to Truth."/>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;0,700;1,300;1,400&family=Outfit:wght@300;400;500;600;700&family=Space+Mono:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet"/>
 <style>
-:root {
-  --bg: #f7f7fa;
-  --white: #ffffff;
-  --surface: #f0f0f5;
-  --border: #e4e4ee;
-  --text: #14142a;
-  --text-2: #4a4a6a;
-  --muted: #595980;
-  --violet: #6b46e0;
-  --violet-soft: #ede9ff;
-  --violet-mid: #b8a8f0;
-  --vivid: #7B5CE6;
-  --vivid-hover: #6344d4;
-  --gold: #d4a853;
-  --green: #22c55e;
-  --red: #ef4444;
-  --safe-bottom: env(safe-area-inset-bottom, 0px);
-  --safe-top: env(safe-area-inset-top, 0px);
-  --font: 'DM Sans', sans-serif;
-  --font-display: 'Syne', sans-serif;
-  --font-mono: 'Geist Mono', monospace;
-  --nav-h: 48px;
-  --bottom-h: 52px;
-}
-*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; max-width: 100%; }
-html, body { height: 100%; overflow: hidden; overflow-x: hidden; background: #e8e8f0; max-width: 100%; overscroll-behavior-x: none; }
-body { font-family: var(--font); color: var(--text); -webkit-font-smoothing: antialiased; }
-button { font-family: var(--font); cursor: pointer; border: none; outline: none; }
-input, textarea { font-family: var(--font); outline: none; border: none; background: none; }
+  :root {
+    --black: #080810;
+    --deep: #0d0d1a;
+    --ink: #111126;
+    --panel: #161628;
+    --bone: #f0ece0;
+    --cream: #e8e2d0;
+    --muted: #8a85a0;
+    --violet: #7c5cbf;
+    --vivid: #9d6fff;
+    --glow: #b48fff;
+    --gold: #d4a853;
+    --amber: #e8b96a;
+    --rose: #c96b7e;
+    --teal: #3dbfa0;
+    --font-display: 'Cormorant Garamond', serif;
+    --font-body: 'Outfit', sans-serif;
+    --font-mono: 'Space Mono', monospace;
+  }
 
-#app {
-  width: 100%; max-width: 430px;
-  height: 100vh; height: 100dvh;
-  margin: 0 auto; position: relative;
-  overflow: hidden; background: var(--white);
-  box-shadow: 0 0 80px rgba(0,0,0,0.15);
-}
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
 
-.screen {
-  position: absolute; inset: 0;
-  display: flex; flex-direction: column;
-  opacity: 0; pointer-events: none;
-  transition: opacity 0.18s ease; overflow: hidden;
-  max-width: 100%;
-  width: 100%;
-}
-.screen.active { opacity: 1; pointer-events: all; }
+  body {
+    background: var(--black);
+    color: var(--bone);
+    font-family: var(--font-body);
+    font-size: 16px;
+    line-height: 1.7;
+    overflow-x: hidden;
+    -webkit-font-smoothing: antialiased;
+  }
 
-/* TOP NAV */
-.top-nav {
-  display: flex; align-items: center;
-  justify-content: space-between; padding: 0 16px;
-  padding-top: calc(var(--safe-top) + 6px);
-  height: calc(var(--nav-h) + var(--safe-top));
-  background: var(--white); border-bottom: 1px solid var(--border);
-  flex-shrink: 0; z-index: 10;
-}
-.logo { display: flex; align-items: center; gap: 8px; }
-.logo-icon {
-  width: 28px; height: 28px; border-radius: 8px;
-  background: var(--vivid);
-  display: flex; align-items: center; justify-content: center;
-  box-shadow: 0 2px 8px rgba(107,70,224,0.3);
-  font-size: 0.75rem; color: #fff;
-}
-.logo-text { font-family: var(--font-display); font-size: 1rem; font-weight: 700; color: var(--text); text-transform: uppercase; letter-spacing: 0.08em; }
-.avatar-btn {
-  width: 32px; height: 32px; border-radius: 50%;
-  background: var(--vivid); color: #ffffff;
-  display: flex; align-items: center; justify-content: center;
-  font-family: var(--font-display); font-size: 0.75rem; font-weight: 800;
-  text-shadow: 0 1px 2px rgba(0,0,0,0.2);
-}
+  body::after {
+    content: '';
+    position: fixed; inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.03'/%3E%3C/svg%3E");
+    pointer-events: none; z-index: 999; opacity: 0.5;
+  }
 
-/* SCROLL */
-.scroll-content {
-  flex: 1; overflow-y: auto; overflow-x: hidden; -webkit-overflow-scrolling: touch;
-  padding-bottom: calc(var(--bottom-h) + var(--safe-bottom) + 16px);
-  max-width: 100%;
-  width: 100%;
-}
-.scroll-content::-webkit-scrollbar { display: none; }
+  /* NAV */
+  nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 1.75rem 3rem;
+    transition: background 0.4s, border-color 0.4s;
+  }
+  nav.scrolled {
+    background: rgba(8,8,16,0.96);
+    border-bottom: 1px solid rgba(124,92,191,0.12);
+    backdrop-filter: blur(12px);
+  }
+  .nav-logo {
+    font-family: var(--font-display);
+    font-size: 1.5rem; font-weight: 300;
+    letter-spacing: 0.3em; color: var(--bone);
+    text-decoration: none;
+  }
+  .nav-links { display: flex; align-items: center; gap: 2.5rem; }
+  .nav-link {
+    font-family: var(--font-mono); font-size: 10px;
+    letter-spacing: 0.2em; text-transform: uppercase;
+    color: var(--muted); text-decoration: none; transition: color 0.2s;
+  }
+  .nav-link:hover { color: var(--glow); }
 
-/* BOTTOM NAV */
-.bottom-nav {
-  position: absolute; bottom: 0; left: 0; right: 0;
-  height: calc(var(--bottom-h) + var(--safe-bottom));
-  padding-bottom: var(--safe-bottom);
-  background: var(--white); border-top: 1px solid var(--border);
-  display: flex; align-items: center; justify-content: space-around; z-index: 10;
-}
-.nav-item {
-  display: flex; flex-direction: column; align-items: center;
-  gap: 3px; padding: 8px 24px; cursor: pointer;
-  border: none; background: none;
-}
-.nav-icon { font-size: 1.2rem; position: relative; display: flex; align-items: center; justify-content: center; color: var(--muted); }
-.nav-label { font-family: var(--font-mono); font-size: 9px; text-transform: uppercase; letter-spacing: 0.08em; color: #595980; transition: color 0.15s; }
-.nav-item.active .nav-label { color: var(--vivid); }
-.nav-item.active .nav-icon { color: var(--vivid); }
-.nav-dot { position: absolute; bottom: -3px; left: 50%; transform: translateX(-50%); width: 4px; height: 4px; border-radius: 50%; background: var(--vivid); opacity: 0; transition: opacity 0.15s; }
-.nav-item.active .nav-dot { opacity: 1; }
+  /* HERO */
+  .hero {
+    min-height: 100vh; display: flex; flex-direction: column;
+    align-items: center; justify-content: center;
+    text-align: center; padding: 8rem 2rem 5rem;
+    position: relative; overflow: hidden;
+  }
+  .hero-bg {
+    position: absolute; inset: 0;
+    background:
+      radial-gradient(ellipse 70% 60% at 50% 60%, rgba(124,92,191,0.2) 0%, transparent 70%),
+      radial-gradient(ellipse 40% 40% at 20% 20%, rgba(61,191,160,0.04) 0%, transparent 60%);
+  }
+  .hero-grid {
+    position: absolute; inset: 0;
+    background-image:
+      linear-gradient(rgba(124,92,191,0.04) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(124,92,191,0.04) 1px, transparent 1px);
+    background-size: 60px 60px;
+    mask-image: radial-gradient(ellipse 80% 80% at 50% 50%, black, transparent);
+  }
+  .hero-eyebrow {
+    font-family: var(--font-mono); font-size: 10px;
+    letter-spacing: 0.35em; color: var(--violet);
+    text-transform: uppercase; margin-bottom: 2rem;
+    display: flex; align-items: center; gap: 12px;
+    opacity: 0; animation: fadeUp 0.8s ease forwards 0.3s;
+    position: relative; z-index: 2;
+  }
+  .hero-eyebrow::before, .hero-eyebrow::after {
+    content: ''; width: 28px; height: 1px;
+    background: var(--violet); opacity: 0.6;
+  }
+  .hero-title {
+    font-family: var(--font-display);
+    font-size: clamp(2.8rem, 13vw, 10rem);
+    font-weight: 300; line-height: 0.88;
+    letter-spacing: -0.02em; color: var(--bone);
+    margin-bottom: 1.5rem;
+    position: relative; z-index: 2;
+    opacity: 0; animation: fadeUp 1s ease forwards 0.5s;
+    overflow: hidden; width: 100%;
+  }
+  .hero-title em { font-style: italic; color: var(--vivid); }
+  .hero-sub {
+    font-family: var(--font-body); font-size: 1rem;
+    color: var(--muted); margin-bottom: 3.5rem;
+    max-width: 440px; line-height: 1.8; font-weight: 300;
+    position: relative; z-index: 2;
+    opacity: 0; animation: fadeUp 1s ease forwards 0.7s;
+  }
+  .hero-sub strong { color: var(--amber); font-weight: 500; }
+  .hero-cta {
+    display: flex; gap: 1rem; align-items: center;
+    flex-wrap: wrap; justify-content: center;
+    position: relative; z-index: 2;
+    opacity: 0; animation: fadeUp 1s ease forwards 0.9s;
+  }
 
-/* BUTTONS */
-.btn-primary { width: 100%; padding: 15px; background: var(--vivid); color: #fff; border-radius: 14px; font-family: var(--font-display); font-size: 0.95rem; font-weight: 700; box-shadow: 0 4px 16px rgba(107,70,224,0.3); transition: all 0.15s; cursor: pointer; }
-.btn-primary:hover { background: var(--vivid-hover); transform: translateY(-1px); }
-.btn-outline { width: 100%; padding: 14px; background: transparent; color: var(--vivid); border-radius: 14px; border: 1.5px solid var(--violet-mid); font-family: var(--font-display); font-size: 0.95rem; font-weight: 600; transition: all 0.15s; cursor: pointer; }
-.btn-outline:hover { background: var(--violet-soft); }
+  /* BUTTONS */
+  .btn-architect {
+    padding: 1rem 2.5rem;
+    background: var(--vivid); border: 1px solid var(--vivid);
+    border-radius: 100px; color: #fff;
+    font-family: var(--font-mono); font-size: 14px; font-weight: 700;
+    letter-spacing: 0.2em; text-transform: uppercase;
+    cursor: pointer; text-decoration: none;
+    display: inline-flex; flex-direction: column;
+    align-items: center; gap: 3px; transition: all 0.3s;
+    box-shadow: 0 0 40px rgba(157,111,255,0.35), inset 0 1px 0 rgba(255,255,255,0.1);
+  }
+  .btn-architect:hover {
+    box-shadow: 0 0 80px rgba(157,111,255,0.5), 0 0 140px rgba(157,111,255,0.15);
+    transform: translateY(-2px);
+    background: var(--glow); border-color: var(--glow);
+  }
+  .btn-price {
+    font-size: 10px; opacity: 0.75;
+    letter-spacing: 0.1em; font-family: var(--font-body); font-weight: 400;
+  }
+  .btn-feed {
+    padding: 1rem 2.5rem; background: transparent;
+    border: 3px solid rgba(139,111,255,0.5);
+    border-radius: 100px; color: var(--muted);
+    font-family: var(--font-mono); font-size: 14px; font-weight: 700;
+    letter-spacing: 0.2em; text-transform: uppercase;
+    cursor: pointer; text-decoration: none;
+    display: inline-block; transition: all 0.3s;
+  }
+  .btn-feed:hover { border-color: rgba(139,111,255,0.9); color: #a78bfa; }
 
-.tag { display: flex; align-items: center; justify-content: center; gap: 6px; padding: 9px 10px; border-radius: 12px; font-size: 0.85rem; font-weight: 600; border: 1.5px solid #c4c4d4; background: var(--white); color: #3a3a5a; cursor: pointer; transition: all 0.15s; }
-.tag.active { background: var(--vivid); color: #fff; border-color: var(--vivid); border-width: 2.5px; box-shadow: 0 2px 12px rgba(107,70,224,0.35); }
+  /* METRICS */
+  .metrics {
+    display: grid; grid-template-columns: repeat(3,1fr);
+    gap: 1px; background: rgba(124,92,191,0.12);
+    border-top: 1px solid rgba(124,92,191,0.12);
+    border-bottom: 1px solid rgba(124,92,191,0.12);
+  }
+  .metric {
+    background: var(--black); padding: 3rem 2rem;
+    text-align: center; transition: background 0.3s;
+  }
+  .metric:hover { background: var(--deep); }
+  .metric-value {
+    font-family: var(--font-display);
+    font-size: clamp(2.5rem, 6vw, 4.5rem);
+    font-weight: 300; color: var(--bone);
+    line-height: 1; margin-bottom: 0.5rem;
+    letter-spacing: -0.02em;
+  }
+  .metric-label {
+    font-family: var(--font-mono); font-size: 9px;
+    letter-spacing: 0.3em; color: var(--muted); text-transform: uppercase;
+  }
 
-/* ── LOGIN ── */
-#s-login { background: #0a051e; justify-content: center; align-items: center; gap: 0; overflow: hidden; }
-.login-logo { width: 56px; height: 56px; border-radius: 16px; background: var(--vivid); display: flex; align-items: center; justify-content: center; box-shadow: 0 8px 24px rgba(107,70,224,0.35); margin-bottom: 24px; font-size: 1.5rem; color: #fff; }
-.login-title { font-family: var(--font-display); font-size: 2rem; font-weight: 800; color: #fff; text-align: center; letter-spacing: -0.03em; line-height: 1.1; margin-bottom: 10px; text-shadow: 0 2px 20px rgba(0,0,0,0.8), 0 1px 4px rgba(0,0,0,0.5); }
-.login-title span { color: #b89fff; text-shadow: 0 0 30px rgba(107,70,224,0.8), 0 2px 20px rgba(0,0,0,0.8); }
-.login-sub { font-size: 0.875rem; color: #ffffff; font-weight: 700; text-align: center; line-height: 1.6; max-width: 260px; margin-bottom: 40px; text-shadow: 0 1px 12px rgba(0,0,0,0.95), 0 2px 24px rgba(0,0,0,0.8); }
-.login-btns { display: flex; flex-direction: column; gap: 12px; width: 100%; margin-bottom: 24px; }
-.btn-google { width: 100%; padding: 14px; background: var(--white); color: var(--text); border: 1.5px solid var(--border); border-radius: 14px; display: flex; align-items: center; justify-content: center; gap: 10px; cursor: pointer; transition: all 0.15s; font-size: 0.9rem; font-weight: 500; }
-.btn-google:hover { background: var(--surface); }
-.google-dot { width: 18px; height: 18px; border-radius: 50%; background: conic-gradient(#4285f4 0 25%, #ea4335 25% 50%, #fbbc05 50% 75%, #34a853 75%); flex-shrink: 0; }
-.login-divider { display: flex; align-items: center; gap: 12px; width: 100%; margin: 4px 0; }
-.divider-line { flex: 1; height: 1px; background: var(--border); }
-.divider-text { font-size: 0.78rem; color: var(--muted); }
-.login-terms { font-size: 0.72rem; color: rgba(255,255,255,0.85); text-align: center; line-height: 1.6; margin-top: 16px; text-shadow: 0 1px 8px rgba(0,0,0,0.9); }
-.login-terms a { color: #c4aaff; text-decoration: none; font-weight: 600; }
+  /* SECTIONS */
+  .section { max-width: 1100px; margin: 0 auto; padding: 7rem 3rem; }
+  .label {
+    font-family: var(--font-mono); font-size: 10px;
+    letter-spacing: 0.25em; text-transform: uppercase;
+    color: var(--violet); margin-bottom: 2rem;
+    display: flex; align-items: center; gap: 12px;
+  }
+  .label::after {
+    content: ''; flex: 1; height: 1px;
+    background: rgba(124,92,191,0.2);
+  }
+  .section-title {
+    font-family: var(--font-display);
+    font-size: clamp(2.5rem, 6vw, 4.5rem);
+    font-weight: 300; line-height: 1.05;
+    color: var(--bone); margin-bottom: 1.5rem;
+    letter-spacing: -0.01em;
+  }
+  .section-title em { font-style: italic; color: var(--vivid); }
+  .body-text {
+    font-size: 15px; color: var(--cream);
+    opacity: 0.7; line-height: 1.85;
+    max-width: 560px; font-weight: 300;
+  }
 
-/* ── HOME ── */
-.home-content { padding: 16px; display: flex; flex-direction: column; gap: 12px; }
-.home-headline { font-family: var(--font-display); font-size: 1.5rem; font-weight: 800; color: var(--text); letter-spacing: -0.03em; line-height: 1.1; }
-.home-headline span { color: var(--vivid); }
-.home-sub { font-size: 0.82rem; color: var(--muted); line-height: 1.4; margin-top: 4px; }
-.home-sub span { color: var(--vivid); font-weight: 500; }
-.input-card { background: var(--surface); border: 1.5px solid var(--border); border-radius: 18px; padding: 12px 14px; display: flex; flex-direction: column; gap: 8px; transition: all 0.2s; min-height: 90px; }
-.input-card:focus-within { border-color: var(--vivid); background: var(--white); box-shadow: 0 0 0 3px rgba(107,70,224,0.08); }
-.story-input { width: 100%; resize: none; font-size: 0.9rem; color: var(--text); line-height: 1.6; min-height: 55px; caret-color: var(--vivid); }
-.story-input::placeholder { color: #7070a0; font-style: italic; }
-.suggestions { display: none; flex-direction: column; gap: 5px; }
-.suggestion-chip { display: inline-flex; align-items: center; gap: 6px; background: var(--white); border: 1px solid var(--border); border-radius: 100px; padding: 5px 12px; font-size: 0.78rem; color: var(--text-2); cursor: pointer; transition: all 0.15s; width: fit-content; }
-.suggestion-chip:hover { border-color: var(--violet-mid); color: var(--vivid); }
-.suggestion-star { color: var(--vivid); font-size: 0.6rem; }
-.input-footer { display: flex; align-items: center; justify-content: space-between; }
-.detected-type { font-family: var(--font-mono); font-size: 0.7rem; color: var(--vivid); letter-spacing: 0.05em; transition: opacity 0.2s; }
-.send-btn { width: 36px; height: 36px; border-radius: 50%; background: var(--vivid); color: #fff; display: flex; align-items: center; justify-content: center; font-size: 1rem; border: none; cursor: pointer; box-shadow: 0 2px 8px rgba(107,70,224,0.3); transition: all 0.15s; }
-.send-btn:hover { background: var(--vivid-hover); transform: scale(1.05); }
-.section-label { font-size: 0.8rem; font-weight: 600; color: var(--text-2); }
-.styles-row { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
-.styles-row::-webkit-scrollbar { display: none; }
-.generate-btn { width: 100%; padding: 13px; background: var(--vivid); color: #fff; border-radius: 14px; border: none; font-family: var(--font-display); font-size: 0.95rem; font-weight: 700; box-shadow: 0 4px 20px rgba(107,70,224,0.35); display: flex; align-items: center; justify-content: center; gap: 8px; cursor: pointer; transition: all 0.2s; }
-.generate-btn:hover { background: var(--vivid-hover); transform: translateY(-1px); }
-.recent-header { display: flex; justify-content: space-between; align-items: center; }
-.recent-title { font-size: 0.875rem; font-weight: 600; color: var(--text); }
-.recent-all { font-size: 0.78rem; color: var(--vivid); font-weight: 500; cursor: pointer; }
-.videos-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; overflow: hidden; }
-.video-thumb { border-radius: 12px; aspect-ratio: 3/4; position: relative; overflow: hidden; cursor: pointer; }
-.video-thumb-bg { position: absolute; inset: 0; }
-.video-overlay { position: absolute; inset: 0; background: linear-gradient(to top, rgba(0,0,0,0.75) 0%, rgba(0,0,0,0.2) 50%, transparent 100%); }
-.video-info { position: absolute; bottom: 0; left: 0; right: 0; padding: 8px 8px 6px; z-index: 2; }
-.video-title { font-size: 0.65rem; color: #ffffff !important; font-weight: 600; line-height: 1.2; margin-bottom: 1px; text-shadow: 0 1px 4px rgba(0,0,0,0.8); }
-.video-dur { font-family: var(--font-mono); font-size: 0.58rem; color: rgba(255,255,255,0.75); }
-.play-sm { position: absolute; top: 50%; left: 50%; transform: translate(-50%,-50%); width: 28px; height: 28px; border-radius: 50%; background: rgba(255,255,255,0.2); backdrop-filter: blur(4px); display: flex; align-items: center; justify-content: center; font-size: 0.65rem; color: #fff; padding-left: 2px; border: 1px solid rgba(255,255,255,0.4); }
+  /* FEATURES */
+  .features-grid {
+    display: grid; grid-template-columns: repeat(auto-fit, minmax(220px,1fr));
+    gap: 1px; background: rgba(124,92,191,0.12);
+    margin-top: 3.5rem; border: 1px solid rgba(124,92,191,0.12);
+  }
+  .feature { background: var(--deep); padding: 2.5rem 2rem; transition: background 0.3s; }
+  .feature:hover { background: var(--panel); }
+  .feature-icon { font-size: 1.3rem; margin-bottom: 1.25rem; display: block; color: var(--glow); }
+  .feature-title { font-family: var(--font-display); font-size: 1.4rem; font-weight: 400; color: var(--bone); margin-bottom: 0.75rem; line-height: 1.2; }
+  .feature-desc { font-size: 13px; line-height: 1.9; color: var(--muted); font-weight: 300; }
 
-/* ── GENERATING ── */
-#s-generating { background: var(--white); justify-content: center; align-items: center; padding: 40px 28px; gap: 20px; }
-.gen-topbar { position: absolute; top: 0; left: 0; right: 0; height: 3px; background: var(--border); }
-.gen-topbar-fill { height: 100%; border-radius: 0 100px 100px 0; background: linear-gradient(90deg, var(--violet-mid), var(--vivid)); transition: width 1s ease; }
-.gen-logo-text { font-family: var(--font-display); font-size: 0.8rem; font-weight: 700; color: var(--muted); }
-.gen-logo-text span { color: var(--vivid); }
-.pulse-rings { position: relative; width: 80px; height: 80px; display: flex; align-items: center; justify-content: center; }
-.ring { position: absolute; border-radius: 50%; animation: pulse 2s ease-in-out infinite; }
-.ring-1 { width: 80px; height: 80px; border: 1.5px solid rgba(107,70,224,0.15); }
-.ring-2 { width: 56px; height: 56px; border: 1.5px solid rgba(107,70,224,0.25); animation-delay: 0.3s; }
-.ring-3 { width: 34px; height: 34px; border: 1.5px solid var(--vivid); background: rgba(107,70,224,0.08); animation-delay: 0.6s; }
-.ring-dot { width: 10px; height: 10px; border-radius: 50%; background: var(--vivid); box-shadow: 0 0 12px rgba(107,70,224,0.5); animation: pulse-dot 1.2s ease-in-out infinite; }
-@keyframes pulse { 0%,100% { opacity:0.6; transform:scale(0.95); } 50% { opacity:1; transform:scale(1.05); } }
-@keyframes pulse-dot { 0%,100% { transform:scale(0.9); } 50% { transform:scale(1.2); box-shadow:0 0 20px rgba(107,70,224,0.6); } }
-.gen-status { font-family: var(--font-mono); font-size: 0.7rem; color: var(--vivid); letter-spacing: 0.15em; text-transform: uppercase; animation: text-fade 1.8s ease-in-out infinite; }
-@keyframes text-fade { 0%,100%{opacity:1;} 50%{opacity:0.4;} }
-.gen-scene-label { font-family: var(--font-display); font-size: 1.3rem; font-weight: 700; color: var(--text); letter-spacing: -0.02em; }
-.gen-scene-label span { color: var(--vivid); }
-.gen-eta { font-size: 0.78rem; color: var(--muted); text-align: center; }
-.gen-error { font-size: 0.82rem; color: var(--red); text-align: center; padding: 0 20px; }
+  /* STACK */
+  .stack-list { list-style: none; margin-top: 2.5rem; }
+  .stack-item {
+    display: grid; grid-template-columns: 1fr auto 1fr;
+    align-items: center; gap: 2rem;
+    padding: 1.5rem 0;
+    border-bottom: 1px solid rgba(124,92,191,0.1);
+    font-family: var(--font-mono); font-size: 11px; letter-spacing: 0.08em;
+  }
+  .stack-name { color: var(--bone); }
+  .stack-badge {
+    padding: 3px 12px; border: 1px solid rgba(124,92,191,0.4);
+    border-radius: 100px; color: var(--glow);
+    font-size: 9px; letter-spacing: 0.2em;
+    text-transform: uppercase; text-align: center; white-space: nowrap;
+  }
+  .stack-role { color: var(--muted); text-align: right; font-size: 10px; }
 
-/* ── VIDEO RESULT ── */
-#s-result { background: var(--white); justify-content: flex-start; }
-.result-topbar { display: flex; align-items: center; justify-content: space-between; padding: 12px 16px; padding-top: calc(var(--safe-top) + 12px); border-bottom: 1px solid var(--border); flex-shrink: 0; }
-.result-back { font-family: var(--font-mono); font-size: 0.7rem; color: var(--muted); cursor: pointer; background: none; border: none; }
-.result-title { font-family: var(--font-display); font-size: 0.85rem; font-weight: 700; color: var(--text); }
-.result-video-wrap { padding: 20px; }
-.result-video { width: 100%; border-radius: 16px; overflow: hidden; background: #000; aspect-ratio: 16/9; display: flex; align-items: center; justify-content: center; }
-.result-video video { width: 100%; height: 100%; object-fit: cover; border-radius: 16px; }
-.result-prompt { padding: 0 20px 20px; font-size: 0.82rem; color: var(--muted); line-height: 1.5; }
-.result-actions { display: flex; gap: 10px; padding: 0 20px 20px; }
+  /* PRICING */
+  .pricing-wrap {
+    margin-top: 3.5rem; border: 1px solid rgba(124,92,191,0.2);
+    background: var(--deep); position: relative; overflow: hidden;
+  }
+  .pricing-wrap::before {
+    content: ''; position: absolute; top: 0; left: 0; right: 0; height: 1px;
+    background: linear-gradient(to right, transparent, var(--gold), transparent);
+  }
+  .pricing-glow {
+    position: absolute; top: -40%; right: -15%;
+    width: 500px; height: 500px;
+    background: radial-gradient(circle, rgba(157,111,255,0.12) 0%, transparent 65%);
+    pointer-events: none;
+  }
+  .pricing-inner { padding: 3.5rem; position: relative; z-index: 1; }
+  .pricing-tier {
+    font-family: var(--font-mono); font-size: 10px;
+    letter-spacing: 0.3em; color: var(--gold);
+    text-transform: uppercase; margin-bottom: 1.25rem;
+    display: flex; align-items: center; gap: 10px;
+  }
+  .pricing-tier::before { content: ''; width: 20px; height: 1px; background: var(--gold); opacity: 0.5; }
+  .pricing-price {
+    font-family: var(--font-display);
+    font-size: clamp(4rem, 10vw, 7rem);
+    font-weight: 300; color: var(--bone);
+    line-height: 1; letter-spacing: -0.03em; margin-bottom: 0.25rem;
+  }
+  .pricing-period {
+    font-family: var(--font-mono); font-size: 10px;
+    letter-spacing: 0.2em; color: var(--muted);
+    margin-bottom: 3rem; text-transform: uppercase;
+  }
+  .pricing-cols {
+    display: grid; grid-template-columns: 1fr 1fr;
+    gap: 3rem; margin-bottom: 3rem;
+  }
+  .pricing-features-list { list-style: none; display: flex; flex-direction: column; gap: 1rem; }
+  .pf {
+    display: flex; align-items: flex-start; gap: 0.75rem;
+    font-size: 14px; color: var(--muted); font-weight: 300; line-height: 1.5;
+  }
+  .pf::before { content: '—'; color: var(--gold); opacity: 0.6; flex-shrink: 0; margin-top: 0.1rem; }
+  .pf strong { color: var(--bone); font-weight: 500; }
+  .payment-label {
+    font-family: var(--font-mono); font-size: 9px;
+    letter-spacing: 0.25em; color: var(--muted);
+    text-transform: uppercase; margin-bottom: 1rem;
+  }
+  .payment-badges { display: flex; flex-wrap: wrap; gap: 0.5rem; margin-bottom: 2rem; }
+  .pbadge {
+    font-family: var(--font-mono); font-size: 9px;
+    letter-spacing: 0.15em; padding: 5px 12px;
+    border: 1px solid rgba(240,236,224,0.1);
+    color: var(--muted); border-radius: 4px; text-transform: uppercase;
+  }
+  .pbadge.crypto { border-color: rgba(212,168,83,0.25); color: var(--amber); }
 
-/* ── EDITOR ── */
-#s-editor { background: var(--white); }
-.editor-topbar { display: flex; align-items: center; justify-content: space-between; padding: 12px 16px; padding-top: calc(var(--safe-top) + 12px); border-bottom: 1px solid var(--border); flex-shrink: 0; background: var(--white); }
-.editor-back { font-family: var(--font-mono); font-size: 0.7rem; color: var(--muted); cursor: pointer; background: none; border: none; }
-.editor-title { font-family: var(--font-display); font-size: 0.85rem; font-weight: 700; color: var(--text); }
-.export-btn { background: var(--vivid); color: #fff; border-radius: 10px; padding: 7px 14px; font-family: var(--font-display); font-size: 0.72rem; font-weight: 700; border: none; cursor: pointer; box-shadow: 0 2px 8px rgba(107,70,224,0.25); }
-.editor-body { flex: 1; display: flex; overflow: hidden; min-height: 0; }
-.editor-left { width: 120px; flex-shrink: 0; display: flex; flex-direction: column; gap: 8px; padding: 12px; border-right: 1px solid var(--border); overflow-y: auto; }
-.editor-left::-webkit-scrollbar { display: none; }
-.video-preview { width: 100%; aspect-ratio: 9/16; border-radius: 10px; background: #111; position: relative; overflow: hidden; flex-shrink: 0; }
-.video-preview-bg { position: absolute; inset: 0; }
-.video-cap-overlay { position: absolute; bottom: 8px; left: 4px; right: 4px; text-align: center; }
-.video-cap-text { display: inline-block; background: rgba(0,0,0,0.6); border-radius: 4px; padding: 3px 6px; font-size: 0.52rem; color: #fff; font-weight: 700; }
-.video-cap-text em { color: var(--gold); font-style: normal; }
-.tl-label { font-family: var(--font-mono); font-size: 0.55rem; color: var(--muted); text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 6px; }
-.tl-row { display: flex; align-items: center; gap: 4px; margin-bottom: 4px; }
-.tl-name { font-family: var(--font-mono); font-size: 0.52rem; color: var(--muted); width: 24px; flex-shrink: 0; }
-.tl-track { height: 6px; border-radius: 3px; flex: 1; }
-.editor-right { flex: 1; display: flex; flex-direction: column; gap: 8px; padding: 12px; overflow-y: auto; min-width: 0; }
-.editor-right::-webkit-scrollbar { display: none; }
-.ctrl-card { background: var(--surface); border-radius: 12px; padding: 10px; border: 1px solid var(--border); }
-.ctrl-label { font-family: var(--font-mono); font-size: 0.6rem; color: var(--muted); text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 7px; }
-.font-row { display: flex; gap: 5px; }
-.font-btn { flex: 1; border-radius: 8px; padding: 7px 3px; background: var(--white); border: 1.5px solid var(--border); display: flex; flex-direction: column; align-items: center; gap: 2px; cursor: pointer; transition: all 0.15s; }
-.font-btn.active { border-color: var(--vivid); background: var(--violet-soft); }
-.font-preview { font-size: 0.85rem; color: var(--text); }
-.font-name { font-family: var(--font-mono); font-size: 0.48rem; color: var(--muted); text-transform: uppercase; }
-.font-btn.active .font-name { color: var(--vivid); }
-.pos-row { display: flex; gap: 5px; }
-.pos-btn { flex: 1; border-radius: 8px; padding: 8px; background: var(--white); border: 1.5px solid var(--border); font-family: var(--font-mono); font-size: 0.68rem; color: var(--muted); cursor: pointer; transition: all 0.15s; text-align: center; }
-.pos-btn.active { border-color: var(--vivid); color: var(--vivid); background: var(--violet-soft); }
-.caption-edit { background: var(--white); border-radius: 12px; padding: 10px; border: 1.5px solid var(--vivid); box-shadow: 0 0 0 3px rgba(107,70,224,0.08); }
-.caption-textarea { width: 100%; font-family: var(--font-display); font-size: 0.82rem; font-weight: 600; color: var(--text); line-height: 1.5; resize: none; min-height: 48px; caret-color: var(--vivid); }
-.caption-hint { font-size: 0.65rem; color: var(--muted); margin-top: 4px; }
-.ai-btn { display: flex; align-items: center; gap: 6px; background: var(--violet-soft); border: 1px solid var(--violet-mid); border-radius: 10px; padding: 10px 12px; cursor: pointer; transition: all 0.15s; width: 100%; }
-.ai-btn:hover { background: #e0d8ff; }
-.ai-text { font-size: 0.8rem; color: var(--vivid); font-weight: 500; }
-.editor-bottom { display: flex; gap: 8px; padding: 12px 16px; padding-bottom: calc(12px + var(--safe-bottom)); border-top: 1px solid var(--border); background: var(--white); flex-shrink: 0; }
-.editor-btn { flex: 1; border-radius: 12px; padding: 13px; font-family: var(--font-display); font-size: 0.8rem; font-weight: 700; cursor: pointer; transition: all 0.15s; }
-.editor-btn-prev { background: var(--surface); color: var(--text-2); border: 1px solid var(--border); }
-.editor-btn-post { background: var(--vivid); color: #fff; border: none; box-shadow: 0 3px 12px rgba(107,70,224,0.3); }
+  /* LOOPS */
+  .loops-grid {
+    display: grid; grid-template-columns: 1fr 1fr;
+    gap: 1px; background: rgba(124,92,191,0.12); margin-top: 3rem;
+  }
+  .loop-card { background: var(--deep); padding: 2.5rem; transition: background 0.3s; }
+  .loop-card:hover { background: var(--panel); }
+  .loop-num { font-family: var(--font-mono); font-size: 9px; letter-spacing: 0.25em; color: var(--violet); text-transform: uppercase; margin-bottom: 1rem; }
+  .loop-title { font-family: var(--font-display); font-size: 1.6rem; font-weight: 300; color: var(--bone); margin-bottom: 0.75rem; line-height: 1.2; }
+  .loop-title em { font-style: italic; color: var(--vivid); }
+  .loop-desc { font-size: 13px; color: var(--muted); line-height: 1.85; font-weight: 300; }
 
-/* ── PROFILE ── */
-.profile-content { padding: 20px; display: flex; flex-direction: column; gap: 16px; }
-.profile-card { background: var(--violet-soft); border-radius: 20px; padding: 20px; border: 1px solid var(--violet-mid); text-align: center; }
-.profile-avatar { width: 56px; height: 56px; border-radius: 50%; background: var(--vivid); margin: 0 auto 12px; display: flex; align-items: center; justify-content: center; font-family: var(--font-display); font-size: 1.3rem; font-weight: 800; color: #fff; box-shadow: 0 4px 14px rgba(107,70,224,0.3); }
-.profile-name { font-family: var(--font-display); font-size: 1.1rem; font-weight: 700; color: var(--text); }
-.profile-email { font-size: 0.78rem; color: var(--muted); margin-top: 2px; }
-.profile-stats { display: flex; gap: 20px; justify-content: center; margin-top: 16px; }
-.stat { text-align: center; }
-.stat-num { font-family: var(--font-display); font-size: 1.3rem; font-weight: 800; color: var(--vivid); }
-.stat-label { font-family: var(--font-mono); font-size: 0.58rem; color: var(--muted); text-transform: uppercase; letter-spacing: 0.08em; margin-top: 1px; }
-.section-title { font-size: 0.875rem; font-weight: 600; color: var(--text); }
-.menu-list { display: flex; flex-direction: column; gap: 8px; }
-.menu-item { display: flex; align-items: center; justify-content: space-between; padding: 14px 16px; background: var(--white); border-radius: 14px; border: 1px solid var(--border); cursor: pointer; transition: all 0.15s; }
-.menu-item:hover { background: var(--surface); }
-.menu-left { display: flex; align-items: center; gap: 10px; }
-.menu-icon { font-size: 1.1rem; }
-.menu-text { font-size: 0.875rem; font-weight: 500; }
-.menu-arrow { font-size: 0.9rem; color: var(--muted); }
+  /* CLOSING */
+  .closing { text-align: center; padding: 8rem 2rem; position: relative; overflow: hidden; }
+  .closing-glow {
+    position: absolute; top: 50%; left: 50%;
+    transform: translate(-50%,-50%);
+    width: 600px; height: 600px;
+    background: radial-gradient(circle, rgba(124,92,191,0.15) 0%, transparent 65%);
+    pointer-events: none;
+  }
+  .closing-quote {
+    font-family: var(--font-display);
+    font-size: clamp(1.6rem, 4vw, 3rem);
+    font-weight: 300; font-style: italic;
+    color: var(--bone); line-height: 1.45;
+    max-width: 680px; margin: 0 auto 2rem;
+    position: relative; z-index: 1;
+  }
+  .closing-attr {
+    font-family: var(--font-mono); font-size: 9px;
+    letter-spacing: 0.3em; color: var(--gold);
+    text-transform: uppercase; position: relative; z-index: 1;
+  }
 
-/* ── PRICING ── */
-.pricing-content { padding: 20px; display: flex; flex-direction: column; gap: 16px; }
-.pricing-headline { font-family: var(--font-display); font-size: 1.75rem; font-weight: 800; color: var(--text); letter-spacing: -0.03em; line-height: 1.1; }
-.pricing-headline span { color: var(--vivid); }
-.pricing-sub { font-size: 0.875rem; color: var(--muted); margin-top: -8px; }
-.billing-toggle { display: flex; background: var(--surface); border-radius: 100px; padding: 3px; border: 1px solid var(--border); width: fit-content; }
-.toggle-btn { padding: 6px 16px; border-radius: 100px; font-size: 0.78rem; font-weight: 500; color: var(--muted); cursor: pointer; border: none; background: none; transition: all 0.2s; }
-.toggle-btn.active { background: var(--white); color: var(--text); box-shadow: 0 1px 4px rgba(0,0,0,0.08); }
-.plan-card { background: var(--white); border-radius: 20px; padding: 20px; border: 1.5px solid var(--border); position: relative; }
-.plan-card.featured { border-color: var(--vivid); background: var(--violet-soft); box-shadow: 0 4px 20px rgba(107,70,224,0.12); }
-.plan-badge { position: absolute; top: -12px; left: 50%; transform: translateX(-50%); background: var(--vivid); color: #fff; font-family: var(--font-mono); font-size: 0.6rem; font-weight: 600; letter-spacing: 0.1em; padding: 4px 14px; border-radius: 100px; white-space: nowrap; }
-.plan-name { font-family: var(--font-display); font-size: 0.95rem; font-weight: 700; }
-.plan-price { font-family: var(--font-display); font-size: 2.5rem; font-weight: 800; color: var(--text); letter-spacing: -0.04em; line-height: 1; margin: 8px 0; }
-.plan-price span { font-size: 0.9rem; color: var(--muted); font-weight: 400; }
-.plan-features { margin: 12px 0; display: flex; flex-direction: column; gap: 6px; }
-.feature { display: flex; align-items: center; gap: 8px; font-size: 0.82rem; color: var(--text-2); }
-.feature-dot { width: 6px; height: 6px; border-radius: 50%; background: var(--vivid); flex-shrink: 0; }
-.feature-dot.grey { background: var(--muted); }
+  /* STATS BAR */
+  .stats-bar {
+    display: grid; grid-template-columns: repeat(4,1fr);
+    gap: 1px; background: rgba(124,92,191,0.15);
+    border-top: 1px solid rgba(124,92,191,0.12);
+    border-bottom: 1px solid rgba(124,92,191,0.12);
+  }
+  .stat-cell { background: var(--deep); padding: 2rem 1.5rem; text-align: center; }
+  .stat-value {
+    font-family: var(--font-display); font-size: 2.5rem;
+    font-weight: 600; line-height: 1; margin-bottom: 0.4rem;
+  }
+  .stat-label { font-size: 11px; color: var(--muted); font-weight: 300; }
 
-/* ── FEED ── */
-.feed-tabs { display: flex; border-bottom: 1px solid var(--border); flex-shrink: 0; background: var(--white); }
-.feed-tab { flex: 1; padding: 12px; text-align: center; font-size: 0.82rem; font-weight: 500; color: var(--muted); cursor: pointer; border-bottom: 2px solid transparent; transition: all 0.15s; border: none; background: none; margin-bottom: -1px; }
-.feed-tab.active { color: var(--vivid); border-bottom-color: var(--vivid); }
-.feed-content { padding: 16px; display: flex; flex-direction: column; gap: 12px; }
-.post-card { background: var(--white); border-radius: 16px; border: 1px solid var(--border); overflow: hidden; }
-.post-header { display: flex; align-items: center; gap: 10px; padding: 12px 14px; }
-.post-avatar { width: 32px; height: 32px; border-radius: 50%; flex-shrink: 0; }
-.post-name { font-size: 0.82rem; font-weight: 600; }
-.post-time { font-size: 0.72rem; color: var(--muted); margin-left: auto; }
-.post-video { width: 100%; aspect-ratio: 16/9; position: relative; overflow: hidden; cursor: pointer; }
-.post-video-bg { position: absolute; inset: 0; }
-.post-play { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; }
-.post-play-btn { width: 40px; height: 40px; border-radius: 50%; background: rgba(255,255,255,0.2); backdrop-filter: blur(4px); display: flex; align-items: center; justify-content: center; font-size: 1rem; color: #fff; border: 1px solid rgba(255,255,255,0.5); padding-left: 2px; }
-.post-dur { position: absolute; bottom: 8px; left: 10px; font-family: var(--font-mono); font-size: 0.62rem; color: rgba(255,255,255,0.8); }
-.post-actions { display: flex; align-items: center; gap: 16px; padding: 10px 14px; }
-.action { display: flex; align-items: center; gap: 4px; font-size: 0.78rem; color: var(--muted); cursor: pointer; transition: color 0.15s; }
-.action.liked { color: var(--red); }
-.action:hover { color: var(--text); }
+  /* FOOTER */
+  footer {
+    display: flex; align-items: center; justify-content: space-between;
+    flex-wrap: wrap; gap: 1rem; padding: 2rem 3rem;
+    border-top: 1px solid rgba(124,92,191,0.1);
+  }
+  .footer-logo {
+    font-family: var(--font-display); font-size: 1.1rem;
+    font-weight: 300; letter-spacing: 0.3em; color: var(--muted);
+  }
+  .footer-copy {
+    font-family: var(--font-mono); font-size: 9px;
+    letter-spacing: 0.15em; color: var(--muted);
+    opacity: 0.6; text-transform: uppercase;
+  }
 
+  .divider {
+    height: 1px;
+    background: linear-gradient(to right, transparent, rgba(124,92,191,0.2), transparent);
+  }
 
-/* DURATION BUTTONS */
-.duration-row { display: flex; gap: 6px; width: 100%; }
-.duration-btn { flex: 1; padding: 8px 4px; min-width: 0; border-radius: 10px; border: 1.5px solid var(--border); background: var(--white); font-family: var(--font-display); font-size: 0.78rem; font-weight: 600; color: var(--text-2); cursor: pointer; transition: all 0.15s; text-align: center; }
-.duration-btn.active { background: var(--vivid); color: #fff; border-color: var(--vivid); box-shadow: 0 2px 8px rgba(107,70,224,0.25); }
-.duration-sub { font-family: var(--font-mono); font-size: 0.58rem; color: inherit; opacity: 0.7; display: block; margin-top: 2px; }
-/* SKELETON LOADING */
-@keyframes shimmer { 0%{background-position:-200% 0} 100%{background-position:200% 0} }
-.skeleton { border-radius: 16px; aspect-ratio: 9/16; background: linear-gradient(90deg, var(--surface) 25%, var(--border) 50%, var(--surface) 75%); background-size: 200% 100%; animation: shimmer 1.2s infinite; }
+  .star-fixed {
+    position: fixed; bottom: 2rem; right: 2rem;
+    color: var(--gold); font-size: 1.2rem; opacity: 0.4;
+    z-index: 50; animation: spin 25s linear infinite; pointer-events: none;
+  }
 
-/* VIDEO GRID IMPROVEMENTS */
-.video-thumb { border-radius: 16px; aspect-ratio: 9/16; position: relative; overflow: hidden; cursor: pointer; background: #111; transition: transform 0.2s; }
-.video-thumb:hover { transform: scale(1.03); }
-.video-thumb video { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
-.video-thumb-empty { border-radius: 16px; aspect-ratio: 9/16; background: var(--surface); border: 1.5px dashed var(--border); display: flex; align-items: center; justify-content: center; color: var(--muted); font-size: 1.5rem; }
-.stat-num { font-family: var(--font-display); font-size: 1.3rem; font-weight: 800; color: var(--vivid); }
+  .reveal { opacity: 0; transform: translateY(24px); transition: opacity 0.9s ease, transform 0.9s ease; }
+  .reveal.visible { opacity: 1; transform: none; }
 
-/* LOGIN INPUTS — nuclear autofill fix */
-#s-login #email-form input {
-  display: block;
-  width: 100% !important;
-  padding: 14px !important;
-  border: 1.5px solid rgba(255,255,255,0.3) !important;
-  border-radius: 14px !important;
-  font-size: 0.9rem !important;
-  font-family: var(--font) !important;
-  color: #ffffff !important;
-  -webkit-text-fill-color: #ffffff !important;
-  background: rgba(15,5,40,0.92) !important;
-  -webkit-box-shadow: 0 0 0px 9999px rgba(15,5,40,0.95) inset !important;
-  box-shadow: 0 0 0px 9999px rgba(15,5,40,0.95) inset !important;
-  backdrop-filter: blur(8px);
-  -webkit-backdrop-filter: blur(8px);
-  transition: border-color 0.2s;
-  outline: none !important;
-  caret-color: #ffffff;
-}
-#s-login #email-form input:focus {
-  border-color: rgba(255,255,255,0.65) !important;
-}
-#s-login #email-form input::placeholder {
-  color: rgba(255,255,255,0.65) !important;
-  -webkit-text-fill-color: rgba(255,255,255,0.65) !important;
-}
-/* Global placeholder boost for login screen */
-.login-form-container input::placeholder {
-  color: rgba(255,255,255,0.65) !important;
-}
-#s-login #email-form input:-webkit-autofill,
-#s-login #email-form input:-webkit-autofill:hover,
-#s-login #email-form input:-webkit-autofill:focus,
-#s-login #email-form input:-webkit-autofill:active {
-  -webkit-text-fill-color: #ffffff !important;
-  -webkit-box-shadow: 0 0 0px 9999px rgba(20,8,50,0.9) inset !important;
-  box-shadow: 0 0 0px 9999px rgba(20,8,50,0.9) inset !important;
-  caret-color: #ffffff !important;
-}
+  @keyframes fadeUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+  @keyframes spin { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
 
-/* VIDEO BACKGROUND SYSTEM */
-.video-background-container {
-  position: relative;
-  width: 100%;
-  height: 100%;
-  overflow: hidden;
-  overflow-x: hidden;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  max-width: 100vw;
-  /* Fallback gradient while video loads — no black flash */
-  background: linear-gradient(160deg, #0d0521 0%, #160a38 40%, #0a1a2e 100%);
-}
-.bg-video {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  z-index: 0;
-  pointer-events: none;
-  cursor: none;
-}
-.login-scrim {
-  position: absolute;
-  top: 0; left: 0;
-  width: 100%; height: 100%;
-  background: linear-gradient(
-    to bottom,
-    rgba(10,8,20,0.55) 0%,
-    rgba(15,12,30,0.78) 100%
-  );
-  z-index: 1;
-  pointer-events: none;
-}
-.login-form-container {
-  position: relative;
-  z-index: 2;
-  width: 100%;
-  max-width: 340px;
-  padding: 40px 20px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  overflow-y: auto;
-  max-height: 100vh;
-  -webkit-overflow-scrolling: touch;
-}
-.login-form-container::-webkit-scrollbar { display: none; }
-
-
-/* TIMELINE SCREEN */
-#s-timeline { background: #0a051e; }
-.tl-nav { display: flex; align-items: center; justify-content: space-between; padding: 16px; border-bottom: 0.5px solid rgba(255,255,255,0.08); }
-.tl-back { background: none; border: none; color: rgba(255,255,255,0.6); font-size: 0.8rem; font-family: var(--font); cursor: pointer; display: flex; align-items: center; gap: 4px; padding: 0; }
-.tl-title { color: #fff; font-size: 0.95rem; font-weight: 700; font-family: var(--font-display); letter-spacing: -0.02em; }
-.tl-export-btn { background: var(--vivid); border: none; color: #fff; font-size: 0.7rem; font-weight: 700; font-family: var(--font-display); border-radius: 20px; padding: 6px 14px; cursor: pointer; }
-.tl-body { padding: 12px; overflow-y: auto; flex: 1; min-height: 0; }
-.tl-dur-bar { background: rgba(255,255,255,0.04); border-radius: 10px; padding: 8px 12px; margin-bottom: 12px; display: flex; align-items: center; gap: 8px; }
-.tl-dur-label { color: rgba(255,255,255,0.35); font-size: 0.7rem; }
-.tl-dur-track { flex: 1; height: 3px; background: rgba(255,255,255,0.08); border-radius: 2px; overflow: hidden; }
-.tl-dur-fill { height: 100%; background: linear-gradient(90deg, var(--vivid), #a78bfa); border-radius: 2px; transition: width 0.3s; }
-.tl-dur-val { color: #b89fff; font-size: 0.7rem; font-weight: 700; font-family: var(--font-mono); white-space: nowrap; }
-.tl-clip { background: rgba(255,255,255,0.05); border: 0.5px solid rgba(255,255,255,0.1); border-radius: 14px; padding: 10px; display: flex; align-items: center; gap: 10px; min-height: 72px; }
-.tl-clip.dragging { opacity: 0.4; border-style: dashed; }
-.tl-handle { color: rgba(255,255,255,0.2); font-size: 16px; cursor: grab; padding: 0 2px; user-select: none; }
-.tl-thumb { width: 42px; height: 60px; border-radius: 8px; flex-shrink: 0; overflow: hidden; position: relative; }
-.tl-thumb img { width: 100%; height: 100%; object-fit: cover; }
-.tl-thumb-bg { position: absolute; inset: 0; }
-.tl-dur-badge { position: absolute; bottom: 3px; right: 3px; background: rgba(0,0,0,0.75); color: #fff; font-size: 0.55rem; font-weight: 700; border-radius: 3px; padding: 1px 3px; font-family: var(--font-mono); }
-.tl-info { flex: 1; min-width: 0; }
-.tl-clip-title { color: #fff; font-size: 0.75rem; font-weight: 600; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; margin-bottom: 3px; }
-.tl-clip-meta { color: rgba(255,255,255,0.35); font-size: 0.65rem; }
-.tl-remove { width: 44px; height: 44px; border-radius: 50%; background: rgba(255,255,255,0.07); border: 0.5px solid rgba(255,255,255,0.12); color: rgba(255,255,255,0.5); font-size: 0.85rem; display: flex; align-items: center; justify-content: center; cursor: pointer; flex-shrink: 0; }
-.tl-transition { display: flex; align-items: center; justify-content: center; gap: 8px; padding: 5px 0; }
-.tl-line { flex: 1; height: 0.5px; background: rgba(255,255,255,0.07); }
-.tl-pill { background: rgba(107,70,224,0.18); border: 0.5px solid rgba(107,70,224,0.4); border-radius: 20px; padding: 10px 14px; display: flex; align-items: center; gap: 5px; cursor: pointer; min-height: 44px; }
-.tl-pill-label { color: #b89fff; font-size: 0.65rem; font-weight: 600; }
-.tl-pill-arrow { color: rgba(178,143,255,0.6); font-size: 0.6rem; }
-.tl-transition-menu { background: rgba(20,10,50,0.97); border: 0.5px solid rgba(255,255,255,0.12); border-radius: 14px; padding: 6px; display: none; flex-direction: column; gap: 2px; position: absolute; z-index: 100; left: 50%; transform: translateX(-50%); min-width: 160px; }
-.tl-transition-menu.open { display: flex; }
-.tl-t-option { padding: 8px 12px; border-radius: 8px; color: rgba(255,255,255,0.8); font-size: 0.75rem; cursor: pointer; display: flex; align-items: center; gap: 8px; }
-.tl-t-option:hover, .tl-t-option.selected { background: rgba(107,70,224,0.25); color: #b89fff; }
-.tl-add-btn { border: 0.5px dashed rgba(255,255,255,0.15); border-radius: 14px; padding: 14px; display: flex; align-items: center; justify-content: center; gap: 8px; cursor: pointer; margin-top: 4px; background: none; width: 100%; }
-.tl-add-btn span { color: rgba(255,255,255,0.35); font-size: 0.78rem; font-family: var(--font); }
-.tl-footer { padding: 12px 12px 20px; display: flex; gap: 8px; border-top: 0.5px solid rgba(255,255,255,0.08); }
-.tl-btn-preview { flex: 1; background: rgba(255,255,255,0.07); border: 0.5px solid rgba(255,255,255,0.15); border-radius: 12px; padding: 13px; color: rgba(255,255,255,0.8); font-size: 0.78rem; font-weight: 600; font-family: var(--font-display); cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 6px; }
-.tl-btn-export { flex: 1.5; background: var(--vivid); border: none; border-radius: 12px; padding: 13px; color: #fff; font-size: 0.78rem; font-weight: 700; font-family: var(--font-display); cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 6px; }
-.tl-empty { text-align: center; padding: 40px 20px; color: rgba(255,255,255,0.3); font-size: 0.82rem; }
-.tl-empty-icon { font-size: 2rem; margin-bottom: 12px; opacity: 0.3; }
-
-/* Clip picker modal */
-.clip-picker { position: fixed; inset: 0; background: rgba(10,5,30,0.98); z-index: 9999; display: none; flex-direction: column; max-width: 430px; margin: 0 auto; }
-.clip-picker.open { display: flex; }
-.cp-header { display: flex; align-items: center; justify-content: space-between; padding: 16px; border-bottom: 0.5px solid rgba(255,255,255,0.08); }
-.cp-title { color: #fff; font-size: 0.9rem; font-weight: 700; font-family: var(--font-display); }
-.cp-close { background: rgba(255,255,255,0.08); border: none; color: rgba(255,255,255,0.6); width: 28px; height: 28px; border-radius: 50%; cursor: pointer; font-size: 0.8rem; display: flex; align-items: center; justify-content: center; }
-.cp-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; padding: 12px; overflow-y: auto; flex: 1; }
-.cp-item { border-radius: 10px; aspect-ratio: 3/4; position: relative; overflow: hidden; cursor: pointer; border: 2px solid transparent; transition: border-color 0.15s; }
-.cp-item.selected { border-color: var(--vivid); }
-.cp-item-check { position: absolute; top: 4px; right: 4px; width: 18px; height: 18px; border-radius: 50%; background: var(--vivid); color: #fff; font-size: 0.6rem; display: none; align-items: center; justify-content: center; z-index: 2; }
-.cp-item.selected .cp-item-check { display: flex; }
-
-/* Recent Creations action buttons */
-.recent-actions { display: flex; gap: 8px; margin: 10px 0 12px; }
-.recent-action-btn { flex: 1; padding: 10px; border-radius: 12px; font-size: 0.75rem; font-weight: 700; font-family: var(--font-display); cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 6px; border: none; color: #fff; }
-.btn-new-video { background: var(--vivid); color: #fff; }
-.btn-timeline { background: var(--vivid); color: #fff; }
-
-/* TOAST */
-.toast { position: fixed; bottom: 90px; left: 50%; transform: translateX(-50%) translateY(16px); background: var(--text); color: #fff; padding: 10px 20px; border-radius: 100px; font-size: 0.82rem; font-weight: 500; opacity: 0; transition: all 0.25s; z-index: 1000; white-space: nowrap; pointer-events: none; }
-.toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
+  @media (max-width: 700px) {
+    nav { padding: 1.25rem 1.5rem; }
+    .nav-links { gap: 1.25rem; }
+    .metrics { grid-template-columns: repeat(3,1fr); }
+    .metric { padding: 2rem 1rem; }
+    .section { padding: 4.5rem 1.5rem; }
+    .stack-item { grid-template-columns: 1fr; gap: 0.5rem; }
+    .stack-role { text-align: left; }
+    .pricing-cols { grid-template-columns: 1fr; gap: 2rem; }
+    .pricing-inner { padding: 2rem 1.5rem; }
+    .loops-grid { grid-template-columns: 1fr; }
+    .stats-bar { grid-template-columns: repeat(2,1fr); }
+    .hero-cta { flex-direction: column; width: 100%; max-width: 320px; }
+    .btn-architect, .btn-feed { width: 100%; justify-content: center; text-align: center; }
+    footer { flex-direction: column; text-align: center; padding: 1.5rem; }
+    .hero-title { font-size: clamp(1.6rem, 9vw, 3rem); letter-spacing: -0.01em; word-break: break-word; }
+  }
 </style>
+  <script>
+    async function openCheckout() {
+      var btn = document.querySelector('.btn-architect');
+      if (btn) { btn.style.opacity = '0.7'; btn.style.pointerEvents = 'none'; }
+      try {
+        var res = await fetch('https://oniria-backend.almacenmujica.workers.dev/checkout', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json', 'x-soniar-token': 'snr_2024_s3cr3t_t0k3n' },
+          body: JSON.stringify({ plan: 'monthly', userId: 'landing' })
+        });
+        var data = await res.json();
+        if (data.url) {
+          window.location.href = data.url;
+        } else {
+          throw new Error(data.error || 'Error al iniciar el checkout');
+        }
+      } catch(e) {
+        alert('Error al iniciar el pago: ' + e.message);
+        if (btn) { btn.style.opacity = ''; btn.style.pointerEvents = ''; }
+      }
+    }
+  </script>
 </head>
 <body>
-<div id="app">
 
-  <!-- LOGIN -->
-  <div class="screen active" id="s-login">
-    <div class="video-background-container">
-    <!-- Video background -->
-    <video id="login-bg-video" class="bg-video" autoplay muted loop playsinline preload="none" aria-hidden="true" style="opacity:0;transition:opacity 1.2s ease;">
-    </video>
-    <div class="login-scrim"></div>
-    <div class="login-form-container">
-
-      <!-- Logo -->
-      <div class="login-logo" role="img" aria-label="Soniar logo"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-  <circle cx="12" cy="12" r="3.5" fill="white"/>
-  <path d="M12 2C10.5 2 9.1 2.4 7.9 3.1L13.5 9.8C13.8 9.3 14 8.7 14 8C14 4.7 13.3 2 12 2Z" fill="white" opacity="0.9"/>
-  <path d="M5.1 5.1C4.1 6.3 3.4 7.8 3.1 9.4L11 9.1C10.6 8.5 9.9 8 9.1 7.8L5.1 5.1Z" fill="white" opacity="0.9"/>
-  <path d="M2 12C2 13.5 2.4 14.9 3.1 16.1L9.8 10.5C9.3 10.2 8.7 10 8 10C4.7 10 2 10.7 2 12Z" fill="white" opacity="0.9"/>
-  <path d="M12 22C13.5 22 14.9 21.6 16.1 20.9L10.5 14.2C10.2 14.7 10 15.3 10 16C10 19.3 10.7 22 12 22Z" fill="white" opacity="0.9"/>
-  <path d="M18.9 18.9C19.9 17.7 20.6 16.2 20.9 14.6L13 14.9C13.4 15.5 14.1 16 14.9 16.2L18.9 18.9Z" fill="white" opacity="0.9"/>
-  <path d="M22 12C22 10.5 21.6 9.1 20.9 7.9L14.2 13.5C14.7 13.8 15.3 14 16 14C19.3 14 22 13.3 22 12Z" fill="white" opacity="0.9"/>
-</svg></div>
-      <h1 class="login-title">Welcome to<br><span>SONIAR</span><br><span style="font-size:1.1rem;color:rgba(255,255,255,0.45);letter-spacing:0.25em;font-weight:800;line-height:0.6;display:inline-block;margin-top:-14px;">PLUS</span></h1>
-      <p class="login-sub">Turn your ideas into stunning cinematic videos with AI.</p>
-
-      <!-- Auth form -->
-      <div class="login-btns">
-        <button class="btn-google" id="btn-google" aria-label="Continue with Google">
-          <svg width="18" height="18" viewBox="0 0 18 18" aria-hidden="true"><path fill="#4285F4" d="M16.51 8H8.98v3h4.3c-.18 1-.74 1.48-1.6 2.04v2.01h2.6a7.8 7.8 0 002.38-5.88c0-.57-.05-.66-.15-1.18z"/><path fill="#34A853" d="M8.98 17c2.16 0 3.97-.72 5.3-1.94l-2.6-2a4.8 4.8 0 01-7.18-2.54H1.83v2.07A8 8 0 008.98 17z"/><path fill="#FBBC05" d="M4.5 10.52a4.8 4.8 0 010-3.04V5.41H1.83a8 8 0 000 7.18l2.67-2.07z"/><path fill="#EA4335" d="M8.98 4.18c1.17 0 2.23.4 3.06 1.2l2.3-2.3A8 8 0 001.83 5.4L4.5 7.49a4.77 4.77 0 014.48-3.3z"/></svg>
-          Continue with Google
-        </button>
-
-        <div class="login-divider">
-          <div class="divider-line"></div>
-          <span class="divider-text">or</span>
-          <div class="divider-line"></div>
-        </div>
-
-        <div id="email-form" style="width:100%;display:flex;flex-direction:column;gap:10px;">
-          <button id="btn-signup" aria-label="Create a new account" style="width:100%;padding:14px;background:#fff;color:var(--vivid);border:2px solid #fff;border-radius:14px;font-family:var(--font-display);font-size:0.95rem;font-weight:700;cursor:pointer;transition:all 0.15s;">Create Account</button>
-          <div style="display:flex;flex-direction:column;gap:4px;">
-            <label for="auth-email" style="font-size:0.78rem;font-weight:600;color:rgba(255,255,255,0.9);">Email</label>
-            <input type="email" id="auth-email" placeholder="you@example.com" autocomplete="email" aria-label="Email address" />
-          </div>
-          <div style="display:flex;flex-direction:column;gap:4px;">
-            <label for="auth-password" style="font-size:0.78rem;font-weight:600;color:rgba(255,255,255,0.9);">Password</label>
-            <input type="password" id="auth-password" placeholder="Min. 6 characters" autocomplete="current-password" aria-label="Password" />
-          </div>
-          <button class="btn-primary" id="btn-signin" style="margin-top:4px;box-shadow:0 4px 20px rgba(107,70,224,0.5);" aria-label="Sign in to your account">Sign In</button>
-          <button id="btn-forgot" onclick="forgotPassword()" style="background:none;border:none;color:rgba(255,255,255,0.7);font-size:0.78rem;cursor:pointer;padding:4px;text-decoration:underline;">Forgot password?</button>
-        </div>
-        <p id="auth-error" role="alert" style="color:var(--red);font-size:0.78rem;text-align:center;display:none;"></p>
-      </div>
-
-      <p class="login-terms">By continuing you agree to our <a href="#">Terms</a> and <a href="#">Privacy Policy</a></p>
-    </div><!-- /login-form-container -->
-    </div><!-- /video-background-container -->
+<nav id="nav">
+  <a href="#" class="nav-logo">SONIAR</a>
+  <div class="nav-links">
+    <a href="#vision" class="nav-link">Vision</a>
+    <a href="#stack" class="nav-link">Stack</a>
+    <a href="#architect" class="nav-link">Architect</a>
   </div>
+</nav>
 
-
-  <!-- TIMELINE -->
-  <div class="screen" id="s-timeline" style="display:flex;flex-direction:column;position:absolute;inset:0;background:#0a051e;">
-    <div class="tl-nav">
-      <button class="tl-back" onclick="goTo('s-home')">← Back</button>
-      <span class="tl-title">Timeline</span>
-      <div style="display:flex;align-items:center;gap:6px;">
-        <span id="tl-saved-indicator" style="font-size:0.6rem;color:rgba(255,255,255,0.3);font-family:var(--font-mono);display:none;">✓ saved</span>
-        <button class="tl-export-btn" onclick="confirmClearTimeline()" style="background:rgba(255,255,255,0.08);border:0.5px solid rgba(255,255,255,0.15);color:rgba(255,255,255,0.6);" aria-label="Clear timeline">Clear</button>
-        <button class="tl-export-btn" onclick="exportTimeline()" aria-label="Export timeline video">Export</button>
-      </div>
-    </div>
-    <div class="tl-body" id="tl-body">
-      <div class="tl-dur-bar">
-        <span class="tl-dur-label">Total</span>
-        <div class="tl-dur-track"><div class="tl-dur-fill" id="tl-dur-fill" style="width:0%"></div></div>
-        <span class="tl-dur-val" id="tl-dur-val">0s / 45s</span>
-      </div>
-      <div id="tl-clips-container"></div>
-      <button class="tl-add-btn" onclick="openClipPicker()" id="tl-add-btn" style="display:none;">
-        <span style="font-size:1.1rem;color:rgba(255,255,255,0.25);">+</span>
-        <span>Add clip from Recent Creations</span>
-      </button>
-    </div>
-    <div class="tl-footer">
-      <button class="tl-btn-preview" onclick="previewTimeline()" aria-label="Preview timeline">▶ Preview</button>
-      <button class="tl-btn-export" onclick="exportTimeline()" aria-label="Export timeline as video">⬇ Export video</button>
-    </div>
-    <!-- Preview modal -->
-    <div id="tl-preview-modal" style="display:none;position:absolute;inset:0;background:rgba(0,0,0,0.95);z-index:300;flex-direction:column;align-items:center;justify-content:center;">
-      <video id="tl-preview-video" style="width:100%;max-height:70vh;object-fit:contain;" controls playsinline></video>
-      <button onclick="closeTlPreview()" style="margin-top:16px;background:rgba(255,255,255,0.1);border:0.5px solid rgba(255,255,255,0.2);color:#fff;border-radius:12px;padding:10px 24px;font-family:var(--font-display);font-size:0.85rem;cursor:pointer;">✕ Close</button>
-    </div>
-  </div>
-
-  <!-- HOME -->
-  <div class="screen" id="s-home">
-    <div class="top-nav">
-      <div class="logo">
-        <div class="logo-icon"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-  <circle cx="12" cy="12" r="3.5" fill="white"/>
-  <path d="M12 2C10.5 2 9.1 2.4 7.9 3.1L13.5 9.8C13.8 9.3 14 8.7 14 8C14 4.7 13.3 2 12 2Z" fill="white" opacity="0.9"/>
-  <path d="M5.1 5.1C4.1 6.3 3.4 7.8 3.1 9.4L11 9.1C10.6 8.5 9.9 8 9.1 7.8L5.1 5.1Z" fill="white" opacity="0.9"/>
-  <path d="M2 12C2 13.5 2.4 14.9 3.1 16.1L9.8 10.5C9.3 10.2 8.7 10 8 10C4.7 10 2 10.7 2 12Z" fill="white" opacity="0.9"/>
-  <path d="M12 22C13.5 22 14.9 21.6 16.1 20.9L10.5 14.2C10.2 14.7 10 15.3 10 16C10 19.3 10.7 22 12 22Z" fill="white" opacity="0.9"/>
-  <path d="M18.9 18.9C19.9 17.7 20.6 16.2 20.9 14.6L13 14.9C13.4 15.5 14.1 16 14.9 16.2L18.9 18.9Z" fill="white" opacity="0.9"/>
-  <path d="M22 12C22 10.5 21.6 9.1 20.9 7.9L14.2 13.5C14.7 13.8 15.3 14 16 14C19.3 14 22 13.3 22 12Z" fill="white" opacity="0.9"/>
-</svg></div>
-        <span class="logo-text" style="text-transform:uppercase;letter-spacing:0.08em;">Soniar</span>
-      </div>
-      <button class="avatar-btn" onclick="goTo('s-profile')">G</button>
-    </div>
-    <div class="scroll-content">
-      <div class="home-content">
-        <div>
-          <h1 class="home-headline">What will you<br><span>create</span> today?</h1>
-          <p class="home-sub">Turn your ideas into stunning videos with <span>AI.</span></p>
-        </div>
-        <div class="input-card">
-          <textarea class="story-input" id="story-input" placeholder="Describe your idea, imagination, or story..." rows="2" maxlength="500" oninput="detectType(this.value);updatePromptCounter(this.value)" onfocus="document.getElementById('suggestions').style.display='flex'" onblur="if(!this.value)document.getElementById('suggestions').style.display='none'"></textarea>
-          <div style="display:flex;justify-content:flex-end;"><span id="prompt-counter" style="font-family:var(--font-mono);font-size:0.6rem;color:var(--muted);transition:color 0.2s;">0/500</span></div>
-          <div class="suggestions" id="suggestions">
-            <div class="suggestion-chip" onclick="fillStory('A lighthouse keeper who never left the island...')">
-              <span class="suggestion-star">✦</span> A lighthouse keeper who never left...
-            </div>
-            <div class="suggestion-chip" onclick="fillStory('Two strangers on a train to nowhere...')">
-              <span class="suggestion-star">✦</span> Two strangers on a train...
-            </div>
-          </div>
-          <div class="input-footer">
-            <div class="detected-type" id="detected-type" style="opacity:0;">✓ <span id="detected-label">Fiction</span></div>
-            <button class="send-btn" onclick="startGeneration()" aria-label="Generate video"><span aria-hidden="true">↑</span></button>
-          </div>
-        </div>
-        <div>
-          <p class="section-label" style="margin-bottom:6px;">Choose a style</p>
-          <div class="styles-row">
-            <div class="tag active" onclick="selectStyle(this)">🎬 Cinematic</div>
-            <div class="tag" onclick="selectStyle(this)">☁️ Dreamy</div>
-            <div class="tag" onclick="selectStyle(this)">👻 Horror</div>
-            <div class="tag" onclick="selectStyle(this)">📖 Story</div>
-          </div>
-        </div>
-        <div>
-          <p class="section-label" style="margin-bottom:6px;">Duration</p>
-          <div class="duration-row">
-            <button class="duration-btn active" onclick="selectDuration(this, 6)">
-              Short<span class="duration-sub">6 sec</span>
-            </button>
-            <button class="duration-btn" onclick="selectDuration(this, 10)">
-              Medium<span class="duration-sub">10 sec</span>
-            </button>
-            <button class="duration-btn" onclick="selectDuration(this, 20)">
-              Long<span class="duration-sub">20 sec</span>
-            </button>
-          </div>
-        </div>
-        <button class="generate-btn" onclick="startGeneration()">✦ Generate Video</button>
-        <div>
-          <div class="recent-header">
-            <span class="recent-title">Recent Creations</span>
-            <span class="recent-all">View all ›</span>
-          </div>
-          <div class="recent-actions">
-            <button class="recent-action-btn btn-new-video" onclick="startGeneration()" aria-label="Generate new video">✦ New Video</button>
-            <button class="recent-action-btn btn-timeline" onclick="openTimeline()" aria-label="Open timeline editor">⊞ Timeline</button>
-          </div>
-        </div>
-        <div class="videos-grid" id="recent-videos-grid">
-          <div class="skeleton"></div><div class="skeleton"></div><div class="skeleton"></div>
-        </div>
-      </div>
-    </div>
-    <nav class="bottom-nav" aria-label="Main navigation">
-      <button class="nav-item active" onclick="switchTab(this,'s-home')" aria-label="Home" title="Home">
-        <div class="nav-icon" aria-hidden="true"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 9.5L12 3l9 6.5V20a1 1 0 01-1 1H4a1 1 0 01-1-1V9.5z"/><path d="M9 21V12h6v9"/></svg><div class="nav-dot"></div></div>
-        <span class="nav-label" aria-hidden="true">Home</span>
-      </button>
-      <button class="nav-item" onclick="switchTab(this,'s-feed')" aria-label="Feed" title="Feed">
-        <div class="nav-icon" aria-hidden="true"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></svg><div class="nav-dot"></div></div>
-        <span class="nav-label" aria-hidden="true">Feed</span>
-      </button>
-      <button class="nav-item" onclick="switchTab(this,'s-profile')" aria-label="Profile" title="Profile">
-        <div class="nav-icon" aria-hidden="true"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="8" r="4"/><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7"/></svg><div class="nav-dot"></div></div>
-        <span class="nav-label" aria-hidden="true">Profile</span>
-      </button>
-    </nav>
-  </div>
-
-  <!-- GENERATING -->
-  <div class="screen" id="s-generating">
-    <div class="gen-topbar"><div class="gen-topbar-fill" id="gen-progress-bar" style="width:5%;"></div></div>
-    <div class="gen-logo-text">SONIAR <span>PLUS</span></div>
-    <div class="pulse-rings">
-      <div class="ring ring-1"></div>
-      <div class="ring ring-2"></div>
-      <div class="ring ring-3"></div>
-      <div class="ring-dot"></div>
-    </div>
-    <div class="gen-status" id="gen-status">SENDING TO AI...</div>
-    <div class="gen-scene-label" id="gen-scene-label">Generating your video</div>
-    <p class="gen-eta" id="gen-eta">This takes about 2–3 minutes</p>
-    <p class="gen-error" id="gen-error" style="display:none;"></p>
-  </div>
-
-  <!-- RESULT -->
-  <div class="screen" id="s-result" style="background:#0a0a0f;overflow-y:auto;overflow-x:hidden;max-width:100%;">
-    <div style="position:absolute;inset:0;background:radial-gradient(ellipse at 50% 0%, rgba(107,70,224,0.15) 0%, transparent 70%);pointer-events:none;"></div>
-    <div style="display:flex;align-items:center;justify-content:space-between;padding:14px 20px;padding-top:calc(var(--safe-top) + 14px);position:relative;z-index:2;">
-      <button onclick="goTo('s-home')" style="background:rgba(255,255,255,0.08);border:none;color:#fff;border-radius:10px;padding:8px 14px;font-family:var(--font-mono);font-size:0.7rem;cursor:pointer;">← Home</button>
-      <span style="font-family:var(--font-display);font-size:0.8rem;font-weight:700;color:rgba(255,255,255,0.5);letter-spacing:0.15em;">SONIAR</span>
-      <button id="result-download-btn" style="background:rgba(255,255,255,0.08);border:none;color:#fff;border-radius:10px;padding:8px 14px;font-family:var(--font-mono);font-size:0.7rem;cursor:pointer;">↓ Save</button>
-    </div>
-    <div style="flex:1;display:flex;align-items:center;justify-content:center;padding:0 16px;position:relative;z-index:2;">
-      <div style="width:100%;max-width:380px;">
-        <div style="border-radius:20px;overflow:hidden;box-shadow:0 20px 60px rgba(0,0,0,0.6),0 0 0 1px rgba(255,255,255,0.08);position:relative;">
-          <video id="result-video-el" controls playsinline autoplay loop style="width:100%;display:block;background:#000;" disablepictureinpicture></video>
-          <div id="result-caption-overlay" style="position:absolute;bottom:48px;left:0;right:0;padding:0 16px;text-align:center;pointer-events:none;">
-            <p id="result-caption-text" style="display:inline;background:rgba(0,0,0,0.6);color:#fff;font-family:var(--font-display);font-size:0.9rem;font-weight:700;line-height:1.6;padding:2px 8px;border-radius:4px;box-decoration-break:clone;-webkit-box-decoration-break:clone;"></p>
-          </div>
-          <div style="position:absolute;top:10px;right:10px;display:flex;gap:6px;">
-            <button onclick="toggleCaption()" id="btn-toggle-caption" style="background:rgba(0,0,0,0.5);border:none;color:#fff;border-radius:8px;padding:5px 10px;font-size:0.7rem;font-family:var(--font-mono);cursor:pointer;">CC ON</button>
-            <select id="caption-font-select" onchange="changeCaptionFont(this.value)" style="background:rgba(0,0,0,0.5);border:none;color:#fff;border-radius:8px;padding:5px 8px;font-size:0.7rem;cursor:pointer;outline:none;">
-              <option value="bold">Bold</option>
-              <option value="clean">Clean</option>
-              <option value="mono">Mono</option>
-            </select>
-          </div>
-        </div>
-        <div style="margin-top:16px;padding:0 4px;">
-          <p id="result-prompt-text" style="font-family:var(--font-display);font-size:0.95rem;font-weight:600;color:#fff;line-height:1.4;margin-bottom:16px;"></p>
-          <div style="display:flex;gap:10px;flex-direction:column;">
-            <button id="btn-publish-feed" style="width:100%;padding:15px;background:var(--vivid);color:#fff;border:none;border-radius:14px;font-family:var(--font-display);font-size:0.95rem;font-weight:700;cursor:pointer;box-shadow:0 4px 20px rgba(107,70,224,0.4);">🌐 Publish to Feed</button>
-            <button onclick="goTo('s-home')" style="width:100%;padding:14px;background:rgba(255,255,255,0.08);color:#fff;border:1px solid rgba(255,255,255,0.15);border-radius:14px;font-family:var(--font-display);font-size:0.9rem;font-weight:600;cursor:pointer;">✦ Create Another</button>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <!-- EDITOR -->
-  <div class="screen" id="s-editor">
-    <div class="editor-topbar">
-      <button class="editor-back" onclick="goTo('s-home')" aria-label="Go back">← Back</button>
-      <span class="editor-title">SONIAR — EDIT</span>
-      <button class="export-btn" onclick="showToast('Exporting...')" aria-label="Export video">Export ↗</button>
-    </div>
-    <div class="editor-body">
-      <div class="editor-left">
-        <div class="video-preview">
-          <div class="video-preview-bg" style="background:linear-gradient(150deg,#160a2e,#0d1a3a,#091c14);"></div>
-          <div class="video-cap-overlay">
-            <div class="video-cap-text" id="preview-caption">The <em>fastest</em> way.</div>
-          </div>
-        </div>
-        <div class="timeline-card">
-          <div class="tl-label">TIMELINE</div>
-          <div class="tl-row"><span class="tl-name">AUD</span><div class="tl-track" style="background:rgba(107,70,224,0.2);border:1px solid rgba(107,70,224,0.3);"></div></div>
-          <div class="tl-row">
-            <span class="tl-name">CAP</span>
-            <div style="flex:1;display:flex;gap:3px;">
-              <div style="flex:1;height:6px;border-radius:3px;background:rgba(107,70,224,0.15);border:1px solid var(--border);"></div>
-              <div style="flex:1.8;height:6px;border-radius:3px;background:rgba(107,70,224,0.4);border:1px solid var(--vivid);"></div>
-              <div style="flex:0.8;height:6px;border-radius:3px;background:rgba(107,70,224,0.15);border:1px solid var(--border);"></div>
-            </div>
-          </div>
-          <div class="tl-row"><span class="tl-name">VOI</span><div class="tl-track" style="background:rgba(212,168,83,0.2);border:1px solid rgba(212,168,83,0.3);"></div></div>
-        </div>
-      </div>
-      <div class="editor-right">
-        <div class="ctrl-card">
-          <div class="ctrl-label">CAPTION FONT</div>
-          <div class="font-row">
-            <div class="font-btn active" onclick="selectFont(this)">
-              <span class="font-preview" style="font-family:'Syne';font-weight:800;">B</span>
-              <span class="font-name">BOLD</span>
-            </div>
-            <div class="font-btn" onclick="selectFont(this)">
-              <span class="font-preview" style="font-family:'DM Sans';">Aa</span>
-              <span class="font-name">CLEAN</span>
-            </div>
-            <div class="font-btn" onclick="selectFont(this)">
-              <span class="font-preview" style="font-family:'Georgia';font-style:italic;">Ci</span>
-              <span class="font-name">CINE</span>
-            </div>
-            <div class="font-btn" onclick="selectFont(this)">
-              <span class="font-preview" style="font-family:'Geist Mono';font-size:0.65rem;">Mo</span>
-              <span class="font-name">MONO</span>
-            </div>
-          </div>
-        </div>
-        <div class="ctrl-card">
-          <div class="ctrl-label">POSITION</div>
-          <div class="pos-row">
-            <button class="pos-btn" onclick="selectPos(this)">Top</button>
-            <button class="pos-btn active" onclick="selectPos(this)">Mid</button>
-            <button class="pos-btn" onclick="selectPos(this)">Bot</button>
-          </div>
-        </div>
-        <div class="caption-edit">
-          <div class="ctrl-label">CAPTION · EDIT</div>
-          <textarea class="caption-textarea" id="caption-input" oninput="updateCaption(this.value)">The fastest way to tell your story.</textarea>
-          <div class="caption-hint">Tap to edit</div>
-        </div>
-        <button class="ai-btn" onclick="showToast('✦ Improving with AI...')">
-          <span style="font-size:0.9rem;">✦</span>
-          <span class="ai-text">Improve with AI</span>
-        </button>
-      </div>
-    </div>
-    <div class="editor-bottom">
-      <button class="editor-btn editor-btn-prev" onclick="showToast('Opening preview...')">Preview</button>
-      <button class="editor-btn editor-btn-post" onclick="showToast('🎬 Ready to post!')">Ready to Post ↗</button>
-    </div>
-  </div>
-
-  <!-- PROFILE -->
-  <div class="screen" id="s-profile">
-    <div class="top-nav">
-      <div class="logo">
-        <div class="logo-icon"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-  <circle cx="12" cy="12" r="3.5" fill="white"/>
-  <path d="M12 2C10.5 2 9.1 2.4 7.9 3.1L13.5 9.8C13.8 9.3 14 8.7 14 8C14 4.7 13.3 2 12 2Z" fill="white" opacity="0.9"/>
-  <path d="M5.1 5.1C4.1 6.3 3.4 7.8 3.1 9.4L11 9.1C10.6 8.5 9.9 8 9.1 7.8L5.1 5.1Z" fill="white" opacity="0.9"/>
-  <path d="M2 12C2 13.5 2.4 14.9 3.1 16.1L9.8 10.5C9.3 10.2 8.7 10 8 10C4.7 10 2 10.7 2 12Z" fill="white" opacity="0.9"/>
-  <path d="M12 22C13.5 22 14.9 21.6 16.1 20.9L10.5 14.2C10.2 14.7 10 15.3 10 16C10 19.3 10.7 22 12 22Z" fill="white" opacity="0.9"/>
-  <path d="M18.9 18.9C19.9 17.7 20.6 16.2 20.9 14.6L13 14.9C13.4 15.5 14.1 16 14.9 16.2L18.9 18.9Z" fill="white" opacity="0.9"/>
-  <path d="M22 12C22 10.5 21.6 9.1 20.9 7.9L14.2 13.5C14.7 13.8 15.3 14 16 14C19.3 14 22 13.3 22 12Z" fill="white" opacity="0.9"/>
-</svg></div>
-        <span class="logo-text" style="text-transform:uppercase;letter-spacing:0.08em;">Soniar</span>
-      </div>
-      <span style="font-family:var(--font-mono);font-size:0.7rem;color:var(--muted);">Settings ⚙</span>
-    </div>
-    <div class="scroll-content">
-      <div class="profile-content">
-        <div class="profile-card">
-          <div class="profile-avatar">G</div>
-          <div class="profile-name">Gustavo Llusa</div>
-          <div class="profile-email">almacenmujica@gmail.com</div>
-          <div class="profile-stats">
-            <div class="stat"><div class="stat-num">24</div><div class="stat-label">Videos</div></div>
-            <div class="stat"><div class="stat-num">1.2k</div><div class="stat-label">Views</div></div>
-            <div class="stat"><div class="stat-num">PRO</div><div class="stat-label">Plan</div></div>
-          </div>
-        </div>
-        <div class="section-title">My Videos</div>
-        <div class="videos-grid" id="profile-videos-grid">
-          <div class="skeleton"></div><div class="skeleton"></div><div class="skeleton"></div>
-        </div>
-        <div class="section-title">Account</div>
-        <div class="menu-list">
-          <div class="menu-item" onclick="goTo('s-pricing')">
-            <div class="menu-left"><span class="menu-icon">💳</span><span class="menu-text">Subscription</span></div>
-            <span class="menu-arrow">›</span>
-          </div>
-          <div class="menu-item" onclick="showToast('Settings coming soon!')">
-            <div class="menu-left"><span class="menu-icon">⚙️</span><span class="menu-text">Settings</span></div>
-            <span class="menu-arrow">›</span>
-          </div>
-          <div class="menu-item" id="btn-logout">
-            <div class="menu-left"><span class="menu-icon">🚪</span><span class="menu-text">Sign out</span></div>
-            <span class="menu-arrow">›</span>
-          </div>
-        </div>
-      </div>
-    </div>
-    <nav class="bottom-nav" aria-label="Main navigation">
-      <button class="nav-item" onclick="switchTab(this,'s-home')" aria-label="Home" title="Home">
-        <div class="nav-icon" aria-hidden="true"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 9.5L12 3l9 6.5V20a1 1 0 01-1 1H4a1 1 0 01-1-1V9.5z"/><path d="M9 21V12h6v9"/></svg><div class="nav-dot"></div></div>
-        <span class="nav-label" aria-hidden="true">Home</span>
-      </button>
-      <button class="nav-item" onclick="switchTab(this,'s-feed')" aria-label="Feed" title="Feed">
-        <div class="nav-icon" aria-hidden="true"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></svg><div class="nav-dot"></div></div>
-        <span class="nav-label" aria-hidden="true">Feed</span>
-      </button>
-      <button class="nav-item active" onclick="switchTab(this,'s-profile')" aria-label="Profile" title="Profile">
-        <div class="nav-icon" aria-hidden="true"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="8" r="4"/><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7"/></svg><div class="nav-dot"></div></div>
-        <span class="nav-label" aria-hidden="true">Profile</span>
-      </button>
-    </nav>
-  </div>
-
-  <!-- PRICING -->
-  <div class="screen" id="s-pricing">
-    <div class="top-nav">
-      <button onclick="goTo('s-profile')" style="background:none;border:none;font-family:var(--font-mono);font-size:0.7rem;color:var(--muted);cursor:pointer;">← Back</button>
-      <div class="logo"><div class="logo-icon"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-  <circle cx="12" cy="12" r="3.5" fill="white"/>
-  <path d="M12 2C10.5 2 9.1 2.4 7.9 3.1L13.5 9.8C13.8 9.3 14 8.7 14 8C14 4.7 13.3 2 12 2Z" fill="white" opacity="0.9"/>
-  <path d="M5.1 5.1C4.1 6.3 3.4 7.8 3.1 9.4L11 9.1C10.6 8.5 9.9 8 9.1 7.8L5.1 5.1Z" fill="white" opacity="0.9"/>
-  <path d="M2 12C2 13.5 2.4 14.9 3.1 16.1L9.8 10.5C9.3 10.2 8.7 10 8 10C4.7 10 2 10.7 2 12Z" fill="white" opacity="0.9"/>
-  <path d="M12 22C13.5 22 14.9 21.6 16.1 20.9L10.5 14.2C10.2 14.7 10 15.3 10 16C10 19.3 10.7 22 12 22Z" fill="white" opacity="0.9"/>
-  <path d="M18.9 18.9C19.9 17.7 20.6 16.2 20.9 14.6L13 14.9C13.4 15.5 14.1 16 14.9 16.2L18.9 18.9Z" fill="white" opacity="0.9"/>
-  <path d="M22 12C22 10.5 21.6 9.1 20.9 7.9L14.2 13.5C14.7 13.8 15.3 14 16 14C19.3 14 22 13.3 22 12Z" fill="white" opacity="0.9"/>
-</svg></div><span class="logo-text" style="text-transform:uppercase;letter-spacing:0.08em;">Soniar</span></div>
-      <div style="width:40px;"></div>
-    </div>
-    <div class="scroll-content">
-      <div class="pricing-content">
-        <div>
-          <h2 class="pricing-headline">Choose your<br><span>plan.</span></h2>
-          <p class="pricing-sub">Unlock unlimited cinematic video generation.</p>
-        </div>
-        <div class="billing-toggle">
-          <button class="toggle-btn active" onclick="selectBilling(this)">Monthly</button>
-          <button class="toggle-btn" onclick="selectBilling(this)">Annual · Save 20%</button>
-        </div>
-        <div class="plan-card">
-          <div class="plan-name">Free</div>
-          <div class="plan-price">$0<span>/mo</span></div>
-          <div class="plan-features">
-            <div class="feature"><div class="feature-dot grey"></div>3 videos per month</div>
-            <div class="feature"><div class="feature-dot grey"></div>720p export</div>
-            <div class="feature"><div class="feature-dot grey"></div>Basic captions</div>
-          </div>
-          <button class="btn-outline" style="margin-top:12px;">Current plan</button>
-        </div>
-        <div class="plan-card featured">
-          <div class="plan-badge">MOST POPULAR</div>
-          <div class="plan-name">Pro</div>
-          <div class="plan-price">$49<span>/mo</span></div>
-          <div class="plan-features">
-            <div class="feature"><div class="feature-dot"></div>Unlimited videos</div>
-            <div class="feature"><div class="feature-dot"></div>4K export</div>
-            <div class="feature"><div class="feature-dot"></div>All caption fonts</div>
-            <div class="feature"><div class="feature-dot"></div>AI voiceover</div>
-            <div class="feature"><div class="feature-dot"></div>Priority generation</div>
-          </div>
-          <button class="btn-primary" style="margin-top:12px;" onclick="showToast('Redirecting to checkout...')">Upgrade to Pro</button>
-        </div>
-        <p style="font-size:0.72rem;color:var(--muted);text-align:center;">Cancel anytime · No setup fee</p>
-      </div>
-    </div>
-  </div>
-
-  <!-- FEED -->
-  <div class="screen" id="s-feed">
-    <div class="top-nav">
-      <div class="logo"><div class="logo-icon"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-  <circle cx="12" cy="12" r="3.5" fill="white"/>
-  <path d="M12 2C10.5 2 9.1 2.4 7.9 3.1L13.5 9.8C13.8 9.3 14 8.7 14 8C14 4.7 13.3 2 12 2Z" fill="white" opacity="0.9"/>
-  <path d="M5.1 5.1C4.1 6.3 3.4 7.8 3.1 9.4L11 9.1C10.6 8.5 9.9 8 9.1 7.8L5.1 5.1Z" fill="white" opacity="0.9"/>
-  <path d="M2 12C2 13.5 2.4 14.9 3.1 16.1L9.8 10.5C9.3 10.2 8.7 10 8 10C4.7 10 2 10.7 2 12Z" fill="white" opacity="0.9"/>
-  <path d="M12 22C13.5 22 14.9 21.6 16.1 20.9L10.5 14.2C10.2 14.7 10 15.3 10 16C10 19.3 10.7 22 12 22Z" fill="white" opacity="0.9"/>
-  <path d="M18.9 18.9C19.9 17.7 20.6 16.2 20.9 14.6L13 14.9C13.4 15.5 14.1 16 14.9 16.2L18.9 18.9Z" fill="white" opacity="0.9"/>
-  <path d="M22 12C22 10.5 21.6 9.1 20.9 7.9L14.2 13.5C14.7 13.8 15.3 14 16 14C19.3 14 22 13.3 22 12Z" fill="white" opacity="0.9"/>
-</svg></div><span class="logo-text" style="text-transform:uppercase;letter-spacing:0.08em;">Soniar</span></div>
-      <button class="btn-primary" style="width:auto;padding:7px 14px;font-size:0.75rem;border-radius:10px;" onclick="goTo('s-home')">+ Create</button>
-    </div>
-    <div class="feed-tabs">
-      <button class="feed-tab active" onclick="selectFeedTab(this)">For You</button>
-      <button class="feed-tab" onclick="selectFeedTab(this)">Following</button>
-      <button class="feed-tab" onclick="selectFeedTab(this)">Trending</button>
-    </div>
-    <div class="scroll-content">
-      <div class="feed-content">
-        <div class="post-card">
-          <div class="post-header">
-            <div class="post-avatar" style="background:linear-gradient(135deg,#7c5cbf,#5b3fa0);"></div>
-            <div><div class="post-name">@alex</div></div>
-            <span class="post-time">2m ago</span>
-          </div>
-          <div class="post-video">
-            <div class="post-video-bg" style="background:linear-gradient(135deg,#1a0a3e,#0d2a1e);"></div>
-            <div class="post-play"><div class="post-play-btn">▶</div></div>
-            <div class="post-dur">1:34</div>
-          </div>
-          <div class="post-actions">
-            <div class="action liked">♥ 248</div>
-            <div class="action">💬 12</div>
-            <div class="action">↗ Share</div>
-          </div>
-        </div>
-        <div class="post-card">
-          <div class="post-header">
-            <div class="post-avatar" style="background:linear-gradient(135deg,#d4a853,#a06830);"></div>
-            <div><div class="post-name">@marco</div></div>
-            <span class="post-time">15m ago</span>
-          </div>
-          <div class="post-video">
-            <div class="post-video-bg" style="background:linear-gradient(135deg,#3d1a00,#1a0d2e);"></div>
-            <div class="post-play"><div class="post-play-btn">▶</div></div>
-            <div class="post-dur">2:11</div>
-          </div>
-          <div class="post-actions">
-            <div class="action">♥ 89</div>
-            <div class="action">💬 5</div>
-            <div class="action">↗ Share</div>
-          </div>
-        </div>
-      </div>
-    </div>
-    <nav class="bottom-nav" aria-label="Main navigation">
-      <button class="nav-item" onclick="switchTab(this,'s-home')" aria-label="Home" title="Home">
-        <div class="nav-icon" aria-hidden="true"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 9.5L12 3l9 6.5V20a1 1 0 01-1 1H4a1 1 0 01-1-1V9.5z"/><path d="M9 21V12h6v9"/></svg><div class="nav-dot"></div></div>
-        <span class="nav-label" aria-hidden="true">Home</span>
-      </button>
-      <button class="nav-item active" onclick="switchTab(this,'s-feed')" aria-label="Feed" title="Feed">
-        <div class="nav-icon" aria-hidden="true"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></svg><div class="nav-dot"></div></div>
-        <span class="nav-label" aria-hidden="true">Feed</span>
-      </button>
-      <button class="nav-item" onclick="switchTab(this,'s-profile')" aria-label="Profile" title="Profile">
-        <div class="nav-icon" aria-hidden="true"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="8" r="4"/><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7"/></svg><div class="nav-dot"></div></div>
-        <span class="nav-label" aria-hidden="true">Profile</span>
-      </button>
-    </nav>
-  </div>
-
-  <!-- Clip Picker — outside screens to avoid stacking context issues -->
-  <div class="clip-picker" id="clip-picker">
-    <div class="cp-header">
-      <span class="cp-title">Choose a clip</span>
-      <button onclick="closeClipPicker()" style="background:var(--vivid);border:none;color:#fff;border-radius:20px;padding:8px 18px;font-size:0.8rem;font-weight:700;font-family:var(--font-display);cursor:pointer;white-space:nowrap;">→ Timeline</button>
-    </div>
-    <div class="cp-grid" id="cp-grid"></div>
-  </div>
-  <!-- ShipBoost Badge -->
-  <div style="position:fixed;bottom:8px;right:8px;z-index:9000;opacity:0.7;">
-    <a href="https://shipboost.io/tools/soniar-plus" data-shipboost-badge="free-launch" target="_blank" rel="noopener">
-      <img src="https://shipboost.io/ShipBoost-Badge/ShipBoost-Dark-Badge.svg" alt="Featured on ShipBoost" style="height:32px;width:auto;" />
+<div class="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-grid"></div>
+  <div class="hero-eyebrow">EST. 2026 &nbsp;·&nbsp; NEURAL DREAM ARCHITECTURE</div>
+  <h1 class="hero-title">ARQUITECTANDO<br><em>el inconsciente</em></h1>
+  <p class="hero-sub">High-Fidelity Neural Dream Reconstruction.<br><strong>293ms to Truth.</strong></p>
+  <div class="hero-cta">
+    <a href="#" onclick="openCheckout();return false;" class="btn-architect">
+      BECOME AN ARCHITECT
+      <span class="btn-price">$49 / month</span>
     </a>
+    <a href="https://soniar.app/app.html?feed=true" class="btn-feed">EXPLORE PUBLIC FEED</a>
   </div>
-  <div class="toast" id="toast"></div>
 </div>
 
-<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<div class="metrics reveal">
+  <div class="metric">
+    <div class="metric-value" style="color:var(--vivid)">293ms</div>
+    <div class="metric-label">Latency</div>
+  </div>
+  <div class="metric">
+    <div class="metric-value" style="color:var(--gold)">3 taps</div>
+    <div class="metric-label">From Dream to Export</div>
+  </div>
+  <div class="metric">
+    <div class="metric-value" style="color:var(--teal)">∞</div>
+    <div class="metric-label">Dream Archive</div>
+  </div>
+</div>
+
+<div class="divider"></div>
+
+<div class="section reveal" id="vision">
+  <div class="label">The Vision</div>
+  <h2 class="section-title">Your unconscious<br>speaks in <em>images.</em></h2>
+  <p class="body-text">Every night, your brain processes 70,000 thoughts. Most are lost by morning. Soniar captures them — reconstructing the architecture of your subconscious with psychoanalytic precision and AI-generated visuals in under 300ms. This is not a dream journal. This is a mirror for the mind.</p>
+
+  <div class="features-grid">
+    <div class="feature">
+      <span class="feature-icon">◈</span>
+      <div class="feature-title">Neural Reconstruction</div>
+      <p class="feature-desc">Freudian, Jungian &amp; Neuroscience frameworks applied simultaneously. Three lenses. One truth.</p>
+    </div>
+    <div class="feature">
+      <span class="feature-icon">◉</span>
+      <div class="feature-title">293ms Visualization</div>
+      <p class="feature-desc">Your dream becomes a cinematic image before you finish describing it. Speed is the luxury.</p>
+    </div>
+    <div class="feature">
+      <span class="feature-icon">◎</span>
+      <div class="feature-title">Global Dream Archive</div>
+      <p class="feature-desc">A public feed of the collective unconscious. Every Architect contributes to the world's first dream database.</p>
+    </div>
+    <div class="feature">
+      <span class="feature-icon">⊕</span>
+      <div class="feature-title">Dreamlink Matching</div>
+      <p class="feature-desc">When a stranger dreams what you dreamed, Soniar connects you. A co-dreamed image neither could create alone.</p>
+    </div>
+  </div>
+</div>
+
+<div class="divider"></div>
+
+<div class="section reveal" id="stack">
+  <div class="label">The Stack</div>
+  <h2 class="section-title">Built on infrastructure<br>that <em>never sleeps.</em></h2>
+  <ul class="stack-list">
+    <li class="stack-item"><span class="stack-name">Cloudflare Workers</span><span class="stack-badge">Edge</span><span class="stack-role">293ms global latency</span></li>
+    <li class="stack-item"><span class="stack-name">Fal.ai</span><span class="stack-badge">AI Vision</span><span class="stack-role">Dream visualization engine</span></li>
+    <li class="stack-item"><span class="stack-name">Claude AI</span><span class="stack-badge">Intelligence</span><span class="stack-role">Psychoanalytic interpretation</span></li>
+    <li class="stack-item"><span class="stack-name">Supabase</span><span class="stack-badge">Data</span><span class="stack-role">Global dream archive &amp; realtime</span></li>
+    <li class="stack-item"><span class="stack-name">GitHub Pages</span><span class="stack-badge">Deploy</span><span class="stack-role">Zero-downtime delivery</span></li>
+  </ul>
+</div>
+
+<div class="divider"></div>
+
+<div class="section reveal" id="architect">
+  <div class="label">The Architect Tier</div>
+  <h2 class="section-title">One plan.<br><em>No compromises.</em></h2>
+
+  <div class="pricing-wrap">
+    <div class="pricing-glow"></div>
+    <div class="pricing-inner">
+      <div class="pricing-tier">Architect</div>
+      <div class="pricing-price">$49</div>
+      <div class="pricing-period">/ month &nbsp;·&nbsp; cancel anytime</div>
+      <div class="pricing-cols">
+        <ul class="pricing-features-list">
+          <li class="pf"><strong>Unlimited</strong> dream interpretations</li>
+          <li class="pf"><strong>All 3 frameworks</strong> — Freud, Jung &amp; Neuroscience</li>
+          <li class="pf"><strong>293ms visualization</strong> — dedicated edge nodes</li>
+          <li class="pf"><strong>Public feed</strong> — your dreams in the global archive</li>
+        </ul>
+        <ul class="pricing-features-list">
+          <li class="pf"><strong>Download &amp; share</strong> — unlimited exports</li>
+          <li class="pf"><strong>Dream Codex</strong> — full history &amp; pattern analysis</li>
+          <li class="pf"><strong>Dreamlink matching</strong> — co-dream with strangers</li>
+          <li class="pf"><strong>Priority processing</strong> — always first in queue</li>
+        </ul>
+      </div>
+      <div class="payment-label">Payments accepted via</div>
+      <div class="payment-badges">
+        <span class="pbadge">Stripe</span>
+        <span class="pbadge crypto">BTC</span>
+        <span class="pbadge crypto">ETH</span>
+        <span class="pbadge crypto">SOL</span>
+        <span class="pbadge crypto">USDC</span>
+      </div>
+      <a href="#" onclick="openCheckout();return false;" class="btn-architect" style="display:inline-flex;text-decoration:none;">
+        BECOME AN ARCHITECT
+        <span class="btn-price">$49 / month</span>
+      </a>
+    </div>
+  </div>
+</div>
+
+<div class="divider"></div>
+
+<div class="section reveal">
+  <div class="label">Growth Mechanics</div>
+  <h2 class="section-title">Built-in <em>viral</em><br>acquisition loops.</h2>
+  <p class="body-text">Two mechanics that turn the product itself into the marketing channel.</p>
+  <div class="loops-grid">
+    <div class="loop-card">
+      <div class="loop-num">Loop 01 · Dream Matching</div>
+      <div class="loop-title">When a stranger<br>dreamed <em>your dream</em></div>
+      <p class="loop-desc">Every dream is embedded and compared against the archive. When similarity exceeds the threshold, Soniar connects both users. The notification feels like a message from the universe — not a system alert.</p>
+    </div>
+    <div class="loop-card">
+      <div class="loop-num">Loop 02 · Watermarked Exports</div>
+      <div class="loop-title">The mark that makes<br>people <em>ask questions</em></div>
+      <p class="loop-desc">A slowly pulsing sigil in the corner — not a punishment watermark, but an aesthetic feature. When TikTok viewers ask "what is that symbol?" the creator answers: "It's from Soniar."</p>
+    </div>
+  </div>
+</div>
+
+<div class="closing reveal">
+  <div class="closing-glow"></div>
+  <blockquote class="closing-quote">"The dream is the small hidden door in the deepest and most intimate sanctum of the soul."</blockquote>
+  <div class="closing-attr">Carl Gustav Jung &nbsp;·&nbsp; Architect of the Unconscious</div>
+</div>
+
+<div class="stats-bar reveal">
+  <div class="stat-cell"><div class="stat-value" style="color:var(--vivid)">293ms</div><div class="stat-label">Generation latency</div></div>
+  <div class="stat-cell"><div class="stat-value" style="color:var(--gold)">3 taps</div><div class="stat-label">From dream to export</div></div>
+  <div class="stat-cell"><div class="stat-value" style="color:var(--teal)">$49</div><div class="stat-label">Architect tier / month</div></div>
+  <div class="stat-cell"><div class="stat-value" style="color:var(--rose)">∞</div><div class="stat-label">Stories worth dreaming</div></div>
+</div>
+
+<footer>
+  <div class="footer-logo">SONIAR</div>
+  <div class="footer-copy">© 2026 Soniar &nbsp;·&nbsp; Architecting the Unconscious</div>
+</footer>
+
+<div class="star-fixed">✦</div>
+
 <script>
-// Supabase init
-const SUPABASE_URL = 'https://duyosaptnynehjkqheap.supabase.co';
-const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImR1eW9zYXB0bnluZWhqa3FoZWFwIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzY2OTE2NjMsImV4cCI6MjA5MjI2NzY2M30.nG_Yu8lEIKPsf6B_4whHRp0yoGoQp9emz1xi-3J68Ek';
-const _supabaseClient = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+const nav = document.getElementById('nav');
+window.addEventListener('scroll', () => nav.classList.toggle('scrolled', window.scrollY > 60));
 
-let currentUser = null;
+const io = new IntersectionObserver(entries => {
+  entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); io.unobserve(e.target); } });
+}, { threshold: 0.08 });
+document.querySelectorAll('.reveal').forEach(el => io.observe(el));
 
-// Init auth state
-async function initAuth() {
-  const { data: { session } } = await _supabaseClient.auth.getSession();
-  if (session) {
-    currentUser = session.user;
-    updateProfileUI(currentUser);
-    goTo('s-home');
+// ── I18N ──
+const i18n = {
+  en: {
+    navVision: 'Vision', navStack: 'Stack', navArchitect: 'Architect',
+    eyebrow: 'EST. 2026 · NEURAL DREAM ARCHITECTURE',
+    heroTitle: 'ARCHITECTING<br><em>THE UNCONSCIOUS</em>',
+    heroSub: 'High-Fidelity Neural Dream Reconstruction.<br><strong>293ms to Truth.</strong>',
+    btnArchitect: 'BECOME AN ARCHITECT',
+    btnPrice: '$49 / month',
+    btnFeed: 'EXPLORE PUBLIC FEED',
+    metricLatency: 'Latency', metricTaps: 'From Dream to Export', metricArchive: 'Dream Archive',
+    labelVision: 'The Vision',
+    visionTitle: 'Your unconscious<br>speaks in <em>images.</em>',
+    visionBody: 'Every night, your brain processes 70,000 thoughts. Most are lost by morning. Soniar captures them — reconstructing the architecture of your subconscious with psychoanalytic precision and AI-generated visuals in under 300ms. This is not a dream journal. This is a mirror for the mind.',
+    f1title: 'Neural Reconstruction', f1desc: 'Freudian, Jungian & Neuroscience frameworks applied simultaneously. Three lenses. One truth.',
+    f2title: '293ms Visualization', f2desc: 'Your dream becomes a cinematic image before you finish describing it. Speed is the luxury.',
+    f3title: 'Global Dream Archive', f3desc: 'A public feed of the collective unconscious. Every Architect contributes to the world\'s first dream database.',
+    f4title: 'Dreamlink Matching', f4desc: 'When a stranger dreams what you dreamed, Soniar connects you. A co-dreamed image neither could create alone.',
+    labelStack: 'The Stack',
+    stackTitle: 'Built on infrastructure<br>that <em>never sleeps.</em>',
+    labelArchitect: 'The Architect Tier',
+    architectTitle: 'One plan.<br><em>No compromises.</em>',
+    pricingTier: 'Architect', pricingPeriod: '/ month · cancel anytime',
+    pf1: '<strong>Unlimited</strong> dream interpretations',
+    pf2: '<strong>All 3 frameworks</strong> — Freud, Jung & Neuroscience',
+    pf3: '<strong>293ms visualization</strong> — dedicated edge nodes',
+    pf4: '<strong>Public feed</strong> — your dreams in the global archive',
+    pf5: '<strong>Download & share</strong> — unlimited exports',
+    pf6: '<strong>Dream Codex</strong> — full history & pattern analysis',
+    pf7: '<strong>Dreamlink matching</strong> — co-dream with strangers',
+    pf8: '<strong>Priority processing</strong> — always first in queue',
+    paymentLabel: 'Payments accepted via',
+    labelGrowth: 'Growth Mechanics',
+    growthTitle: 'Built-in <em>viral</em><br>acquisition loops.',
+    growthSub: 'Two mechanics that turn the product itself into the marketing channel.',
+    l1num: 'Loop 01 · Dream Matching', l1title: 'When a stranger<br>dreamed <em>your dream</em>',
+    l1desc: 'Every dream is embedded and compared against the archive. When similarity exceeds the threshold, Soniar connects both users. The notification feels like a message from the universe — not a system alert.',
+    l2num: 'Loop 02 · Watermarked Exports', l2title: 'The mark that makes<br>people <em>ask questions</em>',
+    l2desc: 'A slowly pulsing sigil in the corner — not a punishment watermark, but an aesthetic feature. When TikTok viewers ask "what is that symbol?" the creator answers: "It\'s from Soniar."',
+    quote: '"The dream is the small hidden door in the deepest and most intimate sanctum of the soul."',
+    quoteAttr: 'Carl Gustav Jung · Architect of the Unconscious',
+    stat1: 'Generation latency', stat2: 'From dream to export', stat3: 'Architect tier / month', stat4: 'Stories worth dreaming',
+    footerCopy: '© 2026 Soniar · Architecting the Unconscious',
+  },
+  es: {
+    navVision: 'Visión', navStack: 'Stack', navArchitect: 'Arquitecto',
+    eyebrow: 'EST. 2026 · ARQUITECTURA NEURAL DE SUEÑOS',
+    heroTitle: 'ARQUITECTANDO<br><em>EL INCONSCIENTE</em>',
+    heroSub: 'Reconstrucción Neural de Alta Fidelidad.<br><strong>293ms hacia la Verdad.</strong>',
+    btnArchitect: 'CONVERTIRME EN ARQUITECTO',
+    btnPrice: '$49 / mes',
+    btnFeed: 'EXPLORAR EL FEED PÚBLICO',
+    metricLatency: 'Latencia', metricTaps: 'Del Sueño al Export', metricArchive: 'Archivo de Sueños',
+    labelVision: 'La Visión',
+    visionTitle: 'Tu inconsciente<br>habla en <em>imágenes.</em>',
+    visionBody: 'Cada noche, tu cerebro procesa 70.000 pensamientos. La mayoría se pierden al despertar. Soniar los captura — reconstruyendo la arquitectura de tu subconsciente con precisión psicoanalítica e imágenes generadas por IA en menos de 300ms. Esto no es un diario de sueños. Es un espejo para la mente.',
+    f1title: 'Reconstrucción Neural', f1desc: 'Marcos Freudiano, Junguiano y de Neurociencia aplicados simultáneamente. Tres lentes. Una verdad.',
+    f2title: 'Visualización en 293ms', f2desc: 'Tu sueño se convierte en una imagen cinematográfica antes de que termines de describirlo. La velocidad es el lujo.',
+    f3title: 'Archivo Global de Sueños', f3desc: 'Un feed público del inconsciente colectivo. Cada Arquitecto contribuye a la primera base de datos de sueños del mundo.',
+    f4title: 'Dreamlink — Conexión de Sueños', f4desc: 'Cuando un extraño sueña lo que soñaste vos, Soniar los conecta. Una imagen co-soñada que ninguno podría crear solo.',
+    labelStack: 'El Stack',
+    stackTitle: 'Construido sobre infraestructura<br>que <em>nunca duerme.</em>',
+    labelArchitect: 'El Tier Arquitecto',
+    architectTitle: 'Un solo plan.<br><em>Sin compromisos.</em>',
+    pricingTier: 'Arquitecto', pricingPeriod: '/ mes · cancelá cuando quieras',
+    pf1: '<strong>Interpretaciones ilimitadas</strong> de sueños',
+    pf2: '<strong>Los 3 marcos</strong> — Freud, Jung y Neurociencia',
+    pf3: '<strong>Visualización en 293ms</strong> — nodos edge dedicados',
+    pf4: '<strong>Feed público</strong> — tus sueños en el archivo global',
+    pf5: '<strong>Descarga y comparte</strong> — exports ilimitados',
+    pf6: '<strong>Dream Codex</strong> — historial completo y análisis de patrones',
+    pf7: '<strong>Dreamlink</strong> — co-sueños con extraños',
+    pf8: '<strong>Procesamiento prioritario</strong> — siempre primero en la cola',
+    paymentLabel: 'Medios de pago aceptados',
+    labelGrowth: 'Mecánicas de Crecimiento',
+    growthTitle: 'Loops de adquisición<br><em>viral</em> incorporados.',
+    growthSub: 'Dos mecánicas que convierten al producto mismo en el canal de marketing.',
+    l1num: 'Loop 01 · Dream Matching', l1title: 'Cuando un extraño<br>soñó <em>tu sueño</em>',
+    l1desc: 'Cada sueño se compara contra el archivo completo. Cuando la similitud supera el umbral, Soniar conecta a los usuarios. La notificación se siente como un mensaje del universo — no una alerta del sistema.',
+    l2num: 'Loop 02 · Exports con Marca', l2title: 'La marca que hace<br>que la gente <em>pregunte</em>',
+    l2desc: 'Un sigilo pulsante en el borde — no una marca punitiva, sino una feature estética. Cuando los usuarios de TikTok preguntan "¿qué es ese símbolo?" el creador responde: "Es de Soniar."',
+    quote: '"El sueño es la pequeña puerta escondida en el sanctum más profundo e íntimo del alma."',
+    quoteAttr: 'Carl Gustav Jung · Arquitecto del Inconsciente',
+    stat1: 'Latencia de generación', stat2: 'Del sueño al export', stat3: 'Tier Arquitecto / mes', stat4: 'Historias que vale la pena soñar',
+    footerCopy: '© 2026 Soniar · Arquitectando el Inconsciente',
+  },
+  pt: {
+    navVision: 'Visão', navStack: 'Stack', navArchitect: 'Arquiteto',
+    eyebrow: 'EST. 2026 · ARQUITETURA NEURAL DE SONHOS',
+    heroTitle: 'ARQUITETANDO<br><em>O INCONSCIENTE</em>',
+    heroSub: 'Reconstrução Neural de Alta Fidelidade.<br><strong>293ms até a Verdade.</strong>',
+    btnArchitect: 'TORNAR-ME ARQUITETO',
+    btnPrice: '$49 / mês',
+    btnFeed: 'EXPLORAR O FEED PÚBLICO',
+    metricLatency: 'Latência', metricTaps: 'Do Sonho ao Export', metricArchive: 'Arquivo de Sonhos',
+    labelVision: 'A Visão',
+    visionTitle: 'Seu inconsciente<br>fala em <em>imagens.</em>',
+    visionBody: 'Toda noite, seu cérebro processa 70.000 pensamentos. A maioria se perde ao acordar. O Soniar os captura — reconstruindo a arquitetura do seu subconsciente com precisão psicanalítica e visuais gerados por IA em menos de 300ms. Isso não é um diário de sonhos. É um espelho para a mente.',
+    f1title: 'Reconstrução Neural', f1desc: 'Frameworks Freudiano, Junguiano e de Neurociência aplicados simultaneamente. Três lentes. Uma verdade.',
+    f2title: 'Visualização em 293ms', f2desc: 'Seu sonho se torna uma imagem cinematográfica antes de você terminar de descrevê-lo. A velocidade é o luxo.',
+    f3title: 'Arquivo Global de Sonhos', f3desc: 'Um feed público do inconsciente coletivo. Cada Arquiteto contribui para o primeiro banco de dados de sonhos do mundo.',
+    f4title: 'Dreamlink — Conexão de Sonhos', f4desc: 'Quando um estranho sonha o que você sonhou, o Soniar os conecta. Uma imagem co-sonhada que nenhum dos dois poderia criar sozinho.',
+    labelStack: 'O Stack',
+    stackTitle: 'Construído sobre infraestrutura<br>que <em>nunca dorme.</em>',
+    labelArchitect: 'O Tier Arquiteto',
+    architectTitle: 'Um plano.<br><em>Sem compromissos.</em>',
+    pricingTier: 'Arquiteto', pricingPeriod: '/ mês · cancele quando quiser',
+    pf1: '<strong>Interpretações ilimitadas</strong> de sonhos',
+    pf2: '<strong>Os 3 frameworks</strong> — Freud, Jung e Neurociência',
+    pf3: '<strong>Visualização em 293ms</strong> — nós edge dedicados',
+    pf4: '<strong>Feed público</strong> — seus sonhos no arquivo global',
+    pf5: '<strong>Download e compartilhamento</strong> — exports ilimitados',
+    pf6: '<strong>Dream Codex</strong> — histórico completo e análise de padrões',
+    pf7: '<strong>Dreamlink</strong> — co-sonhos com desconhecidos',
+    pf8: '<strong>Processamento prioritário</strong> — sempre primeiro na fila',
+    paymentLabel: 'Formas de pagamento aceitas',
+    labelGrowth: 'Mecânicas de Crescimento',
+    growthTitle: 'Loops de aquisição<br><em>viral</em> integrados.',
+    growthSub: 'Duas mecânicas que transformam o próprio produto no canal de marketing.',
+    l1num: 'Loop 01 · Dream Matching', l1title: 'Quando um estranho<br>sonhou <em>o seu sonho</em>',
+    l1desc: 'Cada sonho é comparado com o arquivo completo. Quando a similaridade ultrapassa o limiar, o Soniar conecta os usuários. A notificação parece uma mensagem do universo — não um alerta do sistema.',
+    l2num: 'Loop 02 · Exports com Marca', l2title: 'A marca que faz<br>as pessoas <em>perguntarem</em>',
+    l2desc: 'Um sigilo pulsante no canto — não uma marca punitiva, mas uma feature estética. Quando os usuários do TikTok perguntam "o que é esse símbolo?" o criador responde: "É do Soniar."',
+    quote: '"O sonho é a pequena porta escondida no sanctum mais profundo e íntimo da alma."',
+    quoteAttr: 'Carl Gustav Jung · Arquiteto do Inconsciente',
+    stat1: 'Latência de geração', stat2: 'Do sonho ao export', stat3: 'Tier Arquiteto / mês', stat4: 'Histórias que valem ser sonhadas',
+    footerCopy: '© 2026 Soniar · Arquitetando o Inconsciente',
   }
+};
 
-  _supabaseClient.auth.onAuthStateChange((event, session) => {
-    if (event === 'SIGNED_IN' && session) {
-      currentUser = session.user;
-      updateProfileUI(currentUser);
-      // Only redirect to home on initial sign in, not on token refresh
-      const activeScreen = document.querySelector('.screen.active');
-      const activeId = activeScreen ? activeScreen.id : '';
-      if (!activeId || activeId === 's-login') {
-        goTo('s-home');
-      }
-      loadVideos();
-    } else if (event === 'SIGNED_OUT') {
-      currentUser = null;
-      goTo('s-login');
-    }
+function detectLang() {
+  var lang = (navigator.language || navigator.userLanguage || 'en').toLowerCase().substring(0, 2);
+  if (lang === 'es') return 'es';
+  if (lang === 'pt') return 'pt';
+  return 'en';
+}
+
+function applyLang(t) {
+  // Nav
+  var navLinks = document.querySelectorAll('.nav-link');
+  if (navLinks[0]) navLinks[0].textContent = t.navVision;
+  if (navLinks[1]) navLinks[1].textContent = t.navStack;
+  if (navLinks[2]) navLinks[2].textContent = t.navArchitect;
+
+  // Hero
+  var eyebrow = document.querySelector('.hero-eyebrow');
+  if (eyebrow) eyebrow.innerHTML = t.eyebrow;
+  var heroTitle = document.querySelector('.hero-title');
+  if (heroTitle) heroTitle.innerHTML = t.heroTitle;
+  var heroSub = document.querySelector('.hero-sub');
+  if (heroSub) heroSub.innerHTML = t.heroSub;
+  var btnArchs = document.querySelectorAll('.btn-architect');
+  btnArchs.forEach(btn => {
+    var span = btn.querySelector('.btn-price');
+    var firstNode = btn.firstChild;
+    if (firstNode && firstNode.nodeType === 3) firstNode.textContent = t.btnArchitect + ' ';
+    else btn.insertBefore(document.createTextNode(t.btnArchitect + ' '), btn.firstChild);
+    if (span) span.textContent = t.btnPrice;
   });
+  var btnFeed = document.querySelector('.btn-feed');
+  if (btnFeed) btnFeed.textContent = t.btnFeed;
+
+  // Metrics
+  var metricLabels = document.querySelectorAll('.metric-label');
+  if (metricLabels[0]) metricLabels[0].textContent = t.metricLatency;
+  if (metricLabels[1]) metricLabels[1].textContent = t.metricTaps;
+  if (metricLabels[2]) metricLabels[2].textContent = t.metricArchive;
+
+  // Labels
+  var labels = document.querySelectorAll('.label');
+  if (labels[0]) labels[0].innerHTML = t.labelVision + '<span></span>';
+  if (labels[1]) labels[1].innerHTML = t.labelStack + '<span></span>';
+  if (labels[2]) labels[2].innerHTML = t.labelArchitect + '<span></span>';
+  if (labels[3]) labels[3].innerHTML = t.labelGrowth + '<span></span>';
+
+  // Vision
+  var sectionTitles = document.querySelectorAll('.section-title');
+  if (sectionTitles[0]) sectionTitles[0].innerHTML = t.visionTitle;
+  if (sectionTitles[1]) sectionTitles[1].innerHTML = t.stackTitle;
+  if (sectionTitles[2]) sectionTitles[2].innerHTML = t.architectTitle;
+  if (sectionTitles[3]) sectionTitles[3].innerHTML = t.growthTitle;
+  var bodyTexts = document.querySelectorAll('.body-text');
+  if (bodyTexts[0]) bodyTexts[0].innerHTML = t.visionBody;
+  if (bodyTexts[1]) bodyTexts[1].innerHTML = t.growthSub;
+
+  // Features
+  var fTitles = document.querySelectorAll('.feature-title');
+  var fDescs = document.querySelectorAll('.feature-desc');
+  if (fTitles[0]) fTitles[0].textContent = t.f1title;
+  if (fTitles[1]) fTitles[1].textContent = t.f2title;
+  if (fTitles[2]) fTitles[2].textContent = t.f3title;
+  if (fTitles[3]) fTitles[3].textContent = t.f4title;
+  if (fDescs[0]) fDescs[0].innerHTML = t.f1desc;
+  if (fDescs[1]) fDescs[1].innerHTML = t.f2desc;
+  if (fDescs[2]) fDescs[2].innerHTML = t.f3desc;
+  if (fDescs[3]) fDescs[3].innerHTML = t.f4desc;
+
+  // Pricing
+  var pricingTierEl = document.querySelector('.pricing-tier');
+  if (pricingTierEl) pricingTierEl.innerHTML = '<span style="width:20px;height:1px;background:var(--gold);opacity:0.5;display:inline-block;margin-right:10px;"></span>' + t.pricingTier;
+  var pricingPeriodEl = document.querySelector('.pricing-period');
+  if (pricingPeriodEl) pricingPeriodEl.textContent = t.pricingPeriod;
+  var pfs = document.querySelectorAll('.pf');
+  var pfKeys = ['pf1','pf2','pf3','pf4','pf5','pf6','pf7','pf8'];
+  pfs.forEach((el, i) => { if (pfKeys[i] && t[pfKeys[i]]) el.innerHTML = t[pfKeys[i]]; });
+  var payLabel = document.querySelector('.payment-label');
+  if (payLabel) payLabel.textContent = t.paymentLabel;
+
+  // Loops
+  var loopNums = document.querySelectorAll('.loop-num');
+  var loopTitles = document.querySelectorAll('.loop-title');
+  var loopDescs = document.querySelectorAll('.loop-desc');
+  if (loopNums[0]) loopNums[0].textContent = t.l1num;
+  if (loopNums[1]) loopNums[1].textContent = t.l2num;
+  if (loopTitles[0]) loopTitles[0].innerHTML = t.l1title;
+  if (loopTitles[1]) loopTitles[1].innerHTML = t.l2title;
+  if (loopDescs[0]) loopDescs[0].textContent = t.l1desc;
+  if (loopDescs[1]) loopDescs[1].textContent = t.l2desc;
+
+  // Quote
+  var quoteEl = document.querySelector('.closing-quote');
+  if (quoteEl) quoteEl.textContent = t.quote;
+  var quoteAttr = document.querySelector('.closing-attr');
+  if (quoteAttr) quoteAttr.textContent = t.quoteAttr;
+
+  // Stats
+  var statLabels = document.querySelectorAll('.stat-label');
+  if (statLabels[0]) statLabels[0].textContent = t.stat1;
+  if (statLabels[1]) statLabels[1].textContent = t.stat2;
+  if (statLabels[2]) statLabels[2].textContent = t.stat3;
+  if (statLabels[3]) statLabels[3].textContent = t.stat4;
+
+  // Footer
+  var footerCopyEl = document.querySelector('.footer-copy');
+  if (footerCopyEl) footerCopyEl.textContent = t.footerCopy;
 }
 
-function updateProfileUI(user) {
-  if (!user) return;
-  const name = user.user_metadata?.full_name || user.email?.split('@')[0] || 'User';
-  const initial = name[0].toUpperCase();
-  document.querySelectorAll('.avatar-btn').forEach(el => el.textContent = initial);
-  document.querySelectorAll('.profile-avatar').forEach(el => el.textContent = initial);
-  document.querySelectorAll('.profile-name').forEach(el => el.textContent = name);
-  document.querySelectorAll('.profile-email').forEach(el => el.textContent = user.email || '');
-}
-
-async function forgotPassword() {
-  const email = document.getElementById('auth-email').value.trim();
-  if (!email) { showAuthError('Enter your email first'); return; }
-  const { error } = await _supabaseClient.auth.resetPasswordForEmail(email, {
-    redirectTo: window.location.href
-  });
-  if (error) showAuthError(error.message);
-  else showAuthError('Password reset email sent ✓');
-}
-
-async function loginWithGoogle() {
-  const { error } = await _supabaseClient.auth.signInWithOAuth({
-    provider: 'google',
-    options: { redirectTo: window.location.href }
-  });
-  if (error) showAuthError(error.message);
-}
-
-async function loginWithEmail() {
-  const email = document.getElementById('auth-email').value.trim();
-  const password = document.getElementById('auth-password').value;
-  if (!email || !password) { showAuthError('Enter email and password'); return; }
-  const { error } = await _supabaseClient.auth.signInWithPassword({ email, password });
-  if (error) showAuthError(error.message);
-}
-
-async function signUpWithEmail() {
-  const email = document.getElementById('auth-email').value.trim();
-  const password = document.getElementById('auth-password').value;
-  if (!email || !password) { showAuthError('Enter email and password'); return; }
-  if (password.length < 6) { showAuthError('Password must be at least 6 characters'); return; }
-  const { error } = await _supabaseClient.auth.signUp({ email, password });
-  if (error) showAuthError(error.message);
-  else showAuthError('Check your email to confirm your account ✓');
-}
-
-async function logout() {
-  await _supabaseClient.auth.signOut();
-}
-
-function showAuthError(msg) {
-  const el = document.getElementById('auth-error');
-  el.textContent = msg;
-  el.style.display = 'block';
-  setTimeout(() => el.style.display = 'none', 4000);
-}
-
-const WORKER_URL = 'https://soniarplus-backend.almacenmujica.workers.dev';
-const WORKER_TOKEN = 'snr_2024_s3cr3t_t0k3n';
-
-let currentRequestId = null;
-let selectedDuration = 6;
-
-function selectDuration(btn, duration) {
-  btn.closest('.duration-row').querySelectorAll('.duration-btn').forEach(b => b.classList.remove('active'));
-  btn.classList.add('active');
-  selectedDuration = duration;
-}
-let pollInterval = null;
-let currentPrompt = '';
-
-function goTo(id) {
-  // Close clip picker if open
-  const picker = document.getElementById('clip-picker');
-  if (picker) picker.classList.remove('open');
-  // Pause any playing videos
-  document.querySelectorAll('video').forEach(v => { try { v.pause(); v.currentTime = 0; } catch(e){} });
-  document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
-  const target = document.getElementById(id);
-  if (target) target.classList.add('active');
-  // Force viewport recalc for Chrome iOS — fixes layout jump on navigation
-  const app = document.getElementById('app');
-  if (app) {
-    app.style.height = window.innerHeight + 'px';
-    requestAnimationFrame(() => {
-      app.style.height = '';
-    });
-  }
-}
-
-
-function switchTab(btn, id) {
-  btn.closest('.bottom-nav').querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
-  btn.classList.add('active');
-  goTo(id);
-  if (id === 's-feed') loadFeed();
-}
-
-let detectTimeout;
-function detectType(val) {
-  clearTimeout(detectTimeout);
-  const sug = document.getElementById('suggestions');
-  const det = document.getElementById('detected-type');
-  if (!val) { sug.style.display = 'none'; det.style.opacity = '0'; return; }
-  sug.style.display = 'none';
-  detectTimeout = setTimeout(() => {
-    if (val.length > 8) {
-      let t = 'Fiction';
-      if (/\b(I|my|we)\b/i.test(val)) t = 'Personal';
-      else if (/\b(hotel|travel|visit|city|beach)\b/i.test(val)) t = 'Tourism';
-      else if (/\b(product|launch|brand|buy|sell)\b/i.test(val)) t = 'Product';
-      document.getElementById('detected-label').textContent = t;
-      det.style.opacity = '1';
-    }
-  }, 700);
-}
-
-function fillStory(text) {
-  const el = document.getElementById('story-input');
-  el.value = text; el.focus(); detectType(text);
-  updatePromptCounter(text);
-}
-
-function updatePromptCounter(val) {
-  const counter = document.getElementById('prompt-counter');
-  if (!counter) return;
-  const len = val.length;
-  counter.textContent = len + '/500';
-  counter.style.color = len > 450 ? 'var(--red)' : len > 350 ? 'var(--gold)' : 'var(--muted)';
-}
-
-const CLIENT_BLOCKED = [
-  // English
-  /\bnude\b|\bnaked\b|\bnudity\b|\btopless\b/i,
-  /\bpenis\b|\bvagina\b|\bvulva\b|\bnipple/i,
-  /\bporn/i, /\bxxx\b/i, /\berotic\b/i,
-  /\bsex\s*(scene|tape|video|act)\b/i,
-  /\bmasturbat/i, /\bhentai\b/i,
-  /\b(child|minor|kid|toddler)\s*(nude|naked|sex|porn)/i,
-  /\b(nude|naked|sex|porn)\s*(child|minor|kid|toddler)/i,
-  /\bloli\b|\bshota\b|\bpedo/i,
-  /ignore\s*(previous|all)\s*instruct/i,
-  /\bjailbreak\b/i, /\bbypass\s*filter/i,
-  // Spanish
-  /\bdesnud/i,
-  /\bdesvestid/i,
-  /\bencuerad/i,
-  /\bmasturb/i,
-  /\bporno\b/i,
-  /\berótic/i,
-  /\bsexo\b/i,
-  /\bpene\b|\bseno(s)?\b|\bpecho(s)?\b/i,
-  /\bcoito\b|\bfornicar/i,
-  /\borgasmo/i,
-  /\bputa(s)?\b|\bprostitu/i,
-  /\b(niño|niña|menor|infante|bebé|adolescente)\s*(desnud|sex|porn)/i,
-  /\b(desnud|sex|porn)\s*(niño|niña|menor|infante)/i,
-  /\bpedofil/i,
-  /ignora.*instrucciones/i,
-  /sin\s*restricciones/i,
-  // Portuguese
-  /\bdesnud/i, /\bnu(a|o|as|os)\b/i,
-  /\bporn[oô]/i, /\bsexo\b/i, /\bmasturbac/i,
-  /\b(criança|menor|bebê)\s*(nua|nu|sexo|porn)/i,
-  /\bpedofil/i, /\berótic/i,
-  // French
-  /\bnudité/i, /\bpornograph/i, /\bérotique/i,
-  /\bsexe\b/i, /\bmasturb/i, /\bseins\b/i,
-  /\b(enfant|mineur)\s*(nu|nue|sexe|porn)/i,
-  /\bpédophil/i,
-  // Italian
-  /\bnud(o|a|i|e)\b/i, /\bpornografi/i,
-  /\berotico/i, /\bsesso\b/i, /\bseno\b/i,
-  /\b(bambino|minore)\s*(nudo|nuda|sesso|porn)/i,
-  // German
-  /\bnackt/i, /\berotisch/i, /\bsexuell/i,
-  /\bbrüste\b/i, /\bpädophil/i,
-  /\b(kind|minderjährig)\s*(nackt|sex|porn)/i,
-  // Multilingual jailbreak
-  /sans\s*restrictions/i,
-  /ohne\s*einschränkungen/i,
-  /senza\s*restrizioni/i,
-  /sem\s*restrições/i,
-];
-
-function sanitizePrompt(text) {
-  return text
-    .replace(/[\r\n]+/g, ' ')
-    .replace(/\s{2,}/g, ' ')
-    .trim()
-    .substring(0, 500);
-}
-
-function checkPromptModeration(text) {
-  return CLIENT_BLOCKED.find(p => p.test(text));
-}
-
-function showPromptError(msg) {
-  const card = document.querySelector('.input-card');
-  const ta = document.getElementById('story-input');
-  if (card) card.style.borderColor = 'var(--red)';
-  if (ta) ta.style.color = 'var(--red)';
-  showToast('⚠️ ' + msg);
-  setTimeout(() => {
-    if (card) card.style.borderColor = '';
-    if (ta) ta.style.color = '';
-  }, 3000);
-}
-
-function selectStyle(el) {
-  el.closest('.styles-row').querySelectorAll('.tag').forEach(t => t.classList.remove('active'));
-  el.classList.add('active');
-}
-
-function setProgress(pct) {
-  document.getElementById('gen-progress-bar').style.width = pct + '%';
-}
-
-function setGenStatus(text) {
-  document.getElementById('gen-status').textContent = text;
-}
-
-function setGenLabel(text) {
-  document.getElementById('gen-scene-label').textContent = text;
-}
-
-function showGenError(msg) {
-  const el = document.getElementById('gen-error');
-  const retryBtn = document.createElement('button');
-  retryBtn.textContent = 'Try Again';
-  retryBtn.style.cssText = 'margin-top:10px;background:var(--vivid);color:#fff;border:none;border-radius:10px;padding:8px 16px;font-size:0.8rem;cursor:pointer;display:block;';
-  retryBtn.onclick = () => goTo('s-home');
-  el.innerHTML = '';
-  el.appendChild(document.createTextNode(msg));
-  el.appendChild(document.createElement('br'));
-  el.appendChild(retryBtn);
-  el.style.display = 'block';
-  setGenStatus('ERROR ✕');
-  setProgress(0);
-  if (pollInterval) { clearInterval(pollInterval); pollInterval = null; }
-}
-
-async function startGeneration() {
-  const story = document.getElementById('story-input').value.trim();
-  if (!story) { showToast('Write your story first ✦'); return; }
-
-  currentPrompt = story;
-  currentRequestId = null;
-  if (pollInterval) { clearInterval(pollInterval); pollInterval = null; }
-
-  document.getElementById('gen-error').style.display = 'none';
-  setProgress(5);
-  setGenStatus('SENDING TO AI...');
-  setGenLabel('Generating your video');
-  const etaText = selectedDuration <= 6 ? 'About 30–60 seconds' : selectedDuration <= 10 ? 'About 1–2 minutes' : 'About 2–3 minutes';
-  document.getElementById('gen-eta').textContent = etaText;
-  goTo('s-generating');
-
-  try {
-    const res = await fetch(WORKER_URL + '/generate', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        'Authorization': 'Bearer ' + WORKER_TOKEN,
-      },
-      body: JSON.stringify({ prompt: story, user_id: currentUser?.id || 'anonymous', duration: selectedDuration }),
-    });
-
-    const data = await res.json();
-
-    if (!data.success) {
-      if (data.error && data.error.includes('Rate limit')) {
-        showGenError('You\'ve reached the limit of 8 videos per hour. Please try again later.');
-      } else {
-        showGenError('Failed to start generation: ' + (data.error || 'Unknown error'));
-      }
-      return;
-    }
-
-    // Handle queued status
-    if (data.status === 'queued') {
-      setGenStatus('IN QUEUE...');
-      setProgress(10);
-      setGenLabel('Position ' + (data.queue_position || '?') + ' in queue');
-      document.getElementById('gen-eta').textContent = 'Waiting for a spot to open...';
-      // Keep polling Supabase for when it starts processing
-      pollInterval = setInterval(async () => {
-        try {
-          const { data: rows } = await _supabaseClient
-            .from('projects')
-            .select('status, request_id')
-            .eq('prompt', currentPrompt)
-            .eq('status', 'processing')
-            .limit(1);
-          if (rows && rows.length > 0 && rows[0].request_id) {
-            clearInterval(pollInterval);
-            currentRequestId = rows[0].request_id;
-            setProgress(15);
-            setGenStatus('PROCESSING...');
-            startPolling(rows[0].request_id, 'text-to-video');
-          }
-        } catch(e) {}
-      }, 5000);
-      return;
-    }
-
-    if (!data.request_id) {
-      showGenError('Failed to start generation');
-      return;
-    }
-
-    currentRequestId = data.request_id;
-    setProgress(15);
-    setGenStatus('IN QUEUE...');
-    startPolling(data.request_id, data.model_type || 'text-to-video');
-
-  } catch (e) {
-    showGenError('Connection error. Check your internet and try again.');
-  }
-}
-
-function startPolling(requestId, modelType) {
-  let elapsed = 0;
-  let progress = 15;
-
-  pollInterval = setInterval(async () => {
-    elapsed += 5;
-
-    // Timeout after 10 minutes
-    if (elapsed > 600) {
-      clearInterval(pollInterval);
-      pollInterval = null;
-      showGenError('Generation timed out. Please try again.');
-      return;
-    }
-
-    // Animate progress bar slowly up to 90%
-    if (progress < 88) {
-      progress = Math.min(88, progress + (Math.random() * 3));
-      setProgress(progress);
-    }
-
-    // Update status messages
-    if (elapsed < 30) setGenStatus('PROCESSING...');
-    else if (elapsed < 60) setGenStatus('RENDERING FRAMES...');
-    else if (elapsed < 120) setGenStatus('ALMOST DONE...');
-    else setGenStatus('FINALIZING...');
-
-    const mins = Math.floor(elapsed / 60);
-    const secs = elapsed % 60;
-    document.getElementById('gen-eta').textContent = `Elapsed: ${mins > 0 ? mins + 'm ' : ''}${secs}s`;
-
-    try {
-      const res = await fetch(
-        WORKER_URL + '/status?request_id=' + requestId + '&model_type=' + modelType + '&prompt=' + encodeURIComponent(currentPrompt) + '&user_id=app_user'
-      );
-      const data = await res.json();
-
-      if (data.status === 'COMPLETED') {
-        // Extract video URL
-        let videoUrl = data.video_url || null;
-        if (!videoUrl && data.result) {
-          const r = data.result;
-          if (r.video && r.video.url) videoUrl = r.video.url;
-          else if (r.video_url) videoUrl = r.video_url;
-          else if (r.url) videoUrl = r.url;
-        }
-        if (videoUrl) {
-          // Got the URL — show the video
-          clearInterval(pollInterval);
-          pollInterval = null;
-          setProgress(100);
-          setGenStatus('COMPLETE!');
-          setTimeout(() => showResult(videoUrl), 600);
-        } else {
-          // COMPLETED but no URL yet — switch to fast polling every 1s
-          setGenStatus('SAVING VIDEO...');
-          setProgress(95);
-          if (pollInterval) {
-            clearInterval(pollInterval);
-            pollInterval = setInterval(async () => {
-              try {
-                const r = await fetch(WORKER_URL + '/status?request_id=' + requestId + '&model_type=' + modelType + '&prompt=' + encodeURIComponent(currentPrompt) + '&user_id=app_user');
-                const d = await r.json();
-                const url = d.video_url || null;
-                if (url) {
-                  clearInterval(pollInterval);
-                  pollInterval = null;
-                  setProgress(100);
-                  setGenStatus('COMPLETE!');
-                  setTimeout(() => showResult(url), 300);
-                }
-              } catch(e) {}
-            }, 1000);
-          }
-        }
-
-      } else if (data.status === 'FAILED') {
-        clearInterval(pollInterval);
-        pollInterval = null;
-        showGenError('Generation failed. Please try again.');
-      }
-    } catch (e) {
-      // Keep polling on network errors
-      console.error('Poll error:', e);
-    }
-  }, 5000);
-}
-
-function showResult(videoUrl, videoId) {
-  const videoEl = document.getElementById('result-video-el');
-  const promptEl = document.getElementById('result-prompt-text');
-  const downloadBtn = document.getElementById('result-download-btn');
-  const publishBtn = document.getElementById('btn-publish-feed');
-
-  promptEl.textContent = '"' + currentPrompt + '"';
-  const captionEl = document.getElementById('result-caption-text');
-  if (captionEl) captionEl.textContent = currentPrompt;
-  currentVideoId = videoId || null;
-  currentVideoUrl = videoUrl || null;
-
-  if (publishBtn) {
-    publishBtn.textContent = '🌐 Publish to Feed';
-    publishBtn.disabled = false;
-  }
-
-  if (videoUrl) {
-    videoEl.src = videoUrl;
-    videoEl.load();
-    downloadBtn.onclick = () => {
-      const a = document.createElement('a');
-      a.href = videoUrl;
-      a.download = 'soniar-video.mp4';
-      a.target = '_blank';
-      document.body.appendChild(a);
-      a.click();
-      document.body.removeChild(a);
-    };
-  } else {
-    videoEl.parentElement.innerHTML = '<p style="color:var(--muted);font-size:0.82rem;padding:20px;text-align:center;">Video generated! URL not available yet.</p>';
-  }
-
-  goTo('s-result');
-  loadVideos();
-}
-
-function selectFont(btn) {
-  btn.closest('.font-row').querySelectorAll('.font-btn').forEach(b => b.classList.remove('active'));
-  btn.classList.add('active');
-}
-
-function selectPos(btn) {
-  btn.closest('.pos-row').querySelectorAll('.pos-btn').forEach(b => b.classList.remove('active'));
-  btn.classList.add('active');
-}
-
-function updateCaption(val) {
-  const el = document.getElementById('preview-caption');
-  el.textContent = val.length > 28 ? val.substring(0, 28) + '...' : val;
-}
-
-function selectBilling(btn) {
-  btn.closest('.billing-toggle').querySelectorAll('.toggle-btn').forEach(b => b.classList.remove('active'));
-  btn.classList.add('active');
-}
-
-function selectFeedTab(btn) {
-  btn.closest('.feed-tabs').querySelectorAll('.feed-tab').forEach(t => t.classList.remove('active'));
-  btn.classList.add('active');
-}
-
-function showToast(msg) {
-  const t = document.getElementById('toast');
-  t.textContent = msg; t.classList.add('show');
-  setTimeout(() => t.classList.remove('show'), 2200);
-}
-
-// Load videos from Supabase — with memory cache for instant display
-let _videosCache = null;
-async function loadVideos() {
-  try {
-    // Show cached data instantly while fetching fresh
-    if (_videosCache) {
-      renderVideoGrid('recent-videos-grid', _videosCache.slice(0, 6));
-      renderVideoGrid('profile-videos-grid', _videosCache.slice(0, 6));
-    }
-    let query = _supabaseClient
-      .from('projects')
-      .select('id, title, video_url, thumbnail_url, prompt, created_at, status, user_id')
-      .eq('status', 'completed')
-      .not('video_url', 'is', null)
-      .order('created_at', { ascending: false })
-      .limit(12);
-
-    if (currentUser) {
-      query = query.eq('user_id', currentUser.id);
-    }
-
-    const { data, error } = await query;
-    if (error || !data) return;
-
-    _videosCache = data;
-    renderVideoGrid('recent-videos-grid', data.slice(0, 6));
-    renderVideoGrid('profile-videos-grid', data.slice(0, 6));
-
-    document.querySelectorAll('.stat-num').forEach((el, i) => {
-      if (i === 0) el.textContent = data.length;
-    });
-
-  } catch(e) {
-    console.error('loadVideos error:', e);
-  }
-}
-
-function renderVideoGrid(gridId, videos) {
-  const grid = document.getElementById(gridId);
-  if (!grid) return;
-
-  if (!videos || videos.length === 0) {
-    grid.innerHTML = '<div style="grid-column:1/-1;text-align:center;padding:20px 0;color:var(--muted);font-size:0.78rem;">No videos yet — generate your first one!</div>';
-    return;
-  }
-
-  const gradients = [
-    'linear-gradient(135deg,#0d0520,#061410)',
-    'linear-gradient(135deg,#1e0d00,#0d0617)',
-    'linear-gradient(135deg,#000d1e,#000a10)',
-    'linear-gradient(135deg,#160520,#05001e)',
-    'linear-gradient(135deg,#051e0d,#0d0517)',
-    'linear-gradient(135deg,#1e0d05,#051e16)',
-  ];
-  grid.innerHTML = videos.map((v, i) => {
-    const title = v.title || v.prompt?.substring(0, 30) || 'Untitled';
-    const bg = gradients[i % gradients.length];
-    const thumb = v.thumbnail_url
-      ? `<img src="${v.thumbnail_url}" class="thumb-img" alt="Video thumbnail" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:0;transition:opacity 0.3s;" loading="lazy" onload="this.style.opacity=1"/><div class="video-thumb-bg" style="background:${bg};z-index:-1;"></div>`
-      : `<div class="video-thumb-bg" style="background:${bg};"></div>`;
-    const vid = v.video_url;
-    const safeTitle = title.replace(/'/g, '');
-    return `<div class="video-thumb" style="position:relative;"
-      onmouseenter="previewVideo(this,'${vid}')"
-      onmouseleave="stopPreview(this)"
-      ontouchstart="previewVideo(this,'${vid}')"
-      ontouchend="stopPreview(this)"
-      onclick="playVideo('${vid}', '${safeTitle}')">
-      ${thumb}
-      <video class="preview-vid" muted playsinline loop style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:0;transition:opacity 0.4s;"></video>
-      <div class="video-overlay"></div>
-      <div class="play-sm">▶</div>
-      <div class="video-info">
-        <div class="video-title">${title.substring(0, 25)}</div>
-      </div>
-      <button onclick="event.stopPropagation();deleteVideo('${v.id}')" aria-label="Delete video" style="position:absolute;top:6px;right:6px;z-index:2;background:rgba(0,0,0,0.6);border:none;color:#fff;border-radius:50%;width:24px;height:24px;font-size:0.7rem;cursor:pointer;display:flex;align-items:center;justify-content:center;"><span aria-hidden="true">✕</span></button>
-    </div>`;
-  }).join('');
-}
-
-function playVideo(url, title) {
-  const videoEl = document.getElementById('result-video-el');
-  const promptEl = document.getElementById('result-prompt-text');
-  const downloadBtn = document.getElementById('result-download-btn');
-  if (videoEl) { videoEl.src = url; videoEl.load(); }
-  if (promptEl) promptEl.textContent = title;
-  if (downloadBtn) downloadBtn.onclick = () => window.open(url, '_blank');
-  goTo('s-result');
-}
-
-// Toggle caption
-let captionOn = true;
-function toggleCaption() {
-  captionOn = !captionOn;
-  document.getElementById('result-caption-overlay').style.display = captionOn ? 'block' : 'none';
-  document.getElementById('btn-toggle-caption').textContent = captionOn ? 'CC ON' : 'CC OFF';
-  document.getElementById('btn-toggle-caption').style.opacity = captionOn ? '1' : '0.5';
-}
-
-function changeCaptionFont(font) {
-  const el = document.getElementById('result-caption-text');
-  if (!el) return;
-  const fonts = {
-    bold: { family: "'Syne', sans-serif", weight: '800', size: '0.95rem' },
-    clean: { family: "'DM Sans', sans-serif", weight: '500', size: '0.9rem' },
-    mono: { family: "'Geist Mono', monospace", weight: '400', size: '0.78rem' },
-  };
-  const f = fonts[font] || fonts.bold;
-  el.style.fontFamily = f.family;
-  el.style.fontWeight = f.weight;
-  el.style.fontSize = f.size;
-}
-
-// Preview video on hover/touch
-function previewVideo(el, url) {
-  const vid = el.querySelector('.preview-vid');
-  const img = el.querySelector('.thumb-img');
-  if (!vid || !url) return;
-  vid.src = url;
-  vid.play().catch(() => {});
-  vid.style.opacity = '1';
-  if (img) img.style.opacity = '0';
-}
-
-function stopPreview(el) {
-  const vid = el.querySelector('.preview-vid');
-  const img = el.querySelector('.thumb-img');
-  if (!vid) return;
-  vid.pause();
-  vid.src = '';
-  vid.style.opacity = '0';
-  if (img) img.style.opacity = '1';
-}
-
-// Delete video
-async function deleteVideo(id, fromFeed = false) {
-  const msg = fromFeed ? 'Remove from Feed?' : 'Delete this video?';
-  if (!confirm(msg)) return;
-  try {
-    if (fromFeed) {
-      await _supabaseClient.from('projects').update({ is_public: false }).eq('id', id);
-      loadFeed();
-      showToast('Removed from Feed');
-    } else {
-      await _supabaseClient.from('projects').delete().eq('id', id);
-      loadVideos();
-      showToast('Video deleted');
-    }
-  } catch(e) {
-    showToast('Error');
-  }
-}
-
-// Publish to feed
-let currentVideoId = null;
-let currentVideoUrl = null;
-async function publishToFeed() {
-  if (!currentVideoUrl) { showToast('No video to publish'); return; }
-  try {
-    const { error } = await _supabaseClient
-      .from('projects')
-      .update({ is_public: true })
-      .eq('video_url', currentVideoUrl);
-    if (error) throw error;
-    showToast('Published to Feed! 🌐');
-    document.getElementById('btn-publish-feed').textContent = '✅ Published';
-    document.getElementById('btn-publish-feed').disabled = true;
-  } catch(e) {
-    console.error('publish error:', e);
-    showToast('Error publishing');
-  }
-}
-
-// Load feed (public videos)
-async function loadFeed() {
-  try {
-    const { data, error } = await _supabaseClient
-      .from('projects')
-      .select('id, title, video_url, thumbnail_url, prompt, created_at, user_id')
-      .eq('is_public', true)
-      .not('video_url', 'is', null)
-      .order('created_at', { ascending: false })
-      .limit(20);
-
-    if (error || !data) return;
-    renderFeedPosts(data);
-  } catch(e) {}
-}
-
-function renderFeedPosts(videos) {
-  const feed = document.querySelector('.feed-content');
-  if (!feed || !videos.length) return;
-
-  feed.innerHTML = videos.map(v => {
-    const title = v.title || v.prompt?.substring(0, 40) || 'Untitled';
-    const thumb = v.thumbnail_url
-      ? `<img src="${v.thumbnail_url}" alt="Video thumbnail" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;" loading="lazy"/>`
-      : `<div style="position:absolute;inset:0;background:linear-gradient(135deg,#1a0a3e,#0d2a1e);"></div>`;
-    const isOwner = currentUser && v.user_id === currentUser.id;
-    return `<div class="post-card">
-      <div class="post-header">
-        <div class="post-avatar" style="background:linear-gradient(135deg,#7c5cbf,#5b3fa0);"></div>
-        <div><div class="post-name">${isOwner ? 'You' : '@user'}</div></div>
-        <span class="post-time">${new Date(v.created_at).toLocaleDateString()}</span>
-        ${isOwner ? `<button onclick="deleteVideo('${v.id}', true)" style="background:none;border:none;color:var(--muted);cursor:pointer;font-size:0.8rem;margin-left:auto;">✕</button>` : ''}
-      </div>
-      <div class="post-video" onclick="playVideo('${v.video_url}', '${title.replace(/'/g, '')}')">
-        ${thumb}
-        <div class="post-play"><div class="post-play-btn">▶</div></div>
-      </div>
-      <div class="post-actions">
-        <div class="action">♥ 0</div>
-        <div class="action">💬 0</div>
-        <div class="action">↗ Share</div>
-      </div>
-    </div>`;
-  }).join('');
-}
-
-// Attach event listeners directly (scripts are at end of body, DOM is ready)
-(function() {
-  const btnGoogle = document.getElementById('btn-google');
-  const btnSignin = document.getElementById('btn-signin');
-  const btnSignup = document.getElementById('btn-signup');
-  const btnForgot = document.getElementById('btn-forgot');
-  const btnPublish = document.getElementById('btn-publish-feed');
-  const btnLogout = document.getElementById('btn-logout');
-
-  if (btnGoogle) btnGoogle.addEventListener('click', loginWithGoogle);
-  if (btnSignin) btnSignin.addEventListener('click', loginWithEmail);
-  if (btnSignup) btnSignup.addEventListener('click', () => {
-    // Highlight email input
-    const emailEl = document.getElementById('auth-email');
-    if (emailEl) {
-      emailEl.style.setProperty('border-color', 'rgba(255,255,255,0.95)', 'important');
-      emailEl.style.setProperty('box-shadow', '0 0 0 3px rgba(178,143,255,0.4)', 'important');
-      emailEl.focus();
-      setTimeout(() => {
-        emailEl.style.setProperty('border-color', 'rgba(255,255,255,0.3)', 'important');
-        emailEl.style.setProperty('box-shadow', 'none', 'important');
-      }, 2500);
-    }
-    signUpWithEmail();
-  });
-  if (btnPublish) btnPublish.addEventListener('click', publishToFeed);
-  if (btnLogout) btnLogout.addEventListener('click', logout);
-
-  if (btnForgot) btnForgot.addEventListener('click', async () => {
-    const email = document.getElementById('auth-email').value.trim();
-    if (!email) { showAuthError('Enter your email first'); return; }
-    const { error } = await _supabaseClient.auth.resetPasswordForEmail(email, {
-      redirectTo: window.location.href
-    });
-    if (error) showAuthError(error.message);
-    else showAuthError('Password reset email sent ✓');
-  });
-
-  // Safe area fix for Chrome iOS
-  const isChromeIOS = /CriOS/.test(navigator.userAgent);
-  const isiOS = /iPad|iPhone|iPod/.test(navigator.userAgent);
-  const isChromeiOS = isChromeIOS || (isiOS && /Chrome/.test(navigator.userAgent));
-  if (isChromeiOS) {
-    document.documentElement.style.setProperty('--safe-top', '50px');
-    document.documentElement.style.setProperty('--safe-bottom', '20px');
-  }
-
-  initAuth();
-  // Load random video for login background
-  async function loadLoginBg() {
-    try {
-      const { data } = await _supabaseClient
-        .from('projects')
-        .select('video_url')
-        .eq('status', 'completed')
-        .not('video_url', 'is', null)
-        .limit(10);
-      if (data && data.length > 0) {
-        const random = data[Math.floor(Math.random() * data.length)];
-        const vid = document.getElementById('login-bg-video');
-        if (vid && random.video_url) {
-          vid.src = random.video_url;
-          vid.load();
-          vid.addEventListener('loadeddata', () => {
-            // Fade in video smoothly
-            vid.style.opacity = '0.9';
-            // Re-enforce white text
-            ['auth-email','auth-password'].forEach(id => {
-              const el = document.getElementById(id);
-              if (el) {
-                el.style.setProperty('color', '#ffffff', 'important');
-                el.style.setProperty('-webkit-text-fill-color', '#ffffff', 'important');
-              }
-            });
-          });
-          const tryPlay = () => vid.play().catch(() => {});
-          tryPlay();
-          document.addEventListener('touchstart', tryPlay, { once: true });
-          document.addEventListener('click', tryPlay, { once: true });
-        }
-      }
-    } catch(e) {}
-  }
-  loadLoginBg();
-})();
-
-// ============================================================
-// TIMELINE EDITOR
-// ============================================================
-let tlClips = []; // [{id, title, video_url, thumbnail_url, duration, transition}]
-let allUserVideos = []; // loaded from Supabase
-const MAX_CLIPS = 5;
-const MAX_DURATION = 45;
-const TRANSITIONS = [
-  { id: 'cut', label: 'Cut', icon: '✂' },
-  { id: 'fade-black', label: 'Fade to black', icon: '⬛' },
-  { id: 'cross-dissolve', label: 'Cross dissolve', icon: '⊕' },
-];
-
-
-let currentTimelineId = null; // Supabase project id for current timeline
-
-function openTimeline() {
-  goTo('s-timeline');
-  loadClipPickerVideos();
-  loadTimeline(); // Load saved timeline from Supabase
-}
-
-async function loadTimeline() {
-  if (!currentUser) { renderTimeline(); return; }
-  try {
-    const { data } = await _supabaseClient
-      .from('projects')
-      .select('id, clips')
-      .eq('user_id', currentUser.id)
-      .eq('type', 'timeline')
-      .eq('status', 'draft')
-      .order('created_at', { ascending: false })
-      .limit(1);
-    const row = data && data.length > 0 ? data[0] : null;
-    if (row && row.clips && row.clips.length > 0) {
-      currentTimelineId = row.id;
-      tlClips = row.clips;
-      allUserVideos = [];
-      loadClipPickerVideos();
-    }
-  } catch(e) {}
-  renderTimeline();
-}
-
-async function saveTimeline() {
-  if (!currentUser) return;
-  try {
-    if (currentTimelineId) {
-      // Update existing
-      await _supabaseClient
-        .from('projects')
-        .update({ clips: tlClips, created_at: new Date().toISOString() })
-        .eq('id', currentTimelineId);
-    } else {
-      // Create new
-      const { data } = await _supabaseClient
-        .from('projects')
-        .insert({
-          user_id: currentUser.id,
-          type: 'timeline',
-          status: 'draft',
-          title: 'My Timeline',
-          clips: tlClips
-        })
-        .select('id')
-        .single();
-      if (data) currentTimelineId = data.id;
-    }
-  } catch(e) {
-    console.error('saveTimeline error:', e);
-  }
-  // Flash saved indicator
-  const ind = document.getElementById('tl-saved-indicator');
-  if (ind) { ind.style.display = 'inline'; setTimeout(() => ind.style.display = 'none', 2000); }
-}
-
-async function deleteTimelineDraft() {
-  if (!currentTimelineId || !currentUser) return;
-  try {
-    await _supabaseClient.from('projects').delete().eq('id', currentTimelineId);
-    currentTimelineId = null;
-    tlClips = [];
-    renderTimeline();
-    showToast('Timeline cleared');
-  } catch(e) {}
-}
-
-function renderTimeline() {
-  const container = document.getElementById('tl-clips-container');
-  const addBtn = document.getElementById('tl-add-btn');
-
-  if (tlClips.length === 0) {
-    container.innerHTML = '<div class="tl-empty" onclick="openClipPicker()" style="cursor:pointer;"><div class="tl-empty-icon">⊞</div><p>Add clips from your Recent Creations to build a timeline.</p><div style="margin-top:12px;background:var(--vivid);color:#fff;border-radius:12px;padding:10px 20px;font-size:0.78rem;font-weight:700;display:inline-block;">+ Add clips</div></div>';
-  } else {
-    container.innerHTML = tlClips.map((clip, i) => `
-      <div class="tl-clip" data-index="${i}">
-        <span class="tl-handle" title="Drag to reorder" aria-label="Drag to reorder clip" role="button" tabindex="0">⠿</span>
-        <div class="tl-thumb" style="background:${clip.gradient || 'linear-gradient(135deg,#1a0a3e,#2d1b69)'};">
-          ${clip.thumbnail_url ? `<img src="${clip.thumbnail_url}" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;" loading="lazy" alt=""/>` : ''}
-          <span class="tl-dur-badge">${clip.duration || '?'}s</span>
-        </div>
-        <div class="tl-info">
-          <div class="tl-clip-title">${clip.title || 'Untitled'}</div>
-          <div class="tl-clip-meta">LTX 2.0</div>
-        </div>
-        <button class="tl-remove" onclick="removeClip(${i})" aria-label="Remove clip ${clip.title || 'clip'}">✕</button>
-      </div>
-      ${i < tlClips.length - 1 ? `
-      <div class="tl-transition" style="position:relative;" id="tl-trans-${i}">
-        <div class="tl-line"></div>
-        <div class="tl-pill" onclick="toggleTransitionMenu(${i})" role="button" aria-label="Change transition: ${TRANSITIONS.find(t=>t.id===clip.transition)?.label || 'Cut'}" tabindex="0">
-          <span>${TRANSITIONS.find(t=>t.id===clip.transition)?.icon || '✂'}</span>
-          <span class="tl-pill-label">${TRANSITIONS.find(t=>t.id===clip.transition)?.label || 'Cut'}</span>
-          <span class="tl-pill-arrow">▾</span>
-        </div>
-        <div class="tl-line"></div>
-        <div class="tl-transition-menu" id="tl-menu-${i}">
-          ${TRANSITIONS.map(t => `<div class="tl-t-option${clip.transition===t.id?' selected':''}" onclick="setTransition(${i},'${t.id}')" role="option" aria-selected="${clip.transition===t.id}" tabindex="0" onkeydown="if(event.key==='Enter')setTransition(${i},'${t.id}')">${t.icon} ${t.label}</div>`).join('')}
-        </div>
-      </div>` : ''}
-    `).join('');
-    initDragDrop();
-  }
-
-  // Update duration bar
-  updateDurationBar();
-
-  // Show add btn only when there are clips (empty state has its own button)
-  addBtn.style.display = tlClips.length === 0 ? 'none' : 'flex';
-
-  // Disable add button if max clips or max duration reached
-  const totalDur = tlClips.reduce((s, c) => s + (parseFloat(c.duration) || 5), 0);
-  const maxReached = tlClips.length >= MAX_CLIPS || totalDur >= MAX_DURATION;
-  addBtn.style.opacity = maxReached ? '0.4' : '1';
-  addBtn.style.pointerEvents = maxReached ? 'none' : 'auto';
-  addBtn.disabled = maxReached;
-  addBtn.setAttribute('aria-disabled', maxReached ? 'true' : 'false');
-  const addSpan = addBtn.querySelector('span:last-child');
-  if (addSpan) addSpan.textContent = maxReached 
-    ? (tlClips.length >= MAX_CLIPS ? 'Maximum 5 clips reached' : 'Maximum duration reached')
-    : 'Add clip from Recent Creations';
-}
-
-function updateDurationBar() {
-  const total = tlClips.reduce((s, c) => s + (parseFloat(c.duration) || 5), 0);
-  const pct = Math.min((total / MAX_DURATION) * 100, 100);
-  document.getElementById('tl-dur-fill').style.width = pct + '%';
-  document.getElementById('tl-dur-val').textContent = Math.round(total) + 's / ' + MAX_DURATION + 's';
-}
-
-function removeClip(index) {
-  tlClips.splice(index, 1);
-  renderTimeline();
-  saveTimeline();
-}
-
-function setTransition(index, transitionId) {
-  tlClips[index].transition = transitionId;
-  document.querySelectorAll('.tl-transition-menu').forEach(m => m.classList.remove('open'));
-  renderTimeline();
-  saveTimeline();
-}
-
-function toggleTransitionMenu(index) {
-  const menu = document.getElementById('tl-menu-' + index);
-  const isOpen = menu.classList.contains('open');
-  document.querySelectorAll('.tl-transition-menu').forEach(m => m.classList.remove('open'));
-  if (!isOpen) menu.classList.add('open');
-}
-
-// Close menus on outside click
-document.addEventListener('click', e => {
-  if (!e.target.closest('.tl-pill') && !e.target.closest('.tl-transition-menu')) {
-    document.querySelectorAll('.tl-transition-menu').forEach(m => m.classList.remove('open'));
-  }
-});
-
-// Drag & drop reorder
-function initDragDrop() {
-  const clips = document.querySelectorAll('.tl-clip');
-  let dragIdx = null;
-  clips.forEach((el, i) => {
-    el.setAttribute('draggable', true);
-    el.addEventListener('dragstart', () => { dragIdx = i; el.classList.add('dragging'); });
-    el.addEventListener('dragend', () => el.classList.remove('dragging'));
-    el.addEventListener('dragover', e => { e.preventDefault(); });
-    el.addEventListener('drop', () => {
-      if (dragIdx === null || dragIdx === i) return;
-      const moved = tlClips.splice(dragIdx, 1)[0];
-      tlClips.splice(i, 0, moved);
-      dragIdx = null;
-      renderTimeline();
-    });
-  });
-}
-
-// Clip Picker
-async function loadClipPickerVideos() {
-  if (allUserVideos.length > 0) { renderClipPicker(); return; }
-  try {
-    let q = _supabaseClient
-      .from('projects')
-      .select('id, title, video_url, thumbnail_url, prompt, created_at')
-      .eq('status', 'completed')
-      .not('video_url', 'is', null)
-      .order('created_at', { ascending: false })
-      .limit(30);
-    if (currentUser) q = q.eq('user_id', currentUser.id);
-    const { data } = await q;
-    allUserVideos = data || [];
-    renderClipPicker();
-  } catch(e) {}
-}
-
-const gradients = [
-  'linear-gradient(135deg,#0d0520,#1a0a3e)',
-  'linear-gradient(135deg,#1e0d00,#3b2000)',
-  'linear-gradient(135deg,#000d1e,#0d2040)',
-  'linear-gradient(135deg,#160520,#2d0a4e)',
-  'linear-gradient(135deg,#051e0d,#0a3b1a)',
-  'linear-gradient(135deg,#1e0d05,#3b1a0a)',
-];
-
-function renderClipPicker() {
-  const grid = document.getElementById('cp-grid');
-  if (!allUserVideos.length) {
-    grid.innerHTML = '<div style="grid-column:1/-1;text-align:center;padding:30px;color:rgba(255,255,255,0.3);font-size:0.8rem;">No videos yet</div>';
-    return;
-  }
-  const selectedIds = tlClips.map(c => c.id);
-  grid.innerHTML = allUserVideos.map((v, i) => {
-    const sel = selectedIds.includes(v.id);
-    const bg = gradients[i % gradients.length];
-    const label = (v.title||v.prompt||'Clip').substring(0,40).replace(/"/g,'');
-    return `<div class="cp-item${sel ? ' selected' : ''}" data-vid-id="${i}" role="checkbox" aria-checked="${sel}" aria-label="${label}" tabindex="0" style="background:${bg};cursor:pointer;">
-      ${v.thumbnail_url ? `<img src="${v.thumbnail_url}" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;" loading="lazy" alt=""/>` : ''}
-      <div style="position:absolute;inset:0;background:linear-gradient(to top,rgba(0,0,0,0.6) 0%,transparent 60%);"></div>
-      <div style="position:absolute;bottom:4px;left:5px;right:5px;font-size:0.55rem;color:#fff;font-weight:600;line-height:1.2;">${(v.title||v.prompt||'').substring(0,25)}</div>
-      <div class="cp-item-check">✓</div>
-    </div>`;
-  }).join('');
-
-  // Bind clicks via JS to avoid inline onclick issues
-  grid.querySelectorAll('.cp-item').forEach((el, i) => {
-    el.addEventListener('click', () => {
-      const video = allUserVideos[i];
-      if (!video) return;
-      console.log('cp-item clicked:', video.id);
-      toggleClipSelection(video.id);
-    });
-  });
-}
-
-function toggleClipSelection(videoId) {
-  const video = allUserVideos.find(v => v.id === videoId);
-  if (!video) return;
-  const existingIdx = tlClips.findIndex(c => c.id === videoId);
-  if (existingIdx >= 0) {
-    tlClips.splice(existingIdx, 1);
-  } else {
-    if (tlClips.length >= MAX_CLIPS) { showToast('Max 5 clips'); return; }
-    tlClips.push({
-      id: video.id,
-      title: video.title || video.prompt?.substring(0, 30) || 'Untitled',
-      video_url: video.video_url,
-      thumbnail_url: video.thumbnail_url,
-      duration: 5,
-      transition: 'cut',
-      gradient: gradients[allUserVideos.indexOf(video) % gradients.length]
-    });
-  }
-  renderClipPicker();
-  renderTimeline();
-  debouncedSave();
-}
-
-let _saveTimeout = null;
-function debouncedSave() {
-  clearTimeout(_saveTimeout);
-  _saveTimeout = setTimeout(saveTimeline, 1500);
-}
-
-function openClipPicker() {
-  document.getElementById('clip-picker').classList.add('open');
-  renderClipPicker();
-}
-
-function closeClipPicker() {
-  document.getElementById('clip-picker').classList.remove('open');
-}
-
-function confirmClearTimeline() {
-  if (tlClips.length === 0) { showToast('Timeline is already empty'); return; }
-  if (!confirm('Clear the timeline? This cannot be undone.')) return;
-  deleteTimelineDraft();
-}
-
-// Preview — plays clips sequentially with transition effects
-async function previewTimeline() {
-  if (tlClips.length === 0) { showToast('Add clips first'); return; }
-  const modal = document.getElementById('tl-preview-modal');
-  const vid = document.getElementById('tl-preview-video');
-  modal.style.display = 'flex';
-  vid.style.opacity = '1';
-  let idx = 0;
-
-  async function applyTransition(type) {
-    if (type === 'cut') return; // No transition
-    // Fade out
-    vid.style.transition = 'opacity 0.4s ease';
-    vid.style.opacity = '0';
-    await new Promise(r => setTimeout(r, 400));
-  }
-
-  async function playNext() {
-    if (idx >= tlClips.length) { idx = 0; }
-    const clip = tlClips[idx];
-    const prevClip = idx > 0 ? tlClips[idx - 1] : null;
-    if (prevClip) await applyTransition(prevClip.transition);
-    vid.src = clip.video_url;
-    vid.style.transition = 'opacity 0.4s ease';
-    vid.load();
-    vid.play().catch(() => {});
-    vid.style.opacity = '1';
-  }
-
-  vid.onended = () => { idx++; playNext(); };
-  playNext();
-}
-
-function closeTlPreview() {
-  const modal = document.getElementById('tl-preview-modal');
-  modal.style.display = 'none';
-  document.getElementById('tl-preview-video').pause();
-  document.getElementById('tl-preview-video').src = '';
-}
-
-// Export — merge clips via FAL and save to Recent Creations
-async function exportTimeline() {
-  if (tlClips.length === 0) { showToast('Add clips first'); return; }
-  if (tlClips.length < 2) { showToast('Add at least 2 clips to merge'); return; }
-
-  const btn = document.querySelector('.tl-btn-export');
-  const origHTML = btn ? btn.innerHTML : '';
-  if (btn) { btn.innerHTML = '⏳ Merging...'; btn.disabled = true; }
-
-  try {
-    // 1. Submit merge to Worker
-    const res = await fetch(WORKER_URL + '/merge-timeline', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        'Authorization': 'Bearer ' + WORKER_TOKEN,
-      },
-      body: JSON.stringify({
-        clips: tlClips,
-        user_id: currentUser?.id,
-        title: 'My Timeline — ' + new Date().toLocaleDateString(),
-      }),
-    });
-
-    const data = await res.json();
-    if (!data.success) {
-      showToast('❌ ' + (data.error || 'Merge failed'));
-      if (btn) { btn.innerHTML = origHTML; btn.disabled = false; }
-      return;
-    }
-
-    showToast('🎬 Merging clips...');
-    const { request_id, project_id } = data;
-
-    // 2. Poll for completion
-    let attempts = 0;
-    const maxAttempts = 60; // 5 minutes max
-    const pollInterval = setInterval(async () => {
-      attempts++;
-      if (attempts > maxAttempts) {
-        clearInterval(pollInterval);
-        showToast('❌ Merge timed out');
-        if (btn) { btn.innerHTML = origHTML; btn.disabled = false; }
-        return;
-      }
-
-      try {
-        const statusRes = await fetch(
-          `${WORKER_URL}/merge-status?request_id=${request_id}&project_id=${project_id || ''}`,
-          { headers: { 'Authorization': 'Bearer ' + WORKER_TOKEN } }
-        );
-        const statusData = await statusRes.json();
-
-        if (statusData.status === 'COMPLETED' && statusData.video_url) {
-          clearInterval(pollInterval);
-          if (btn) { btn.innerHTML = origHTML; btn.disabled = false; }
-          showToast('✅ Timeline merged!');
-          // Show result and refresh videos
-          showResult(statusData.video_url);
-          _videosCache = null;
-          loadVideos();
-        } else if (statusData.status === 'FAILED') {
-          clearInterval(pollInterval);
-          showToast('❌ Merge failed');
-          if (btn) { btn.innerHTML = origHTML; btn.disabled = false; }
-        }
-      } catch(e) {}
-    }, 5000);
-
-  } catch(e) {
-    showToast('❌ Connection error');
-    if (btn) { btn.innerHTML = origHTML; btn.disabled = false; }
-  }
-}
-
-// Fallback — download clips individually
-async function downloadClipsIndividually() {
-  if (tlClips.length === 0) { showToast('Add clips first'); return; }
-  const btn = document.querySelector('.tl-btn-export');
-  const origHTML = btn ? btn.innerHTML : '';
-  for (let i = 0; i < tlClips.length; i++) {
-    if (btn) btn.innerHTML = `⬇ ${i + 1}/${tlClips.length}`;
-    const a = document.createElement('a');
-    a.href = tlClips[i].video_url;
-    a.download = `soniar-clip-${String(i + 1).padStart(2, '0')}.mp4`;
-    a.target = '_blank';
-    document.body.appendChild(a);
-    a.click();
-    document.body.removeChild(a);
-    await new Promise(r => setTimeout(r, 1000));
-  }
-  if (btn) btn.innerHTML = origHTML;
-  showToast('✅ All clips downloaded!');
-}
-
+// Apply language on load
+var lang = detectLang();
+if (lang !== 'en') applyLang(i18n[lang]);
 </script>
 </body>
 </html>
