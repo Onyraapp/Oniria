@@ -1201,7 +1201,20 @@ async function doNav() {
   splashDone = true;
 
   // Navegar YA sin esperar nada
-  if (localStorage.getItem('soniar_onboarded') || new URLSearchParams(window.location.search).get('feed')) { go('feed'); } else { go('feed'); _showOnboard(); }
+  try {
+    if (localStorage.getItem('soniar_onboarded') || new URLSearchParams(window.location.search).get('feed')) { 
+      go('feed'); 
+    } else { 
+      go('feed'); 
+      _showOnboard(); 
+    }
+  } catch(e) {
+    // Si go() falla, forzar ocultamiento del splash manualmente
+    var splash = document.getElementById('s-splash');
+    var feed = document.getElementById('s-feed');
+    if (splash) splash.classList.remove('active');
+    if (feed) feed.classList.add('active');
+  }
 
   // Todo lo demás en background
   setTimeout(async function() {
@@ -1232,7 +1245,7 @@ async function doNav() {
   }, 100);
 }
 
-setTimeout(doNav, 2000);
+setTimeout(doNav, 1500);
 
 // Watchdog — si en 4s el splash sigue visible, forzar navegación
 setTimeout(function() {
@@ -1241,7 +1254,7 @@ setTimeout(function() {
     splashDone = false;
     doNav();
   }
-}, 4000);
+}, 3500);
 
 // Inicializar Supabase cuando esté disponible
 function initSupabase() {
