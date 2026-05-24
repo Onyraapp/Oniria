@@ -399,6 +399,17 @@
     .carousel-card-label { position: absolute; bottom: 0; left: 0; right: 0; padding: 6px 8px; background: linear-gradient(to top, rgba(8,8,16,0.9), transparent); font-size: 0.55rem; color: var(--purple-soft); font-style: italic; line-height: 1.3; font-family: 'Playfair Display', serif; }
 
 
+    /* COMPARACION FREUD VS JUNG */
+    .compare-section { margin-top: 1.25rem; border-top: 0.5px solid var(--border); padding-top: 1.25rem; }
+    .compare-school { display: flex; align-items: center; gap: 8px; margin-bottom: 0.6rem; }
+    .compare-badge { font-size: 0.62rem; letter-spacing: 0.12em; text-transform: uppercase; padding: 3px 10px; border-radius: 100px; font-family: 'DM Sans', sans-serif; font-weight: 500; }
+    .compare-badge.freud { background: rgba(139,111,255,0.15); color: #a78bfa; border: 0.5px solid rgba(139,111,255,0.3); }
+    .compare-badge.jung { background: rgba(212,168,83,0.15); color: #d4a853; border: 0.5px solid rgba(212,168,83,0.3); }
+    .compare-text { font-size: 0.87rem; color: #E2E8F0; line-height: 1.85; font-weight: 300; }
+    .compare-divider { height: 0.5px; background: var(--border); margin: 1.25rem 0; }
+    .compare-loading { display: flex; align-items: center; gap: 8px; font-size: 0.78rem; color: var(--muted); }
+    .compare-spinner { width: 12px; height: 12px; border: 1.5px solid var(--purple-dim); border-top-color: var(--purple); border-radius: 50%; animation: spin 0.8s linear infinite; flex-shrink: 0; }
+
     .dict-modal { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.8); z-index: 100; align-items: flex-end; justify-content: center; }
     .dict-modal.open { display: flex; }
     .dict-card { background: var(--surface); border: 0.5px solid var(--border); border-radius: 20px 20px 0 0; padding: 1.5rem 1.25rem; width: 100%; max-width: 430px; }
@@ -624,6 +635,21 @@
             <span id="audio-btn-txt">Escuchar</span>
           </button>
         </div>
+        <!-- COMPARACION FREUD VS JUNG - solo premium -->
+        <div id="compare-section" style="display:none;" class="compare-section">
+          <span class="rsect-lbl">Freud vs Jung</span>
+          <div class="compare-school">
+            <span class="compare-badge freud">🪑 Freud</span>
+          </div>
+          <div class="compare-loading" id="compare-freud-loading"><div class="compare-spinner"></div>Analizando desde Freud...</div>
+          <div class="compare-text" id="compare-freud-text" style="display:none;"></div>
+          <div class="compare-divider"></div>
+          <div class="compare-school">
+            <span class="compare-badge jung">🌀 Jung</span>
+          </div>
+          <div class="compare-loading" id="compare-jung-loading"><div class="compare-spinner"></div>Analizando desde Jung...</div>
+          <div class="compare-text" id="compare-jung-text" style="display:none;"></div>
+        </div>
       </div>
       <div class="feedback-section">
         <div class="feedback-label">Ajustar imagen</div>
@@ -643,7 +669,7 @@
       <div class="result-actions" id="result-actions" style="display:flex;flex-direction:column;gap:10px;padding:1rem 1.25rem 1.5rem;">
         <button id="save-btn" onclick="saveDream()" style="display:flex;align-items:center;justify-content:center;gap:8px;background:linear-gradient(135deg,#8B6FFF,#6344E0);color:#fff;border:none;border-radius:100px;padding:0.85rem 1.5rem;font-size:0.95rem;font-weight:700;cursor:pointer;width:100%;font-family:'DM Sans',sans-serif;box-shadow:0 4px 20px rgba(124,92,255,0.35);">
           <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 21H5a2 2 0 01-2-2V5a2 2 0 012-2h11l5 5v11a2 2 0 01-2 2z"/><polyline points="17 21 17 13 7 13 7 21"/><polyline points="7 3 7 8 15 8"/></svg>
-          <span id="save-btn-txt">Guardar en diario y feed</span>
+          <span id="save-btn-txt">Guardar en mi diario</span>
         </button>
         <div style="display:flex;gap:10px;">
           <button onclick="downloadImageIfAllowed()" style="display:flex;align-items:center;justify-content:center;gap:6px;flex:1;background:linear-gradient(135deg,#8B6FFF,#6344E0);color:#fff;border:none;border-radius:100px;padding:0.75rem 1rem;font-size:0.85rem;font-weight:600;cursor:pointer;font-family:'DM Sans',sans-serif;box-shadow:0 2px 12px rgba(124,92,255,0.25);">
@@ -895,13 +921,14 @@
     <div style="width:72px;height:72px;border-radius:50%;background:linear-gradient(135deg,#7C5CFF,#3A8DFF);display:flex;align-items:center;justify-content:center;">
       <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1.5"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
     </div>
-    <div id="upgrade-title" style="font-family:'Bebas Neue',sans-serif;font-size:2.2rem;font-weight:400;color:var(--text);letter-spacing:0.05em;">Unite a Soniar</div>
-    <div id="upgrade-sub" style="font-size:0.88rem;color:var(--muted);line-height:1.7;font-weight:300;max-width:280px;">Para guardar tus sueños, publicarlos en el feed y ser parte de la comunidad Soniar necesitás una suscripción.</div>
+    <div id="upgrade-title" style="font-family:'Bebas Neue',sans-serif;font-size:2.2rem;font-weight:400;color:var(--text);letter-spacing:0.05em;">Soniar Premium</div>
+    <div id="upgrade-sub" style="font-size:0.88rem;color:var(--muted);line-height:1.7;font-weight:300;max-width:280px;">Publicá tus sueños, interpretaciones ilimitadas y accedé a todas las funciones por solo $4.90/mes.</div>
     <div style="display:flex;flex-direction:column;gap:0.6rem;width:100%;max-width:280px;">
-      <div id="upf-0" style="display:flex;align-items:center;gap:0.75rem;font-size:0.83rem;color:var(--text);background:var(--surface);border-radius:12px;padding:0.7rem 1rem;border:0.5px solid var(--border);"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#a78bfa" stroke-width="1.5"><polyline points="20 6 9 17 4 12"/></svg>Publicá en el feed de la comunidad</div>
-      <div id="upf-1" style="display:flex;align-items:center;gap:0.75rem;font-size:0.83rem;color:var(--text);background:var(--surface);border-radius:12px;padding:0.7rem 1rem;border:0.5px solid var(--border);"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#a78bfa" stroke-width="1.5"><polyline points="20 6 9 17 4 12"/></svg>Sueños ilimitados por mes</div>
-      <div id="upf-2" style="display:flex;align-items:center;gap:0.75rem;font-size:0.83rem;color:var(--text);background:var(--surface);border-radius:12px;padding:0.7rem 1rem;border:0.5px solid var(--border);"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#a78bfa" stroke-width="1.5"><polyline points="20 6 9 17 4 12"/></svg>Historial completo guardado</div>
-      <div id="upf-3" style="display:flex;align-items:center;gap:0.75rem;font-size:0.83rem;color:var(--text);background:var(--surface);border-radius:12px;padding:0.7rem 1rem;border:0.5px solid var(--border);"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#a78bfa" stroke-width="1.5"><polyline points="20 6 9 17 4 12"/></svg>Reacciones y perfil propio</div>
+      <div id="upf-0" style="display:flex;align-items:center;gap:0.75rem;font-size:0.83rem;color:var(--text);background:var(--surface);border-radius:12px;padding:0.7rem 1rem;border:0.5px solid var(--border);"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#a78bfa" stroke-width="1.5"><polyline points="20 6 9 17 4 12"/></svg>Publicar en el feed (alias o anónimo)</div>
+      <div id="upf-1" style="display:flex;align-items:center;gap:0.75rem;font-size:0.83rem;color:var(--text);background:var(--surface);border-radius:12px;padding:0.7rem 1rem;border:0.5px solid var(--border);"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#a78bfa" stroke-width="1.5"><polyline points="20 6 9 17 4 12"/></svg>Interpretaciones ilimitadas</div>
+      <div id="upf-2" style="display:flex;align-items:center;gap:0.75rem;font-size:0.83rem;color:var(--text);background:var(--surface);border-radius:12px;padding:0.7rem 1rem;border:0.5px solid var(--border);"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#a78bfa" stroke-width="1.5"><polyline points="20 6 9 17 4 12"/></svg>Comparar Freud vs Jung</div>
+      <div id="upf-3" style="display:flex;align-items:center;gap:0.75rem;font-size:0.83rem;color:var(--text);background:var(--surface);border-radius:12px;padding:0.7rem 1rem;border:0.5px solid var(--border);"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#a78bfa" stroke-width="1.5"><polyline points="20 6 9 17 4 12"/></svg>Insights de patrones recurrentes</div>
+      <div id="upf-4" style="display:flex;align-items:center;gap:0.75rem;font-size:0.83rem;color:var(--text);background:var(--surface);border-radius:12px;padding:0.7rem 1rem;border:0.5px solid var(--border);"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#a78bfa" stroke-width="1.5"><polyline points="20 6 9 17 4 12"/></svg>Opciones visuales premium</div>
     </div>
 
     
@@ -913,9 +940,10 @@
           <div style="font-size:0.85rem;color:var(--muted);font-weight:600;">$0</div>
         </div>
         <div style="display:flex;flex-direction:column;gap:0.3rem;">
-          <div id="upff-0" style="display:flex;align-items:center;gap:0.5rem;font-size:0.78rem;color:var(--muted);"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#6B7280" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>3 sueños interpretados</div>
-          <div id="upff-1" style="display:flex;align-items:center;gap:0.5rem;font-size:0.78rem;color:var(--muted);"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#ef4444" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>Sin feed comunitario</div>
-          <div id="upff-2" style="display:flex;align-items:center;gap:0.5rem;font-size:0.78rem;color:var(--muted);"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#ef4444" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>Sin historial de sueños</div>
+          <div id="upff-0" style="display:flex;align-items:center;gap:0.5rem;font-size:0.78rem;color:var(--muted);"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#6B7280" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>Ver el feed libremente</div>
+          <div id="upff-1" style="display:flex;align-items:center;gap:0.5rem;font-size:0.78rem;color:var(--muted);"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#6B7280" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>Reaccionar a publicaciones</div>
+          <div id="upff-2" style="display:flex;align-items:center;gap:0.5rem;font-size:0.78rem;color:var(--muted);"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#6B7280" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>Guardar y compartir imágenes</div>
+          <div id="upff-3" style="display:flex;align-items:center;gap:0.5rem;font-size:0.78rem;color:var(--muted);"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#6B7280" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>3 interpretaciones gratis</div>
         </div>
       </div>
       <div style="display:flex;align-items:center;gap:0.5rem;margin:0.25rem 0;"><div style="flex:1;height:0.5px;background:var(--border);"></div><span style="font-size:0.65rem;color:var(--dim);letter-spacing:0.08em;text-transform:uppercase;">Premium</span><div style="flex:1;height:0.5px;background:var(--border);"></div></div>
@@ -931,7 +959,7 @@
             <div style="font-size:0.92rem;color:var(--text);font-weight:600;" id="up-monthly-label">Arquitecto Mensual</div>
             <div style="font-size:0.72rem;color:var(--muted);margin-top:2px;" id="up-monthly-sub">Tarjeta · Cancelá cuando quieras</div>
           </div>
-          <div style="font-size:1.3rem;color:#a78bfa;font-weight:700;">$49<span style="font-size:0.7rem;color:var(--muted);font-weight:400;">/mes</span></div>
+          <div style="font-size:1.3rem;color:#a78bfa;font-weight:700;">$4.90<span style="font-size:0.7rem;color:var(--muted);font-weight:400;">/mes</span></div>
         </div>
       </button>
       <!-- Crypto -->
@@ -1450,7 +1478,7 @@ var i18n = {
     homeBtn: 'Contar mi sueño',
     homeFeedBtn: 'Ver sueños de la comunidad 🌙',
     onboardSub: 'Contale a la IA tu sueño de anoche. Recibí una interpretación y una imagen generada al instante.',
-    resultSaveBtn: 'Guardar en diario y feed',
+    resultSaveBtn: 'Guardar en mi diario',
     resultDownloadBtn: 'Descargar imagen',
     resultShareBtn: 'Compartir',
     trendingReactions: 'reacciones',
@@ -1592,7 +1620,7 @@ var i18n = {
     homeBtn: 'Tell my dream',
     homeFeedBtn: 'Explore the community 🌙',
     onboardSub: 'Tell the AI your dream. Get an interpretation and an AI-generated image instantly.',
-    resultSaveBtn: 'Save to journal & feed',
+    resultSaveBtn: 'Save to my journal',
     resultDownloadBtn: 'Download image',
     resultShareBtn: 'Share',
     trendingReactions: 'reactions',
@@ -1730,7 +1758,7 @@ var i18n = {
     homeBtn: 'Contar meu sonho',
     homeFeedBtn: 'Ver sonhos da comunidade 🌙',
     onboardSub: 'Conte seu sonho para a IA. Receba uma interpretação e uma imagem gerada na hora.',
-    resultSaveBtn: 'Salvar no diário e feed',
+    resultSaveBtn: 'Salvar no meu diário',
     resultDownloadBtn: 'Baixar imagem',
     resultShareBtn: 'Compartilhar',
     trendingReactions: 'reações',
@@ -3106,6 +3134,15 @@ async function callAI(dreamText, feedback, isRegen, forceAbstract) {
     // Mostrar texto y disparar imagen con el prompt narrativo de Claude
     renderResultText(parsed);
 
+    // Generar comparacion Freud vs Jung para usuarios premium
+    var isPremComp = currentProfile && (currentProfile.plan === 'premium' || currentProfile.plan === 'trial');
+    if (isPremComp) {
+      document.getElementById('compare-section').style.display = 'none';
+      generateComparison(dreamText);
+    } else {
+      document.getElementById('compare-section').style.display = 'none';
+    }
+
     // PASO 3: imagen con el prompt narrativo — mucho mejor calidad
     generateImage(fp, 'nude, nsfw, children, realistic faces, text, watermark', '');
   } catch(ex) { console.error(ex); logError('callAI', ex.message, { dream: dreamText.substring(0,100) }); }
@@ -3374,7 +3411,7 @@ async function saveDream() {
         estilo: curResult.style,
         categoria: curResult.cat,
         intensidad: parseInt(document.getElementById('intensity').value),
-        es_publico: isPrem || dreamCount <= 1,  // premium siempre, free solo el 1er sueño
+        es_publico: isPrem,  // solo premium publica en el feed
         likes: 0
       });
       if (insertRes.error) console.error('Supabase insert error:', insertRes.error);
@@ -3393,10 +3430,9 @@ async function saveDream() {
   curResult = null; curPrompt = ''; feedbackHistory = [];
 
   track('dream_saved', { plan: currentProfile ? currentProfile.plan : 'free', lang: currentLang });
-  // Invalidar caché para que el nuevo sueño aparezca
   _feedCacheData = null;
-  // Ir directo al feed después de guardar
-  setTimeout(function(){ go('feed'); }, 400);
+  var isPremSave = currentProfile && (currentProfile.plan === 'premium' || currentProfile.plan === 'trial');
+  setTimeout(function(){ go(isPremSave ? 'feed' : 'home'); }, 400);
 }
 
 // SHARE
@@ -3542,6 +3578,47 @@ function downloadImage() {
 // AUDIO
 var audioCtx = null;
 
+
+async function generateComparison(dreamText) {
+  var isPrem = currentProfile && (currentProfile.plan === 'premium' || currentProfile.plan === 'trial');
+  if (!isPrem) return;
+
+  var section = document.getElementById('compare-section');
+  if (section) section.style.display = 'block';
+
+  var schools = ['freud', 'jung'];
+  for (var i = 0; i < schools.length; i++) {
+    var school = schools[i];
+    var loadEl = document.getElementById('compare-' + school + '-loading');
+    var textEl = document.getElementById('compare-' + school + '-text');
+
+    var schoolPrompt = school === 'freud'
+      ? 'Sos un psicoanalista freudiano experto. Analiza este sueño aplicando el marco de Freud: deseos inconscientes, represion, contenido latente vs manifiesto, mecanismos de defensa. 3-4 oraciones, sin terminos clinicos, tono poetico y personal.'
+      : 'Sos un analista junguiano experto. Analiza este sueño aplicando el marco de Jung: arquetipos (Sombra, Anima/Animus, Self), inconsciente colectivo, proceso de individuacion, amplificacion simbolica. 3-4 oraciones, sin terminos clinicos, tono poetico y personal.';
+
+    var isEn = currentLang === 'en';
+    var prompt = (isEn
+      ? 'You are an expert ' + (school === 'freud' ? 'Freudian' : 'Jungian') + ' analyst. Analyze this dream in 3-4 sentences using ' + (school === 'freud' ? 'Freud' : 'Jung') + ' framework. No clinical jargon, poetic and personal tone. Respond with plain text only, no JSON.'
+      : schoolPrompt + ' Responde solo con texto, sin JSON.') + '
+
+Sueno: "' + dreamText.substring(0, 500) + '"';
+
+    try {
+      var res = await fetch('https://oniria-backend.almacenmujica.workers.dev/anthropic', {
+        method: 'POST',
+        headers: {'Content-Type': 'application/json', 'x-soniar-token': SONIAR_TOKEN},
+        body: JSON.stringify({model: 'claude-sonnet-4-5', max_tokens: 300, messages: [{role: 'user', content: prompt}]})
+      });
+      var data = await res.json();
+      var text = (data.content && data.content[0] && data.content[0].text) ? data.content[0].text : '';
+      if (loadEl) loadEl.style.display = 'none';
+      if (textEl) { textEl.textContent = text; textEl.style.display = 'block'; }
+    } catch(e) {
+      if (loadEl) loadEl.style.display = 'none';
+      if (textEl) { textEl.textContent = 'No se pudo cargar esta interpretacion.'; textEl.style.display = 'block'; }
+    }
+  }
+}
 
 function retryImg() { if (curPrompt) generateImage(curPrompt, 'nude, nsfw, children, realistic faces, text, watermark', ''); }
 function regenImg() {
@@ -4189,7 +4266,7 @@ function closeDictModal(e) {
       </div>
     </div>
     <!-- Botones -->
-    <button id="_ob_upgrade" style="width:100%;max-width:340px;background:#8B6FFF;color:#fff;border:none;border-radius:100px;padding:1.1rem 1.5rem;font-family:'DM Sans',sans-serif;font-size:0.75rem;font-weight:700;letter-spacing:0.13em;cursor:pointer;box-shadow:0 0 50px rgba(139,111,255,0.5);margin-bottom:0.75rem;line-height:1.6;">CONVERTIRME EN ARQUITECTO<br><span style="font-size:0.65rem;font-weight:400;opacity:0.7;letter-spacing:0.08em;">$49 / MES</span></button>
+    <button id="_ob_upgrade" style="width:100%;max-width:340px;background:#8B6FFF;color:#fff;border:none;border-radius:100px;padding:1.1rem 1.5rem;font-family:'DM Sans',sans-serif;font-size:0.75rem;font-weight:700;letter-spacing:0.13em;cursor:pointer;box-shadow:0 0 50px rgba(139,111,255,0.5);margin-bottom:0.75rem;line-height:1.6;">CONVERTIRME EN ARQUITECTO<br><span style="font-size:0.65rem;font-weight:400;opacity:0.7;letter-spacing:0.08em;">$4.90 / MES</span></button>
     <button id="_ob_feed" style="width:100%;max-width:340px;background:transparent;color:rgba(255,255,255,0.5);border:1px solid rgba(255,255,255,0.15);border-radius:100px;padding:1rem 1.5rem;font-family:'DM Sans',sans-serif;font-size:0.75rem;font-weight:500;letter-spacing:0.13em;cursor:pointer;">EXPLORAR EL FEED PÚBLICO</button>
   </div>
 </div>
