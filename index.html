@@ -2432,15 +2432,7 @@ function pickOnboardGender(g) {
 function nextSlide(n) {
   document.querySelectorAll('.onboard-slide').forEach(function(s){ s.classList.remove('active'); });
   document.getElementById('ob'+n).classList.add('active');
-  if (n === 2) {
-    loadCarouselImages();
-    // Forzar visibilidad de imágenes del carrusel después de que el slide es visible
-    setTimeout(function() {
-      document.querySelectorAll('.carousel-card img').forEach(function(img) {
-        img.classList.add('loaded');
-      });
-    }, 300);
-  }
+  // carousel removido
 }
 function finishOnboard() {
   localStorage.setItem('soniar_onboarded', '1');
