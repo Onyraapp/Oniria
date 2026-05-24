@@ -4105,6 +4105,16 @@ function skipUsername() {
   go('home');
 }
 
+var STRIPE_PRICES = {
+  monthly: 'price_1TajOa2fy49WJZAKp01Jpb6p',
+  annual: 'price_1TajbX2fy49WJZAKbqA5Yszk'
+};
+
+var STRIPE_PRICES = {
+  monthly: 'price_1TajOa2fy49WJZAKp01Jpb6p',
+  annual: 'price_1TajbX2fy49WJZAKbqA5Yszk'
+};
+
 async function startCheckout(plan) {
   plan = plan || 'monthly';
   track('checkout_start', { plan: plan });
@@ -4138,10 +4148,11 @@ async function startCheckout(plan) {
     var btn = event && event.target ? event.target : null;
     if (btn) { btn.textContent = 'Redirigiendo...'; btn.disabled = true; }
 
+    var priceId = STRIPE_PRICES[plan] || STRIPE_PRICES['monthly'];
     var res = await fetch('https://oniria-backend.almacenmujica.workers.dev/checkout', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json', 'x-soniar-token': SONIAR_TOKEN },
-      body: JSON.stringify({ plan: plan, userId: userId })
+      body: JSON.stringify({ plan: plan, priceId: priceId, userId: userId })
     });
     var data = await res.json();
     if (data.url) {
@@ -4290,4 +4301,27 @@ document.addEventListener('DOMContentLoaded', function() {
 </body>
 </html>
 
-
+<!-- Mensual - Stripe -->
+      <button onclick="startCheckout('monthly')" style="background:linear-gradient(135deg,rgba(124,92,255,0.15),rgba(124,92,255,0.05));border:1.5px solid #7C5CFF;border-radius:16px;padding:1rem 1.25rem;cursor:pointer;text-align:left;width:100%;font-family:'DM Sans',sans-serif;position:relative;">
+        <div style="display:flex;justify-content:space-between;align-items:center;">
+          <div>
+            <div style="font-size:0.92rem;color:var(--text);font-weight:600;">Mensual</div>
+            <div style="font-size:0.72rem;color:var(--muted);margin-top:2px;">Cancelá cuando quieras</div>
+          </div>
+          <div style="font-size:1.3rem;color:#a78bfa;font-weight:700;">$4.90<span style="font-size:0.7rem;color:var(--muted);font-weight:400;">/mes</span></div>
+        </div>
+      </button>
+      <!-- Anual - Stripe -->
+      <button onclick="startCheckout('annual')" style="background:linear-gradient(135deg,rgba(212,168,83,0.12),rgba(212,168,83,0.04));border:1.5px solid #d4a853;border-radius:16px;padding:1rem 1.25rem;cursor:pointer;text-align:left;width:100%;font-family:'DM Sans',sans-serif;position:relative;margin-top:0.5rem;">
+        <div style="position:absolute;top:-10px;left:50%;transform:translateX(-50%);background:linear-gradient(135deg,#d4a853,#e8b96a);color:#080810;font-size:0.6rem;font-weight:700;letter-spacing:0.1em;padding:2px 10px;border-radius:100px;white-space:nowrap;">MEJOR PRECIO</div>
+        <div style="display:flex;justify-content:space-between;align-items:center;">
+          <div>
+            <div style="font-size:0.92rem;color:var(--text);font-weight:600;">Anual</div>
+            <div style="font-size:0.72rem;color:var(--muted);margin-top:2px;">Solo $2.49/mes · -58% vs mensual</div>
+          </div>
+          <div style="text-align:right;">
+            <div style="font-size:1.3rem;color:#d4a853;font-weight:700;">$29.90<span style="font-size:0.7rem;color:var(--muted);font-weight:400;">/año</span></div>
+          </div>
+        </div>
+      </button>
+      
