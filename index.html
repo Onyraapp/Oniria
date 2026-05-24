@@ -3610,11 +3610,7 @@ async function generateComparison(dreamText) {
       : 'Sos un analista junguiano experto. Analiza este sueño aplicando el marco de Jung: arquetipos (Sombra, Anima/Animus, Self), inconsciente colectivo, proceso de individuacion, amplificacion simbolica. 3-4 oraciones, sin terminos clinicos, tono poetico y personal.';
 
     var isEn = currentLang === 'en';
-    var prompt = (isEn
-      ? 'You are an expert ' + (school === 'freud' ? 'Freudian' : 'Jungian') + ' analyst. Analyze this dream in 3-4 sentences using ' + (school === 'freud' ? 'Freud' : 'Jung') + ' framework. No clinical jargon, poetic and personal tone. Respond with plain text only, no JSON.'
-      : schoolPrompt + ' Responde solo con texto, sin JSON.') + '
-
-Sueno: "' + dreamText.substring(0, 500) + '"';
+    var prompt = isEn ? ('You are an expert ' + (school === 'freud' ? 'Freudian' : 'Jungian') + ' analyst. Analyze this dream in 3-4 sentences using ' + (school === 'freud' ? 'Freud' : 'Jung') + ' framework. No clinical jargon, poetic and personal tone. Respond with plain text only, no JSON. Dream: ' + dreamText.substring(0, 400)) : (schoolPrompt + ' Responde solo con texto, sin JSON. Sueno: ' + dreamText.substring(0, 400));
 
     try {
       var res = await fetch('https://oniria-backend.almacenmujica.workers.dev/anthropic', {
