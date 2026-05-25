@@ -2071,7 +2071,7 @@ function applyLang(lang) {
   // Auth subtitle
   var authSub = document.getElementById('auth-subtitle');
   if (authSub) authSub.textContent = t.splashTagline;
-  if (obBtn && t.onboardBtn) obBtn.textContent = t.onboardBtn;
+  var obBtn = document.querySelector('.onboard-btn'); if (obBtn && t.onboardBtn) obBtn.textContent = t.onboardBtn;
   var obSkip = document.querySelector('.onboard-skip');
   if (obSkip && t.onboardSkip) obSkip.textContent = t.onboardSkip;
 
