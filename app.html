@@ -641,7 +641,7 @@
       <div class="result-actions" id="result-actions" style="display:flex;flex-direction:column;gap:10px;padding:1rem 1.25rem 1.5rem;">
         <button id="save-btn" onclick="saveDream()" style="display:flex;align-items:center;justify-content:center;gap:8px;background:linear-gradient(135deg,#8B6FFF,#6344E0);color:#fff;border:none;border-radius:100px;padding:0.85rem 1.5rem;font-size:0.95rem;font-weight:700;cursor:pointer;width:100%;font-family:'DM Sans',sans-serif;box-shadow:0 4px 20px rgba(124,92,255,0.35);">
           <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 21H5a2 2 0 01-2-2V5a2 2 0 012-2h11l5 5v11a2 2 0 01-2 2z"/><polyline points="17 21 17 13 7 13 7 21"/><polyline points="7 3 7 8 15 8"/></svg>
-          <span id="save-btn-txt">Guardar en diario y feed</span>
+          <span id="save-btn-txt">Guardar en mi diario</span>
         </button>
         <div style="display:flex;gap:10px;">
           <button onclick="downloadImageIfAllowed()" style="display:flex;align-items:center;justify-content:center;gap:6px;flex:1;background:linear-gradient(135deg,#8B6FFF,#6344E0);color:#fff;border:none;border-radius:100px;padding:0.75rem 1rem;font-size:0.85rem;font-weight:600;cursor:pointer;font-family:'DM Sans',sans-serif;box-shadow:0 2px 12px rgba(124,92,255,0.25);">
@@ -1031,7 +1031,7 @@
   <!-- DREAM DETAIL MODAL -->
 <div class="dream-modal" id="dream-modal" onclick="closeDreamModal(event)">
   <div class="dream-modal-card">
-    <button class="dream-modal-close" onclick="closeDreamModal()">✕ cerrar</button>
+    <button class="dream-modal-close" onclick="closeDreamModal()">← volver</button>
     <div style="display:none;margin-bottom:1rem;padding-bottom:1rem;border-bottom:0.5px solid var(--border);">
       <span style="font-size:0.62rem;color:var(--muted);letter-spacing:0.12em;text-transform:uppercase;display:block;margin-bottom:0.4rem;">Lo que soñaste</span>
       <div id="dm-dream-text" style="font-size:0.85rem;color:#94a3b8;line-height:1.7;font-style:italic;"></div>
@@ -1132,6 +1132,10 @@ try { savedLocal = JSON.parse(localStorage.getItem('soniar_local') || '[]'); } c
 var dreams = savedLocal.map(function(d) {
   return { dream: d.resumen, date: new Date(d.date), emo: d.emociones&&d.emociones[0]?d.emociones[0].nombre:'', cat: d.categoria||'', style: d.estilo||'', data: d, imgUrl: d.img_url || '' };
 }), curResult = null, curDreamText = '', selEmo = '', selCat = '', selStyle = 'Cinemático', curPrompt = '', feedbackHistory = [];
+try {
+  var _lr = localStorage.getItem('soniar_last_result');
+  if (_lr) { var _lrp = JSON.parse(_lr); curResult = {dream:_lrp.dream||'',date:new Date(),emo:_lrp.emo||'',cat:_lrp.cat||'',style:_lrp.style||'Cinematico',data:_lrp.data||{},prompt:_lrp.prompt||'',imgUrl:_lrp.imgUrl||''}; }
+} catch(e) {}
 
 var myLikes = {};
 
@@ -1185,7 +1189,7 @@ async function doNav() {
   splashDone = true;
 
   // Navegar YA sin esperar nada
-  if (localStorage.getItem('soniar_onboarded') || new URLSearchParams(window.location.search).get('feed')) { go('feed'); } else { go('feed'); _showOnboard(); }
+  if (localStorage.getItem('soniar_onboarded') || new URLSearchParams(window.location.search).get('feed')) { go('feed'); } else { go('feed'); }
 
   // Todo lo demás en background
   setTimeout(async function() {
@@ -3090,6 +3094,7 @@ async function callAI(dreamText, feedback, isRegen, forceAbstract) {
     var fp = parsed.flux_prompt || (dreamText.substring(0, 200) + ', ' + styleVibe + ', dreamlike atmosphere, no faces');
     curPrompt = fp;
     curResult = {dream: dreamText, date: new Date(), emo: selEmo, cat: selCat, style: selStyle, data: parsed, prompt: fp, imgUrl: ''};
+    try { localStorage.setItem('soniar_last_result', JSON.stringify({dream:dreamText,emo:selEmo,cat:selCat,style:selStyle,data:parsed,prompt:fp,imgUrl:''})); } catch(e) {}
 
     // Incrementar contador aquí - independiente de si guarda o no
     if (!isRegen) {
@@ -3185,6 +3190,11 @@ async function generateImage(prompt, negPrompt, artPrompt, isRetry) {
       document.getElementById('regen-loading').style.display = 'none';
       if (curResult) {
         curResult.imgUrl = data.imageUrl;
+        try { 
+          var _s = JSON.parse(localStorage.getItem('soniar_last_result')||'{}');
+          _s.imgUrl = data.imageUrl;
+          localStorage.setItem('soniar_last_result', JSON.stringify(_s));
+        } catch(e) {}
         // Subir imagen a Supabase Storage inmediatamente para que no expire
         if (currentUser && sb) {
           try {
@@ -3283,6 +3293,12 @@ async function playAudio() {
 
 // SAVE
 async function saveDream() {
+  if (!curResult) {
+    try {
+      var lr = localStorage.getItem('soniar_last_result');
+      if (lr) { var lrp = JSON.parse(lr); curResult = {dream:lrp.dream,date:new Date(),emo:lrp.emo,cat:lrp.cat,style:lrp.style,data:lrp.data,prompt:lrp.prompt,imgUrl:lrp.imgUrl||''}; }
+    } catch(e) {}
+  }
   if (!curResult) return;
   track('save_attempt');
 
@@ -3386,7 +3402,7 @@ async function saveDream() {
         estilo: curResult.style,
         categoria: curResult.cat,
         intensidad: parseInt(document.getElementById('intensity').value),
-        es_publico: isPrem || dreamCount <= 1,  // premium siempre, free solo el 1er sueño
+        es_publico: isPrem,  // solo premium publica en el feed
         likes: 0
       });
       if (insertRes.error) console.error('Supabase insert error:', insertRes.error);
@@ -3413,6 +3429,13 @@ async function saveDream() {
 
 // SHARE
 async function openShare() {
+  // Intentar restaurar desde localStorage si no hay curResult
+  if (!curResult) {
+    try {
+      var lr = localStorage.getItem('soniar_last_result');
+      if (lr) { var lrp = JSON.parse(lr); curResult = {dream:lrp.dream,date:new Date(),emo:lrp.emo,cat:lrp.cat,style:lrp.style,data:lrp.data,prompt:lrp.prompt,imgUrl:lrp.imgUrl||''}; }
+    } catch(e) {}
+  }
   // Si no hay resultado propio, intentar compartir el sueño visible en el feed
   if (!curResult) {
     var activeScreen = document.querySelector('.screen.active');
