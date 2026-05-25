@@ -1206,6 +1206,9 @@ async function doNav() {
   try {
     if (localStorage.getItem('soniar_onboarded') || new URLSearchParams(window.location.search).get('feed')) { 
       go('feed');
+    } else {
+      go('feed');
+    }
   } catch(e) {
     // Si go() falla, forzar ocultamiento del splash manualmente
     var splash = document.getElementById('s-splash');
@@ -4325,4 +4328,3 @@ document.addEventListener('DOMContentLoaded', function() {
         </div>
       </button>
       
-
