@@ -3553,19 +3553,15 @@ async function shareNative() {
       shareText += '✨ Interpretá tus sueños con IA en Soniar\n👉 https://soniar.app/';
       await navigator.share({ files:[file], title:'Mi sueño en Soniar', text: shareText });
       track('image_shared', { method: 'native_files', lang: currentLang });
-      } else {
-        // mobile sin soporte de archivos - compartir link
-        await navigator.share({ title:'Mi sueño en Soniar', text: shareText, url: imgUrl });
-      }
-    } catch(e) {
-      if (e.name !== 'AbortError') {
-        // Desktop: copiar link al portapapeles
-        try { await navigator.clipboard.writeText(imgUrl); showToast('🔗 Link copiado'); } catch(e2) { showToast('No se pudo compartir'); }
-      }
+    } else if (navigator.share) {
+      await navigator.share({ title:'Mi sueño en Soniar', text: shareText, url: dataUrl });
+    } else {
+      var a = document.createElement('a'); a.href = dataUrl; a.download = 'onyra-sueno.png'; a.click();
     }
-  } else {
-    // Desktop sin Web Share API: copiar link al portapapeles
-    try { await navigator.clipboard.writeText(imgUrl); showToast('🔗 Link de imagen copiado'); } catch(e) { showToast('No se pudo compartir'); }
+  } catch(e) {
+    if (e.name !== 'AbortError') {
+      var a = document.createElement('a'); a.href = dataUrl; a.download = 'onyra-sueno.png'; a.click();
+    }
   }
 }
 
@@ -3909,7 +3905,6 @@ function openFeedDream(idx) {
 async function shareFeedDream(imgUrl, resumen) {
   if (!imgUrl) { alert((i18n[currentLang]||i18n.es).alertNoImage); return; }
   var shareText = '🌙 ' + (resumen || '') + '\n\n✨ Interpretá tus sueños con IA en Soniar\n👉 https://soniar.app/app.html';
-  // En mobile usar Web Share API con archivo
   if (navigator.share) {
     try {
       var res = await fetch(imgUrl);
@@ -3917,16 +3912,17 @@ async function shareFeedDream(imgUrl, resumen) {
       var file = new File([blob], 'soniar-sueno.png', {type: blob.type || 'image/webp'});
       if (navigator.canShare && navigator.canShare({files:[file]})) {
         await navigator.share({ files:[file], title:'Sueño en Soniar', text: shareText });
-        track('image_shared', { method: 'feed_card', lang: currentLang });
-    } else if (navigator.share) {
-      await navigator.share({ title:'Sueño en Soniar', text: shareText, url:'https://soniar.app/' });
-    } else {
-      var a = document.createElement('a'); a.href = imgUrl; a.download = 'soniar-sueno.png'; a.click();
+      } else {
+        await navigator.share({ title:'Sueño en Soniar', text: shareText, url: imgUrl });
+      }
+      track('image_shared', { method: 'feed_card', lang: currentLang });
+    } catch(e) {
+      if (e.name !== 'AbortError') {
+        try { await navigator.clipboard.writeText(imgUrl); showToast('🔗 Link copiado'); } catch(e2) {}
+      }
     }
-  } catch(e) {
-    if (e.name !== 'AbortError') {
-      var a = document.createElement('a'); a.href = imgUrl; a.download = 'soniar-sueno.png'; a.click();
-    }
+  } else {
+    try { await navigator.clipboard.writeText(imgUrl); showToast('🔗 Link de imagen copiado'); } catch(e) { showToast('No se pudo compartir'); }
   }
 }
 
