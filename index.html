@@ -160,6 +160,41 @@
     font-size: 9px; opacity: 0.7;
     letter-spacing: 0.12em; font-family: var(--font-mono); font-weight: 400;
   }
+  .btn-feed-primary {
+    padding: 0.85rem 2.2rem;
+    background: rgba(124, 92, 191, 0.55);
+    border: 1px solid rgba(157, 111, 255, 0.7);
+    border-radius: 100px; color: #fff;
+    font-family: var(--font-mono); font-size: 12px; font-weight: 500;
+    letter-spacing: 0.18em; text-transform: uppercase;
+    cursor: pointer; text-decoration: none;
+    display: inline-flex; align-items: center;
+    backdrop-filter: blur(8px);
+    box-shadow: 0 0 24px rgba(124,92,191,0.3);
+    transition: all 0.25s;
+  }
+  .btn-feed-primary:hover {
+    background: rgba(124, 92, 191, 0.75);
+    box-shadow: 0 0 36px rgba(124,92,191,0.5);
+    transform: translateY(-1px);
+  }
+  .btn-architect-secondary {
+    padding: 0.65rem 1.5rem;
+    background: transparent;
+    border: 1px solid rgba(139,111,255,0.3);
+    border-radius: 100px; color: rgba(200,180,255,0.7);
+    font-family: var(--font-mono); font-size: 10px; font-weight: 400;
+    letter-spacing: 0.2em; text-transform: uppercase;
+    cursor: pointer; text-decoration: none;
+    display: inline-flex; flex-direction: column;
+    align-items: center; gap: 2px;
+    transition: all 0.25s;
+  }
+  .btn-architect-secondary:hover {
+    border-color: rgba(139,111,255,0.6);
+    color: rgba(220,200,255,0.9);
+  }
+  .btn-price { font-size: 9px; opacity: 0.6; letter-spacing: 0.15em; }
   .btn-feed {
     padding: 0.7rem 1.75rem; background: transparent;
     border: 1px solid rgba(139,111,255,0.4);
@@ -451,11 +486,11 @@
   <h1 class="hero-title">ARQUITECTANDO<br><em>el inconsciente</em></h1>
   <p class="hero-sub">High-Fidelity Neural Dream Reconstruction.<br><strong>293ms to Truth.</strong></p>
   <div class="hero-cta">
-    <a href="#" onclick="openCheckout();return false;" class="btn-architect">
-      BECOME AN ARCHITECT
-      <span class="btn-price">$49 / month</span>
+    <a href="https://soniar.app/app.html?feed=true" class="btn-feed btn-feed-primary">RED DEL SUBCONSCIENTE</a>
+    <a href="#" onclick="openCheckout();return false;" class="btn-architect btn-architect-secondary">
+      CONVERTITE EN ARQUITECTO
+      <span class="btn-price">VER PLANES</span>
     </a>
-    <a href="https://soniar.app/app.html?feed=true" class="btn-feed">EXPLORE PUBLIC FEED</a>
   </div>
 </div>
 
@@ -853,4 +888,3 @@ if (lang !== 'en') applyLang(i18n[lang]);
 </script>
 </body>
 </html>
-
