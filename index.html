@@ -123,7 +123,12 @@
     opacity: 0; animation: fadeUp 1s ease forwards 0.5s;
     overflow: hidden; width: 100%;
   }
-  .hero-title em { font-style: italic; color: var(--vivid); }
+  .hero-title em { 
+    font-style: italic; 
+    color: var(--vivid); 
+    text-shadow: 0 0 40px rgba(157,111,255,0.6), 0 2px 20px rgba(0,0,0,0.9), 0 0 80px rgba(124,92,191,0.4);
+    -webkit-text-stroke: 0.5px rgba(157,111,255,0.3);
+  }
   .hero-sub {
     font-family: var(--font-body); font-size: 1rem;
     color: var(--muted); margin-bottom: 3.5rem;
