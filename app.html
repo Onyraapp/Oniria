@@ -933,7 +933,7 @@
             <div style="font-size:0.92rem;color:var(--text);font-weight:600;">Mensual</div>
             <div style="font-size:0.72rem;color:var(--muted);margin-top:2px;">Cancelá cuando quieras</div>
           </div>
-          <div style="font-size:1.3rem;color:#a78bfa;font-weight:700;">$4.90<span style="font-size:0.7rem;color:var(--muted);font-weight:400;">/mes</span></div>
+          <div style="font-size:1.3rem;color:#a78bfa;font-weight:700;">$2.99<span style="font-size:0.7rem;color:var(--muted);font-weight:400;">/mes</span></div>
         </div>
       </button>
       <!-- Anual -->
@@ -2899,7 +2899,7 @@ async function loginConGoogle() {
   
   var { error } = await sb.auth.signInWithOAuth({
     provider: 'google',
-    options: { redirectTo: 'https://soniar.app/app.html' }
+    options: { redirectTo: window.location.origin }
   });
   if (error) {
     console.error('Error Google login:', error.message);
