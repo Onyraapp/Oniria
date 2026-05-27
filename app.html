@@ -1296,11 +1296,6 @@ function initSupabase() {
       }, 500);
     }
   }
-  // Handle #s-feed hash from landing page button
-  if (window.location.hash === '#s-feed') {
-    setTimeout(function() { go('feed'); }, 800);
-    history.replaceState({}, '', window.location.pathname);
-  }
 });
   } catch(e) {}
 }
