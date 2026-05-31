@@ -2147,7 +2147,7 @@ async function forgotPassword() {
     return; 
   }
   try {
-    var r = await sb.auth.resetPasswordForEmail(email, { redirectTo: 'https://soniar.app/' });
+    var r = await sb.auth.resetPasswordForEmail(email, { redirectTo: 'https://soniar.app/app.html' });
     if (r.error) throw r.error;
     errEl.style.color = '#a78bfa';
     errEl.textContent = '✓ Te enviamos un email para resetear tu contraseña';
@@ -2902,7 +2902,7 @@ async function loginConGoogle() {
   
   var { error } = await sb.auth.signInWithOAuth({
     provider: 'google',
-    options: { redirectTo: window.location.origin }
+    options: { redirectTo: 'https://soniar.app/app.html' }
   });
   if (error) {
     console.error('Error Google login:', error.message);
