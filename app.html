@@ -1191,7 +1191,9 @@ async function doNav() {
   splashDone = true;
 
   // Navegar YA sin esperar nada
-  if (localStorage.getItem('soniar_onboarded') || new URLSearchParams(window.location.search).get('feed')) { go('feed'); } else { go('feed'); }
+  var params = new URLSearchParams(window.location.search);
+  if (params.get('new')) { go('compose'); }
+  else { go('feed'); }
 
   // Todo lo demás en background
   setTimeout(async function() {
