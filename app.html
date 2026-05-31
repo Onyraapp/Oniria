@@ -413,7 +413,7 @@
   <!-- SPLASH -->
 
 
-  <div class="screen active" id="s-splash">
+  <div class="screen" id="s-splash">
     <div class="splash-screen">
       <div class="splash-logo-wrap">
         <div style="display:flex;flex-direction:column;align-items:center;gap:0.75rem;">
@@ -1182,7 +1182,8 @@ async function loadCarouselImages() {
   } catch(e) {}
 }
 
-document.getElementById('s-splash').classList.add('active');
+// splash desactivado
+// document.getElementById('s-splash').classList.add('active');
 // Navegar inmediatamente - independiente de Supabase
 var splashDone = false;
 async function doNav() {
@@ -1230,7 +1231,7 @@ setTimeout(function() {
     splashDone = false;
     doNav();
   }
-}, 4000);
+}, 0);
 
 // Inicializar Supabase cuando esté disponible
 function initSupabase() {
