@@ -2627,7 +2627,7 @@ async function loadMoreFeed() {
   try {
     var from = _feedPage * _feedPageSize;
     var to = from + _feedPageSize - 1;
-    var query = sb.from('dreams').select('id,user_id,resumen,lectura,img_url,created_at,reactions,estilo,categoria,es_publico,reports,profiles(username)').eq('es_publico', true).order('created_at', { ascending: false }).range(from, to);
+    var query = sb.from('dreams').select('id,user_id,resumen,lectura,img_url,created_at,reactions,estilo,categoria,es_publico,reports,dream_text,emociones,simbolos,profiles(username)').eq('es_publico', true).order('created_at', { ascending: false }).range(from, to);
     if (currentFilter !== 'all') { query = query.or('emociones.cs.[{"nombre":"'+currentFilter+'"}],categoria.eq.'+currentFilter); }
     var r = await query;
     if (r.error) throw r.error;
