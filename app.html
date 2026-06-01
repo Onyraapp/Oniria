@@ -166,10 +166,10 @@
     .chips .chip:last-child { flex: 1; text-align: center; }
     .chip { background: var(--surface); border: 1px solid var(--border); color: #C4B5FD; border-radius: 100px; padding: 0.38rem 0.85rem; font-size: 0.78rem; cursor: pointer; user-select: none; transition: all 0.15s; font-family: 'DM Sans', sans-serif; }
     .chip:active { transform: scale(0.95); }
-    .chip.on { background: var(--purple-dim); border-color: var(--purple); color: var(--purple-soft); }
+    .chip.on { background: linear-gradient(135deg, #8B6FFF, #6344E0); border-color: #8B6FFF; color: #fff; }
     .style-row { display: flex; gap: 6px; }
     .sty { flex: 1; background: var(--surface); border: 1px solid var(--border); color: var(--muted); border-radius: 12px; padding: 0.5rem 0; font-size: 0.75rem; cursor: pointer; text-align: center; user-select: none; transition: all 0.15s; font-family: 'DM Sans', sans-serif; }
-    .sty.on { background: var(--purple-dim); border-color: var(--purple); color: var(--purple-soft); }
+    .sty.on { background: linear-gradient(135deg, #8B6FFF, #6344E0); border-color: #8B6FFF; color: #fff; }
     .submit-area { padding-top: 0.5rem; }
     .mic-btn-recording { background: #3B0000 !important; border-color: #ef4444 !important; color: #ef4444 !important; animation: pulse 1s ease-in-out infinite; }
     @keyframes pulse { 0%,100%{opacity:1} 50%{opacity:0.6} }
@@ -507,7 +507,7 @@
           <div style="display:flex;flex-direction:column;gap:0;">
           <div style="position:relative;">
             <textarea class="dream-box" id="dream-input" placeholder="Estaba en mi casa de la infancia pero los pasillos no terminaban..." oninput="document.getElementById('char-n').textContent=this.value.length" style="padding-right:2.8rem;"></textarea>
-            <button id="mic-btn" onclick="toggleMic()" aria-label="Dictá tu sueño" style="position:absolute;top:10px;right:10px;background:linear-gradient(135deg,#9B6FFF,#6B3FFF);border:none;border-radius:50%;width:44px;height:44px;display:flex;align-items:center;justify-content:center;cursor:pointer;box-shadow:0 4px 20px rgba(255,255,255,0.25),0 0 0 0 rgba(255,255,255,0.2);transition:all 0.2s;flex-shrink:0;animation:micPulse 2.5s ease-in-out infinite;">
+            <button id="mic-btn" onclick="toggleMic()" aria-label="Dictá tu sueño" style="position:absolute;top:10px;right:10px;background:linear-gradient(135deg,#8B6FFF,#6344E0);border:none;border-radius:50%;width:44px;height:44px;display:flex;align-items:center;justify-content:center;cursor:pointer;box-shadow:0 4px 20px rgba(255,255,255,0.25),0 0 0 0 rgba(255,255,255,0.2);transition:all 0.2s;flex-shrink:0;animation:micPulse 2.5s ease-in-out infinite;">
               <svg id="mic-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2"><path d="M12 1a3 3 0 00-3 3v8a3 3 0 006 0V4a3 3 0 00-3-3z"/><path d="M19 10v2a7 7 0 01-14 0v-2M12 19v4M8 23h8"/></svg>
             </button>
           </div>
@@ -542,8 +542,8 @@
         <div>
           <span class="section-lbl">Intensidad</span>
           <div style="display:flex;align-items:center;gap:10px;">
-            <input type="range" min="1" max="10" value="5" step="1" id="intensity" oninput="document.getElementById('ival').textContent=this.value" style="flex:1;accent-color:#7C5CFF;">
-            <span id="ival" style="font-size:0.85rem;font-weight:500;color:#7C5CFF;min-width:18px;text-align:right;">5</span>
+            <input type="range" min="1" max="10" value="5" step="1" id="intensity" oninput="document.getElementById('ival').textContent=this.value" style="flex:1;accent-color:#8B6FFF;">
+            <span id="ival" style="font-size:0.85rem;font-weight:500;color:#8B6FFF;min-width:18px;text-align:right;">5</span>
           </div>
         </div>
         <div>
@@ -1417,9 +1417,9 @@ function updateSchoolUI(school) {
     if (!freudBtn || !jungBtn) return;
     if (school === 'jung') {
       freudBtn.style.background = 'var(--surface)'; freudBtn.style.borderColor = 'var(--border)'; freudBtn.style.color = 'var(--muted)';
-      jungBtn.style.background = 'var(--purple-dim)'; jungBtn.style.borderColor = 'var(--purple)'; jungBtn.style.color = 'var(--purple-soft)';
+      jungBtn.style.background = 'linear-gradient(135deg,#8B6FFF,#6344E0)'; jungBtn.style.borderColor = '#8B6FFF'; jungBtn.style.color = '#fff';
     } else {
-      freudBtn.style.background = 'var(--purple-dim)'; freudBtn.style.borderColor = 'var(--purple)'; freudBtn.style.color = 'var(--purple-soft)';
+      freudBtn.style.background = 'linear-gradient(135deg,#8B6FFF,#6344E0)'; freudBtn.style.borderColor = '#8B6FFF'; freudBtn.style.color = '#fff';
       jungBtn.style.background = 'var(--surface)'; jungBtn.style.borderColor = 'var(--border)'; jungBtn.style.color = 'var(--muted)';
     }
   });
