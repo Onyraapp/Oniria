@@ -1224,7 +1224,7 @@ async function doNav() {
   }, 100);
 }
 
-setTimeout(doNav, 2000);
+// setTimeout(doNav, 2000); // removido
 
 // Watchdog - si en 4s el splash sigue visible, forzar navegación
 setTimeout(function() {
@@ -1248,7 +1248,8 @@ function initSupabase() {
         currentUser = r.data.session.user;
         loadProfile().catch(function(){});
       }
-    }).catch(function(){});
+      doNav();
+    }).catch(function(){ doNav(); });
     sb.auth.onAuthStateChange(function(event, session) {
   if (event === 'SIGNED_IN' && session) {
     currentUser = session.user;
