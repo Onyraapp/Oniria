@@ -1242,7 +1242,10 @@ function initSupabase() {
     return;
   }
   try {
-    sb = supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
+    sb = supabase.createClient(SUPABASE_URL, SUPABASE_KEY, {
+      global: { headers: { 'x-app-source': 'soniar-dreams' } },
+      auth: { persistSession: true, autoRefreshToken: true, detectSessionInUrl: true }
+    });
     sb.auth.getSession().then(function(r) {
       if (r.data && r.data.session) {
         currentUser = r.data.session.user;
@@ -1251,6 +1254,15 @@ function initSupabase() {
       doNav();
     }).catch(function(){ doNav(); });
     sb.auth.onAuthStateChange(function(event, session) {
+  // Manejar token expirado silenciosamente
+  if (event === 'TOKEN_REFRESHED' && session) {
+    currentUser = session.user;
+    return;
+  }
+  if (event === 'SIGNED_OUT') {
+    currentUser = null;
+    return;
+  }
   if (event === 'SIGNED_IN' && session) {
     currentUser = session.user;
     // Si era anónimo y se registró, transferir el conteo al perfil de Supabase
@@ -2678,8 +2690,14 @@ async function loadMoreFeed() {
       if (d.img_url) {
         var img = document.createElement('img');
         img.className = 'feed-card-img';
-        img.src = d.img_url;
+        img.loading = 'lazy';
+        img.decoding = 'async';
         img.alt = 'sueño';
+        // Placeholder mientras carga
+        imgWrap.style.background = 'linear-gradient(135deg, #1a1a2e, #0a0a18)';
+        img.onload = function() { imgWrap.style.background = 'none'; };
+        img.onerror = function() { this.style.display='none'; };
+        img.src = d.img_url;
         imgWrap.appendChild(img);
       }
 
