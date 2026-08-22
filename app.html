@@ -166,10 +166,10 @@
     .chips .chip:last-child { flex: 1; text-align: center; }
     .chip { background: var(--surface); border: 1px solid var(--border); color: #C4B5FD; border-radius: 100px; padding: 0.38rem 0.85rem; font-size: 0.78rem; cursor: pointer; user-select: none; transition: all 0.15s; font-family: 'DM Sans', sans-serif; }
     .chip:active { transform: scale(0.95); }
-    .chip.on { background: linear-gradient(135deg, #8B6FFF, #6344E0); border-color: #8B6FFF; color: #fff; }
+    .chip.on { background: var(--purple-dim); border-color: var(--purple); color: var(--purple-soft); }
     .style-row { display: flex; gap: 6px; }
     .sty { flex: 1; background: var(--surface); border: 1px solid var(--border); color: var(--muted); border-radius: 12px; padding: 0.5rem 0; font-size: 0.75rem; cursor: pointer; text-align: center; user-select: none; transition: all 0.15s; font-family: 'DM Sans', sans-serif; }
-    .sty.on { background: linear-gradient(135deg, #8B6FFF, #6344E0); border-color: #8B6FFF; color: #fff; }
+    .sty.on { background: var(--purple-dim); border-color: var(--purple); color: var(--purple-soft); }
     .submit-area { padding-top: 0.5rem; }
     .mic-btn-recording { background: #3B0000 !important; border-color: #ef4444 !important; color: #ef4444 !important; animation: pulse 1s ease-in-out infinite; }
     @keyframes pulse { 0%,100%{opacity:1} 50%{opacity:0.6} }
@@ -405,6 +405,25 @@
     .dict-close { float: right; background: var(--bg); border: none; color: var(--muted); border-radius: 8px; padding: 4px 10px; cursor: pointer; font-size: 0.78rem; font-family: 'DM Sans', sans-serif; }
     .dict-text { font-size: 0.85rem; color: var(--muted); line-height: 1.75; margin-top: 0.75rem; font-weight: 300; }
     .dict-tag { font-size: 0.68rem; color: var(--purple); background: var(--purple-dim); border: 0.5px solid var(--border); border-radius: 100px; padding: 3px 10px; display: inline-block; margin-bottom: 0.75rem; letter-spacing: 0.05em; }
+
+    /* PWA INSTALL BANNER */
+    .pwa-banner {
+      position: fixed; bottom: calc(70px + env(safe-area-inset-bottom, 0px));
+      left: 12px; right: 12px; z-index: 9990;
+      background: linear-gradient(135deg, #1a1035, #0f0f20);
+      border: 1px solid rgba(139,111,255,0.4);
+      border-radius: 16px; padding: 14px 16px;
+      display: flex; align-items: center; gap: 12px;
+      box-shadow: 0 8px 32px rgba(0,0,0,0.5);
+      animation: slideUp 0.4s ease;
+    }
+    @keyframes slideUp { from { opacity:0; transform:translateY(20px); } to { opacity:1; transform:translateY(0); } }
+    .pwa-banner-icon { width: 40px; height: 40px; border-radius: 10px; flex-shrink: 0; }
+    .pwa-banner-text { flex: 1; }
+    .pwa-banner-title { font-size: 0.85rem; font-weight: 600; color: #fff; margin-bottom: 2px; }
+    .pwa-banner-sub { font-size: 0.72rem; color: rgba(255,255,255,0.5); line-height: 1.4; }
+    .pwa-banner-close { background: none; border: none; color: rgba(255,255,255,0.4); font-size: 1.1rem; cursor: pointer; padding: 4px; flex-shrink: 0; }
+    .pwa-banner-btn { background: linear-gradient(135deg,#8B6FFF,#6344E0); border: none; color: #fff; border-radius: 100px; padding: 7px 14px; font-size: 0.78rem; font-weight: 600; cursor: pointer; font-family: 'DM Sans', sans-serif; white-space: nowrap; flex-shrink: 0; }
   </style>
 </head>
 <body>
@@ -413,7 +432,7 @@
   <!-- SPLASH -->
 
 
-  <div class="screen" id="s-splash">
+  <div class="screen active" id="s-splash">
     <div class="splash-screen">
       <div class="splash-logo-wrap">
         <div style="display:flex;flex-direction:column;align-items:center;gap:0.75rem;">
@@ -507,7 +526,7 @@
           <div style="display:flex;flex-direction:column;gap:0;">
           <div style="position:relative;">
             <textarea class="dream-box" id="dream-input" placeholder="Estaba en mi casa de la infancia pero los pasillos no terminaban..." oninput="document.getElementById('char-n').textContent=this.value.length" style="padding-right:2.8rem;"></textarea>
-            <button id="mic-btn" onclick="toggleMic()" aria-label="Dictá tu sueño" style="position:absolute;top:10px;right:10px;background:linear-gradient(135deg,#8B6FFF,#6344E0);border:none;border-radius:50%;width:44px;height:44px;display:flex;align-items:center;justify-content:center;cursor:pointer;box-shadow:0 4px 20px rgba(255,255,255,0.25),0 0 0 0 rgba(255,255,255,0.2);transition:all 0.2s;flex-shrink:0;animation:micPulse 2.5s ease-in-out infinite;">
+            <button id="mic-btn" onclick="toggleMic()" aria-label="Dictá tu sueño" style="position:absolute;top:10px;right:10px;background:linear-gradient(135deg,#9B6FFF,#6B3FFF);border:none;border-radius:50%;width:44px;height:44px;display:flex;align-items:center;justify-content:center;cursor:pointer;box-shadow:0 4px 20px rgba(255,255,255,0.25),0 0 0 0 rgba(255,255,255,0.2);transition:all 0.2s;flex-shrink:0;animation:micPulse 2.5s ease-in-out infinite;">
               <svg id="mic-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2"><path d="M12 1a3 3 0 00-3 3v8a3 3 0 006 0V4a3 3 0 00-3-3z"/><path d="M19 10v2a7 7 0 01-14 0v-2M12 19v4M8 23h8"/></svg>
             </button>
           </div>
@@ -542,8 +561,8 @@
         <div>
           <span class="section-lbl">Intensidad</span>
           <div style="display:flex;align-items:center;gap:10px;">
-            <input type="range" min="1" max="10" value="5" step="1" id="intensity" oninput="document.getElementById('ival').textContent=this.value" style="flex:1;accent-color:#8B6FFF;">
-            <span id="ival" style="font-size:0.85rem;font-weight:500;color:#8B6FFF;min-width:18px;text-align:right;">5</span>
+            <input type="range" min="1" max="10" value="5" step="1" id="intensity" oninput="document.getElementById('ival').textContent=this.value" style="flex:1;accent-color:#7C5CFF;">
+            <span id="ival" style="font-size:0.85rem;font-weight:500;color:#7C5CFF;min-width:18px;text-align:right;">5</span>
           </div>
         </div>
         <div>
@@ -933,7 +952,7 @@
             <div style="font-size:0.92rem;color:var(--text);font-weight:600;">Mensual</div>
             <div style="font-size:0.72rem;color:var(--muted);margin-top:2px;">Cancelá cuando quieras</div>
           </div>
-          <div style="font-size:1.3rem;color:#a78bfa;font-weight:700;">$2.99<span style="font-size:0.7rem;color:var(--muted);font-weight:400;">/mes</span></div>
+          <div style="font-size:1.3rem;color:#a78bfa;font-weight:700;">$4.90<span style="font-size:0.7rem;color:var(--muted);font-weight:400;">/mes</span></div>
         </div>
       </button>
       <!-- Anual -->
@@ -961,7 +980,7 @@
             <div id="up-crypto-sub" style="font-size:0.7rem;color:#6B7280;text-align:left;">BTC, ETH, USDC, USDT y más</div>
           </div>
         </div>
-        <div style="font-size:1rem;color:#22c55e;font-weight:600;">$2.99</div>
+        <div style="font-size:1rem;color:#22c55e;font-weight:600;">$49</div>
       </button>
     </div>
     </div>
@@ -974,6 +993,18 @@
   </div>
 </div>
 
+</div>
+
+
+<!-- PWA INSTALL BANNER -->
+<div id="pwa-banner" class="pwa-banner" style="display:none;">
+  <img src="icon-192.png" class="pwa-banner-icon" alt="Soniar" onerror="this.style.display='none'"/>
+  <div class="pwa-banner-text">
+    <div class="pwa-banner-title" id="pwa-banner-title">Instalá Soniar</div>
+    <div class="pwa-banner-sub" id="pwa-banner-sub">Tocá <strong>↑ Compartir</strong> y luego <strong>"Añadir a inicio"</strong></div>
+  </div>
+  <button class="pwa-banner-btn" onclick="dismissPWABanner()" id="pwa-banner-btn">Entendido</button>
+  <button class="pwa-banner-close" onclick="dismissPWABanner()">✕</button>
 </div>
 
 </main>
@@ -1182,8 +1213,7 @@ async function loadCarouselImages() {
   } catch(e) {}
 }
 
-// splash desactivado
-// document.getElementById('s-splash').classList.add('active');
+document.getElementById('s-splash').classList.add('active');
 // Navegar inmediatamente - independiente de Supabase
 var splashDone = false;
 async function doNav() {
@@ -1191,9 +1221,7 @@ async function doNav() {
   splashDone = true;
 
   // Navegar YA sin esperar nada
-  var params = new URLSearchParams(window.location.search);
-  if (params.get('new')) { go('compose'); }
-  else { go('feed'); }
+  if (localStorage.getItem('soniar_onboarded') || new URLSearchParams(window.location.search).get('feed')) { go('feed'); } else { go('feed'); }
 
   // Todo lo demás en background
   setTimeout(async function() {
@@ -1224,7 +1252,7 @@ async function doNav() {
   }, 100);
 }
 
-// setTimeout(doNav, 2000); // removido
+setTimeout(doNav, 2000);
 
 // Watchdog - si en 4s el splash sigue visible, forzar navegación
 setTimeout(function() {
@@ -1233,7 +1261,7 @@ setTimeout(function() {
     splashDone = false;
     doNav();
   }
-}, 0);
+}, 4000);
 
 // Inicializar Supabase cuando esté disponible
 function initSupabase() {
@@ -1242,27 +1270,14 @@ function initSupabase() {
     return;
   }
   try {
-    sb = supabase.createClient(SUPABASE_URL, SUPABASE_KEY, {
-      global: { headers: { 'x-app-source': 'soniar-dreams' } },
-      auth: { persistSession: true, autoRefreshToken: true, detectSessionInUrl: true }
-    });
+    sb = supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
     sb.auth.getSession().then(function(r) {
       if (r.data && r.data.session) {
         currentUser = r.data.session.user;
         loadProfile().catch(function(){});
       }
-      doNav();
-    }).catch(function(){ doNav(); });
+    }).catch(function(){});
     sb.auth.onAuthStateChange(function(event, session) {
-  // Manejar token expirado silenciosamente
-  if (event === 'TOKEN_REFRESHED' && session) {
-    currentUser = session.user;
-    return;
-  }
-  if (event === 'SIGNED_OUT') {
-    currentUser = null;
-    return;
-  }
   if (event === 'SIGNED_IN' && session) {
     currentUser = session.user;
     // Si era anónimo y se registró, transferir el conteo al perfil de Supabase
@@ -1417,9 +1432,9 @@ function updateSchoolUI(school) {
     if (!freudBtn || !jungBtn) return;
     if (school === 'jung') {
       freudBtn.style.background = 'var(--surface)'; freudBtn.style.borderColor = 'var(--border)'; freudBtn.style.color = 'var(--muted)';
-      jungBtn.style.background = 'linear-gradient(135deg,#8B6FFF,#6344E0)'; jungBtn.style.borderColor = '#8B6FFF'; jungBtn.style.color = '#fff';
+      jungBtn.style.background = 'var(--purple-dim)'; jungBtn.style.borderColor = 'var(--purple)'; jungBtn.style.color = 'var(--purple-soft)';
     } else {
-      freudBtn.style.background = 'linear-gradient(135deg,#8B6FFF,#6344E0)'; freudBtn.style.borderColor = '#8B6FFF'; freudBtn.style.color = '#fff';
+      freudBtn.style.background = 'var(--purple-dim)'; freudBtn.style.borderColor = 'var(--purple)'; freudBtn.style.color = 'var(--purple-soft)';
       jungBtn.style.background = 'var(--surface)'; jungBtn.style.borderColor = 'var(--border)'; jungBtn.style.color = 'var(--muted)';
     }
   });
@@ -2160,7 +2175,7 @@ async function forgotPassword() {
     return; 
   }
   try {
-    var r = await sb.auth.resetPasswordForEmail(email, { redirectTo: 'https://soniar.app/app.html' });
+    var r = await sb.auth.resetPasswordForEmail(email, { redirectTo: 'https://soniar.app/' });
     if (r.error) throw r.error;
     errEl.style.color = '#a78bfa';
     errEl.textContent = '✓ Te enviamos un email para resetear tu contraseña';
@@ -2627,7 +2642,7 @@ async function loadMoreFeed() {
   try {
     var from = _feedPage * _feedPageSize;
     var to = from + _feedPageSize - 1;
-    var query = sb.from('dreams').select('id,user_id,resumen,lectura,img_url,created_at,reactions,estilo,categoria,es_publico,reports,dream_text,emociones,simbolos,profiles(username)').eq('es_publico', true).order('created_at', { ascending: false }).range(from, to);
+    var query = sb.from('dreams').select('id,user_id,resumen,lectura,img_url,created_at,reactions,estilo,categoria,es_publico,reports,profiles(username)').eq('es_publico', true).order('created_at', { ascending: false }).range(from, to);
     if (currentFilter !== 'all') { query = query.or('emociones.cs.[{"nombre":"'+currentFilter+'"}],categoria.eq.'+currentFilter); }
     var r = await query;
     if (r.error) throw r.error;
@@ -2690,14 +2705,8 @@ async function loadMoreFeed() {
       if (d.img_url) {
         var img = document.createElement('img');
         img.className = 'feed-card-img';
-        img.loading = 'lazy';
-        img.decoding = 'async';
-        img.alt = 'sueño';
-        // Placeholder mientras carga
-        imgWrap.style.background = 'linear-gradient(135deg, #1a1a2e, #0a0a18)';
-        img.onload = function() { imgWrap.style.background = 'none'; };
-        img.onerror = function() { this.style.display='none'; };
         img.src = d.img_url;
+        img.alt = 'sueño';
         imgWrap.appendChild(img);
       }
 
@@ -2921,7 +2930,7 @@ async function loginConGoogle() {
   
   var { error } = await sb.auth.signInWithOAuth({
     provider: 'google',
-    options: { redirectTo: 'https://soniar.app/app.html' }
+    options: { redirectTo: window.location.origin }
   });
   if (error) {
     console.error('Error Google login:', error.message);
@@ -4096,7 +4105,7 @@ function skipUsername() {
 }
 
 var STRIPE_PRICES = {
-  monthly: 'price_1TbohW2fy49WJZAKpIdq3dPS',
+  monthly: 'price_1TajOa2fy49WJZAKp01Jpb6p',
   annual: 'price_1TajbX2fy49WJZAKbqA5Yszk'
 };
 
@@ -4214,6 +4223,83 @@ function closeDictModal(e) {
     document.getElementById('dict-modal').classList.remove('open');
   }
 }
+
+// ── PWA INSTALL BANNER ──────────────────────────────────────────
+(function() {
+  // No mostrar si ya fue instalado o descartado
+  if (localStorage.getItem('pwa_dismissed')) return;
+  // Detectar si ya está instalada como PWA
+  if (window.navigator.standalone || window.matchMedia('(display-mode: standalone)').matches) return;
+  
+  var isIOS = /iphone|ipad|ipod/i.test(navigator.userAgent);
+  var isAndroid = /android/i.test(navigator.userAgent);
+  
+  if (!isIOS && !isAndroid) return; // solo móvil
+  
+  var deferredPrompt = null;
+  
+  // Android: capturar evento beforeinstallprompt
+  window.addEventListener('beforeinstallprompt', function(e) {
+    e.preventDefault();
+    deferredPrompt = e;
+    showPWABanner('android');
+  });
+  
+  // iOS: no tiene beforeinstallprompt, mostrar instrucciones manuales
+  if (isIOS) {
+    // Mostrar después de 30 segundos para no interrumpir la primera vez
+    setTimeout(function() {
+      if (!localStorage.getItem('pwa_dismissed')) {
+        showPWABanner('ios');
+      }
+    }, 30000);
+  }
+  
+  window.showPWABanner = function(platform) {
+    var banner = document.getElementById('pwa-banner');
+    if (!banner) return;
+    
+    var lang = localStorage.getItem('soniar_lang') || 'es';
+    var title, sub, btnText;
+    
+    if (platform === 'android') {
+      if (lang === 'en') { title = 'Install Soniar'; sub = 'Add to your home screen for quick access'; btnText = 'Install'; }
+      else if (lang === 'pt') { title = 'Instalar Soniar'; sub = 'Adicione à tela inicial para acesso rápido'; btnText = 'Instalar'; }
+      else { title = 'Instalá Soniar'; sub = 'Agregala a tu pantalla de inicio para acceso rápido'; btnText = 'Instalar'; }
+      
+      document.getElementById('pwa-banner-btn').textContent = btnText;
+      document.getElementById('pwa-banner-btn').onclick = function() {
+        if (deferredPrompt) {
+          deferredPrompt.prompt();
+          deferredPrompt.userChoice.then(function(r) {
+            if (r.outcome === 'accepted') localStorage.setItem('pwa_dismissed', '1');
+            deferredPrompt = null;
+          });
+        }
+        dismissPWABanner();
+      };
+    } else {
+      // iOS
+      if (lang === 'en') { title = 'Install Soniar'; sub = 'Tap ↑ Share → "Add to Home Screen"'; btnText = 'Got it'; }
+      else if (lang === 'pt') { title = 'Instalar Soniar'; sub = 'Toque ↑ Compartilhar → "Adicionar à Tela de Início"'; btnText = 'Entendi'; }
+      else { title = 'Instalá Soniar'; sub = 'Tocá ↑ Compartir → "Añadir a inicio"'; btnText = 'Entendido'; }
+      
+      document.getElementById('pwa-banner-btn').textContent = btnText;
+      document.getElementById('pwa-banner-btn').onclick = dismissPWABanner;
+    }
+    
+    document.getElementById('pwa-banner-title').textContent = title;
+    document.getElementById('pwa-banner-sub').innerHTML = sub;
+    banner.style.display = 'flex';
+  };
+  
+  window.dismissPWABanner = function() {
+    var banner = document.getElementById('pwa-banner');
+    if (banner) banner.style.display = 'none';
+    localStorage.setItem('pwa_dismissed', '1');
+  };
+})();
+
 </script>
 
 
