@@ -4,11 +4,11 @@
 <head>
   <meta charset="UTF-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover"/>
-  <title>Soniar - Descubrí qué dicen tus sueños</title>
+  <title>Soniar — Descubrí qué dicen tus sueños</title>
   <meta name="description" content="Contale tus sueños a la IA. Recibí una interpretación, detectá emociones y generá una imagen única de lo que soñaste."/>
   <meta property="og:type" content="website"/>
   <meta property="og:url" content="https://soniar.app/"/>
-  <meta property="og:title" content="Soniar - Descubrí qué dicen tus sueños"/>
+  <meta property="og:title" content="Soniar — Descubrí qué dicen tus sueños"/>
   <meta property="og:description" content="Contale tus sueños a la IA. Interpretación, emociones, símbolos e imagen generada al instante."/>
   <meta property="og:image" content="https://soniar.app/og-image.svg"/>
   <meta name="twitter:card" content="summary_large_image"/>
@@ -23,13 +23,12 @@
   <link rel="apple-touch-icon" href="icon-192.png"/>
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2" async></script>
   
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='20' fill='%237B5CE6'/><text y='75' font-size='70' text-anchor='middle' x='50'>🌙</text></svg>"/>
-    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Outfit:wght@300;400;500;600;700&family=Space+Mono:wght@400;700&family=IM+Fell+English:ital@0;1&family=Playfair+Display:ital,wght@0,400;0,500;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet"/>
   <style>
     @font-face { font-family: 'Astonpoliz'; src: url('Astonpoliz.ttf') format('truetype'); font-display: swap; }
-
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Outfit:wght@300;400;500;600;700&family=Space+Mono:wght@400;700&family=IM+Fell+English:ital@0;1&family=Playfair+Display:ital,wght@0,400;0,500;1,400&family=DM+Sans:wght@300;400;500&display=swap" media="print" onload="this.media='all'"/>
+  <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IM+Fell+English:ital@0;1&family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400&family=Playfair+Display:ital,wght@0,400;0,500;1,400&family=DM+Sans:wght@300;400;500&display=swap"/></noscript>
 
     @font-face {
       font-family: 'AlteHaasGrotesk';
@@ -49,6 +48,8 @@
       --text: #F5F3FF;
       --muted: #9CA3AF;
       --dim: #6B7280;
+      --font-display: 'Bebas Neue', 'Outfit', sans-serif;
+      --font-body: 'DM Sans', system-ui, sans-serif;
     }
 
     html { width: 100%; overflow-x: hidden; }
@@ -96,9 +97,9 @@
       pointer-events: none;
     }
     .splash-logo-wrap { display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 1rem; opacity: 0; animation: fadeUp 1s ease 0.3s forwards; position: relative; z-index: 2; }
-    .splash-wordmark { font-family: 'Bebas Neue', sans-serif; font-size: 4rem; font-weight: 400; letter-spacing: 0.25em; color: #ffffff; text-shadow: 0 0 40px rgba(139,111,255,0.6); }
+    .splash-wordmark { font-family: 'Bebas Neue', sans-serif; font-size: 4.5rem; font-weight: 400; letter-spacing: 0.25em; color: #ffffff; text-shadow: 0 0 40px rgba(139,111,255,0.6); }
     .splash-line { width: 40px; height: 1px; background: linear-gradient(to right, transparent, #7c5cbf, transparent); }
-    .splash-tagline { font-family: 'Space Mono', monospace; font-size: 0.6rem; letter-spacing: 0.35em; color: #8a85a0; text-transform: uppercase; font-weight: 400; }
+    .splash-tagline { font-family: 'DM Sans', sans-serif; font-size: 0.65rem; letter-spacing: 0.25em; color: #a78bfa; text-transform: uppercase; font-weight: 400; }
     @keyframes fadeUp { from { opacity:0; transform: translateY(16px); } to { opacity:1; transform: translateY(0); } }
     @keyframes micPulse {
       0%, 100% { box-shadow: 0 4px 20px rgba(255,255,255,0.25), 0 0 0 0 rgba(255,255,255,0.2); }
@@ -112,19 +113,19 @@
     .onboard-slide.active { display: flex; }
     .onboard-visual { width: 160px; height: 160px; border-radius: 50%; margin-bottom: 2.5rem; display: flex; align-items: center; justify-content: center; background: radial-gradient(circle, var(--purple-dim) 0%, #0a0a18 70%); border: 0.5px solid var(--border); }
     .onboard-visual svg { width: 64px; height: 64px; }
-    .onboard-title { font-family: 'Playfair Display', Georgia, serif; font-size: 1.8rem; font-weight: 400; line-height: 1.2; margin-bottom: 1rem; color: var(--text); }
-    .onboard-title em { color: var(--purple-soft); font-style: italic; }
+    .onboard-title { font-family: 'Bebas Neue', sans-serif; font-size: 2.4rem; font-weight: 400; line-height: 1.1; margin-bottom: 1rem; color: var(--text); letter-spacing: 0.05em; }
+    .onboard-title em { color: var(--purple); font-style: normal; }
     .onboard-sub { font-size: 0.9rem; color: var(--muted); line-height: 1.8; margin-bottom: 3rem; max-width: 280px; font-weight: 300; }
     .onboard-dots { display: flex; gap: 6px; justify-content: center; margin-bottom: 2rem; }
     .odot { width: 5px; height: 5px; border-radius: 50%; background: var(--border); transition: all 0.3s; }
     .odot.active { background: var(--purple); width: 18px; border-radius: 3px; }
     .onboard-btn { background: var(--purple); color: #fff; border: none; border-radius: 100px; padding: 1rem 2.5rem; font-size: 0.9rem; font-weight: 500; cursor: pointer; font-family: 'DM Sans', sans-serif; letter-spacing: 0.02em; }
     .onboard-skip { font-size: 0.8rem; color: var(--dim); cursor: pointer; margin-top: 1rem; background: none; border: none; font-family: 'DM Sans', sans-serif; }
-    .onboard-logo { font-family: 'AlteHaasGrotesk', sans-serif; font-size: 0.85rem; font-weight: bold; letter-spacing: 0.2em; color: var(--muted); margin-bottom: 2rem; }
+    .onboard-logo { font-family: 'Bebas Neue', sans-serif; font-size: 1.2rem; font-weight: 400; letter-spacing: 0.25em; color: var(--purple-soft); margin-bottom: 2rem; }
 
     /* AUTH */
     .auth-wrap { flex: 1; display: flex; flex-direction: column; align-items: center; justify-content: flex-start; padding: 1.5rem 1.5rem; gap: 1rem; overflow-y: auto; }
-    .auth-logo { font-family: 'Bebas Neue', sans-serif; font-size: 3rem; font-weight: 400; letter-spacing: 0.2em; color: var(--purple-soft); margin-bottom: 0.25rem; text-align: center; }
+    .auth-logo { font-family: 'Bebas Neue', sans-serif; font-size: 3rem; font-weight: 400; letter-spacing: 0.2em; color: var(--purple-soft); margin-bottom: 0.25rem; text-align: center; text-shadow: 0 0 30px rgba(139,111,255,0.5); }
     .auth-sub { font-size: 0.82rem; color: var(--muted); text-align: center; margin-bottom: 0.75rem; font-weight: 300; }
     .auth-input { background: var(--surface); border: 0.5px solid var(--border); border-radius: 12px; color: var(--text); font-size: 0.9rem; padding: 0.85rem 1rem; width: 100%; font-family: 'DM Sans', sans-serif; outline: none; transition: border-color 0.2s; }
     .auth-input:focus { border-color: var(--purple); }
@@ -143,8 +144,8 @@
     @keyframes twinkle { 0%,100%{opacity:0} 50%{opacity:var(--op,0.6)} }
     .home-content { position: relative; padding: 2rem 1.5rem 1.5rem; display: flex; flex-direction: column; flex: 1; }
     .home-greeting { font-size: 0.72rem; letter-spacing: 0.2em; color: var(--purple-soft); text-transform: uppercase; margin-bottom: 0.75rem; font-weight: 400; }
-    .home-title { font-family: 'Playfair Display', Georgia, serif; font-size: 2.6rem; font-weight: 400; line-height: 1.15; margin-bottom: 0.75rem; }
-    .home-title em { color: var(--purple-soft); font-style: italic; }
+    .home-title { font-family: 'Bebas Neue', sans-serif; font-size: 3.2rem; font-weight: 400; line-height: 1.05; margin-bottom: 0.75rem; letter-spacing: 0.05em; }
+    .home-title em { color: var(--purple); font-style: normal; }
     .home-sub { font-size: 0.85rem; color: var(--muted); line-height: 1.7; margin-bottom: 2rem; font-weight: 300; max-width: 300px; }
     .home-cta { display: flex; align-items: center; gap: 1rem; }
     .home-btn { background: linear-gradient(135deg, #8B6FFF, #6344E0); color: #fff; border: none; border-radius: 100px; padding: 1rem 2.2rem; font-size: 0.95rem; font-weight: 500; cursor: pointer; font-family: 'DM Sans', sans-serif; display: flex; align-items: center; gap: 8px; box-shadow: 0 4px 24px rgba(124,92,255,0.4); transition: all 0.2s; letter-spacing: 0.01em; }
@@ -179,7 +180,7 @@
     .loading-wrap { background: var(--bg); flex: 1; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 2rem; padding: 2rem; overflow: hidden; width: 100%; }
     .orb { width: 72px; height: 72px; border-radius: 50%; background: conic-gradient(var(--purple), #3A8DFF, var(--purple-dim), var(--purple)); animation: spin 3s linear infinite; will-change: transform; flex-shrink: 0; }
     @keyframes spin { to { transform: rotate(360deg); } }
-    .load-title { font-family: 'Playfair Display', serif; font-size: 1rem; font-weight: 400; text-align: center; color: var(--text); }
+    .load-title { font-family: 'Bebas Neue', sans-serif; font-size: 1.4rem; font-weight: 400; text-align: center; color: var(--text); letter-spacing: 0.08em; }
     .load-sub { font-size: 0.78rem; color: var(--muted); text-align: center; margin-top: 0.25rem; font-weight: 300; }
     .steps-list { display: flex; flex-direction: column; gap: 0.6rem; width: 100%; max-width: 240px; }
     .lstep { display: flex; align-items: center; gap: 0.75rem; font-size: 0.78rem; color: var(--muted); font-weight: 300; }
@@ -203,7 +204,7 @@
     .img-error { display: none; flex-direction: column; align-items: center; gap: 10px; color: var(--muted); font-size: 0.8rem; text-align: center; padding: 2rem; }
     .retry-btn { background: var(--purple-dim); border: 0.5px solid var(--purple); color: var(--purple-soft); border-radius: 100px; padding: 7px 18px; font-size: 0.78rem; cursor: pointer; font-family: 'DM Sans', sans-serif; }
     .result-body { padding: 1.25rem 1.25rem 0; display: flex; flex-direction: column; gap: 1.25rem; }
-    .result-quote { font-family: 'Playfair Display', serif; font-size: 1rem; color: #FFFFFF; border-left: 2px solid var(--purple); padding-left:0.85rem; line-height: 1.6; font-style: italic; }
+    .result-quote { font-family: 'Bebas Neue', sans-serif; font-size: 1.3rem; color: var(--purple-soft); border-left: 3px solid var(--purple); padding-left:0.85rem; line-height: 1.4; letter-spacing: 0.03em; }
     .rsect-lbl { font-size: 0.62rem; color: #A78BFA; letter-spacing: 0.12em; text-transform: uppercase; margin-bottom: 0.6rem; display: block; font-weight: 400; }
     .ebar { display: flex; align-items: center; gap: 8px; margin-bottom: 8px; }
     .ebar-name { font-size: 0.78rem; color: #E2E8F0; min-width: 90px; font-weight: 300; }
@@ -258,7 +259,7 @@
     .feed-actions-row { display: flex; align-items: center; gap: 12px; margin-bottom: 0.6rem; }
     .like-btn { display: flex; align-items: center; gap: 4px; background: var(--surface); border: 0.5px solid var(--border); color: var(--text); font-size: 0.82rem; cursor: pointer; padding: 0.3rem 0.7rem; border-radius: 100px; font-family: 'DM Sans', sans-serif; transition: all 0.15s; }
     .like-btn:active { background: var(--purple-dim); border-color: var(--purple); transform: scale(1.1); }
-    .feed-resumen { font-family: 'Playfair Display', serif; font-size: 0.88rem; color: var(--text); font-style: italic; line-height: 1.55; margin-bottom: 0.5rem; }
+    .feed-resumen { font-family: 'DM Sans', sans-serif; font-size: 0.88rem; color: var(--text); font-style: normal; font-weight: 300; line-height: 1.55; margin-bottom: 0.5rem; }
     .feed-tags { display: flex; flex-wrap: wrap; gap: 4px; }
     .feed-tag { font-size: 0.68rem; color: var(--purple-soft); }
     .feed-filter { background: rgba(0,0,0,0.45); border: 0.5px solid rgba(255,255,255,0.25); color: rgba(255,255,255,0.8); border-radius: 100px; padding: 0.3rem 0.85rem; font-size: 0.73rem; cursor: pointer; font-family: 'DM Sans', sans-serif; margin-right: 6px; white-space: nowrap; transition: all 0.15s; backdrop-filter: blur(8px); }
@@ -281,7 +282,7 @@
     .ins-wrap { padding: 0.75rem 1.25rem 1.5rem; display: flex; flex-direction: column; gap: 0.85rem; }
     .ins-card { background: var(--surface); border: 1px solid var(--border); border-radius: 16px; padding: 1.25rem; }
     .ins-card h3 { font-size: 0.62rem; color: var(--muted); letter-spacing: 0.12em; text-transform: uppercase; margin-bottom: 0.75rem; font-weight: 400; }
-    .ins-big { font-family: 'Playfair Display', serif; font-size: 1.8rem; font-weight: 400; color: var(--purple-soft); }
+    .ins-big { font-family: 'Bebas Neue', sans-serif; font-size: 2.2rem; font-weight: 400; color: var(--purple-soft); letter-spacing: 0.05em; }
     .ins-sub { font-size: 0.78rem; color: var(--muted); margin-top: 4px; font-weight: 300; }
     .no-data { font-size: 0.82rem; color: var(--dim); font-style: italic; font-weight: 300; }
     .ins-logout { margin-top: 0.5rem; background: var(--surface); border: 0.5px solid var(--border); color: var(--muted); border-radius: 100px; padding: 0.75rem; font-size: 0.82rem; cursor: pointer; width: 100%; font-family: 'DM Sans', sans-serif; }
@@ -311,7 +312,7 @@
     .dream-modal.open { display: flex; animation: screenIn 0.3s ease both; }
     .dream-modal-card { background: var(--surface); border: 0.5px solid var(--border); border-radius: 24px 24px 0 0; padding: 1.5rem 1.25rem 2.5rem; width: 100%; max-width: 430px; max-height: 80vh; overflow-y: auto; }
     .dream-modal-close { float: right; background: var(--bg); border: none; color: var(--muted); border-radius: 8px; padding: 4px 10px; cursor: pointer; font-size: 0.78rem; font-family: 'DM Sans', sans-serif; }
-    .dream-modal-resumen { font-family: 'Playfair Display', serif; font-size: 1rem; color: var(--text); font-style: italic; line-height: 1.6; margin-bottom: 1rem; padding-bottom: 1rem; border-bottom: 0.5px solid var(--border); }
+    .dream-modal-resumen { font-family: 'Bebas Neue', sans-serif; font-size: 1.2rem; color: var(--purple-soft); line-height: 1.4; margin-bottom: 1rem; padding-bottom: 1rem; border-bottom: 0.5px solid var(--border); letter-spacing: 0.03em; }
     .dream-modal-section { margin-bottom: 1rem; }
     .dream-modal-lbl { font-size: 0.62rem; color: var(--muted); letter-spacing: 0.12em; text-transform: uppercase; margin-bottom: 0.4rem; display: block; }
     .dream-modal-text { font-size: 0.87rem; color: #E2E8F0; line-height: 1.75; }
@@ -361,7 +362,7 @@
     .audio-popup.open { display: flex; animation: screenIn 0.3s ease both; }
     .audio-popup-card { background: var(--surface); border-radius: 24px 24px 0 0; padding: 1.75rem 1.5rem 2.5rem; width: 100%; max-width: 430px; border: 0.5px solid var(--border); }
     .audio-popup-icon { width: 56px; height: 56px; border-radius: 50%; background: linear-gradient(135deg, #7C5CFF, #3A8DFF); display: flex; align-items: center; justify-content: center; margin: 0 auto 1rem; }
-    .audio-popup-title { font-family: 'Playfair Display', serif; font-size: 1.2rem; text-align: center; color: var(--text); margin-bottom: 0.75rem; }
+    .audio-popup-title { font-family: 'Bebas Neue', sans-serif; font-size: 1.5rem; text-align: center; color: var(--text); margin-bottom: 0.75rem; letter-spacing: 0.08em; }
     .audio-popup-points { display: flex; flex-direction: column; gap: 0.6rem; margin-bottom: 1.25rem; }
     .audio-popup-point { display: flex; align-items: flex-start; gap: 0.6rem; font-size: 0.82rem; color: #94a3b8; line-height: 1.5; }
     .audio-popup-point svg { flex-shrink: 0; margin-top: 2px; color: #22c55e; }
@@ -379,7 +380,7 @@
     .profile-screen { flex: 1; display: flex; flex-direction: column; padding-bottom: calc(130px + env(safe-area-inset-bottom, 0px)); overflow-y: auto; }
     .profile-header { display: flex; flex-direction: column; align-items: center; padding: 2rem 1.25rem 1rem; border-bottom: 0.5px solid var(--border); }
     .profile-avatar-big { width: 72px; height: 72px; border-radius: 50%; background: linear-gradient(135deg, var(--purple), #3A8DFF); display: flex; align-items: center; justify-content: center; font-size: 1.8rem; font-weight: 500; color: #fff; margin-bottom: 0.75rem; }
-    .profile-username-big { font-family: 'Playfair Display', serif; font-size: 1.4rem; font-weight: 400; color: var(--text); margin-bottom: 0.25rem; }
+    .profile-username-big { font-family: 'Bebas Neue', sans-serif; font-size: 1.8rem; font-weight: 400; color: var(--text); margin-bottom: 0.25rem; letter-spacing: 0.05em; }
     .profile-count { font-size: 0.78rem; color: var(--muted); }
     .profile-grid { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 2px; }
 
@@ -405,32 +406,21 @@
     .dict-close { float: right; background: var(--bg); border: none; color: var(--muted); border-radius: 8px; padding: 4px 10px; cursor: pointer; font-size: 0.78rem; font-family: 'DM Sans', sans-serif; }
     .dict-text { font-size: 0.85rem; color: var(--muted); line-height: 1.75; margin-top: 0.75rem; font-weight: 300; }
     .dict-tag { font-size: 0.68rem; color: var(--purple); background: var(--purple-dim); border: 0.5px solid var(--border); border-radius: 100px; padding: 3px 10px; display: inline-block; margin-bottom: 0.75rem; letter-spacing: 0.05em; }
-
-    /* PWA INSTALL BANNER */
-    .pwa-banner {
-      position: fixed; bottom: calc(70px + env(safe-area-inset-bottom, 0px));
-      left: 12px; right: 12px; z-index: 9990;
-      background: linear-gradient(135deg, #1a1035, #0f0f20);
-      border: 1px solid rgba(139,111,255,0.4);
-      border-radius: 16px; padding: 14px 16px;
-      display: flex; align-items: center; gap: 12px;
-      box-shadow: 0 8px 32px rgba(0,0,0,0.5);
-      animation: slideUp 0.4s ease;
-    }
-    @keyframes slideUp { from { opacity:0; transform:translateY(20px); } to { opacity:1; transform:translateY(0); } }
-    .pwa-banner-icon { width: 40px; height: 40px; border-radius: 10px; flex-shrink: 0; }
-    .pwa-banner-text { flex: 1; }
-    .pwa-banner-title { font-size: 0.85rem; font-weight: 600; color: #fff; margin-bottom: 2px; }
-    .pwa-banner-sub { font-size: 0.72rem; color: rgba(255,255,255,0.5); line-height: 1.4; }
-    .pwa-banner-close { background: none; border: none; color: rgba(255,255,255,0.4); font-size: 1.1rem; cursor: pointer; padding: 4px; flex-shrink: 0; }
-    .pwa-banner-btn { background: linear-gradient(135deg,#8B6FFF,#6344E0); border: none; color: #fff; border-radius: 100px; padding: 7px 14px; font-size: 0.78rem; font-weight: 600; cursor: pointer; font-family: 'DM Sans', sans-serif; white-space: nowrap; flex-shrink: 0; }
   </style>
 </head>
 <body>
 <main class="app" id="app">
 
   <!-- SPLASH -->
-
+  <!-- BANNER CAÍDA IA -->
+  <div id="ai-outage-banner" style="display:none;position:fixed;top:0;left:0;right:0;z-index:99999;background:linear-gradient(135deg,#1a1535,#0f0f1a);border-bottom:1px solid rgba(139,111,255,0.3);padding:1.25rem 1.5rem 1.5rem;animation:fadeDown 0.4s ease forwards;">
+    <div style="max-width:420px;margin:0 auto;text-align:center;">
+      <div style="font-size:2rem;margin-bottom:0.5rem;">😴</div>
+      <div style="font-family:'Playfair Display',serif;font-size:1rem;color:#c4b5fd;margin-bottom:0.4rem;font-style:italic;" id="ai-outage-title">Nuestra IA está soñando despierta...</div>
+      <div style="font-size:0.78rem;color:#9ca3af;line-height:1.5;" id="ai-outage-sub">Estamos experimentando una breve caída en nuestro proveedor de inteligencia artificial. Volvemos en unos minutos con tus interpretaciones. ¡Gracias por la paciencia!</div>
+      <button id="ai-outage-btn" onclick="document.getElementById('ai-outage-banner').style.display='none'" style="margin-top:0.85rem;background:rgba(139,111,255,0.15);border:1px solid rgba(139,111,255,0.4);border-radius:20px;padding:0.35rem 1.2rem;color:#c4b5fd;font-size:0.75rem;cursor:pointer;font-family:'DM Sans',sans-serif;">Entendido</button>
+    </div>
+  </div>
 
   <div class="screen active" id="s-splash">
     <div class="splash-screen">
@@ -446,7 +436,7 @@
               <circle cx="15" cy="11" r="0.6" fill="white"/>
             </svg>
           </div>
-          <div class="splash-wordmark" style="letter-spacing:0.2em;padding-left:0.2em;">Soniar</div>
+          <div class="splash-wordmark" style="letter-spacing:0.2em;padding-left:0.2em;color:#a78bfa;text-shadow:0 0 40px rgba(139,111,255,0.7);">SONIAR</div>
         </div>
         <div class="splash-line"></div>
         <div class="splash-tagline" id="splash-tagline">Descubrí qué dicen tus sueños</div>
@@ -466,10 +456,10 @@
       </div>
       <div style="background:rgba(124,92,255,0.08);border:0.5px solid rgba(124,92,255,0.25);border-radius:16px;padding:1rem 1.25rem;width:100%;font-size:0.78rem;color:var(--muted);line-height:1.9;text-align:center;">
         ✨ <span style="color:var(--text);font-weight:500;">Gratis para siempre</span><br>
-        - 3 interpretaciones con imagen<br>
-        - Feed de la comunidad<br>
-        - Compartir hasta 3 sueños<br>
-        - Insights personales
+        — 3 interpretaciones con imagen<br>
+        — Feed de la comunidad<br>
+        — Compartir hasta 3 sueños<br>
+        — Insights personales
       </div>
       <div class="auth-err" id="auth-err"></div>
       <button onclick="loginConGoogle()" style="display:flex;align-items:center;justify-content:center;gap:12px;width:100%;background:#fff;color:#1f1f1f;border:none;border-radius:100px;padding:0.9rem 1.5rem;font-size:0.95rem;font-weight:500;cursor:pointer;font-family:'DM Sans',sans-serif;box-shadow:0 2px 12px rgba(0,0,0,0.3);transition:all 0.2s;">
@@ -516,7 +506,7 @@
   <div class="screen" id="s-compose">
     <div class="topbar">
       <button class="back-btn" onclick="track('compose_abandon');go('home')">←</button>
-      <span id="compose-topbar-title" style="font-family:'Playfair Display',serif;font-size:0.95rem;font-weight:400;">Nuevo sueño</span>
+      <span id="compose-topbar-title" style="font-family:'Bebas Neue',sans-serif;font-size:1.1rem;font-weight:400;letter-spacing:0.08em;">Nuevo sueño</span>
       <div style="width:32px"></div>
     </div>
     <div class="compose-screen">
@@ -607,7 +597,7 @@
   <div class="screen" id="s-result" style="overflow-x:hidden;overflow-y:auto;">
     <div class="topbar">
       <button class="back-btn" onclick="go('home')">←</button>
-      <span id="result-topbar-title" style="font-family:'Playfair Display',serif;font-size:0.95rem;font-weight:400;">Tu sueño</span>
+      <span id="result-topbar-title" style="font-family:'Bebas Neue',sans-serif;font-size:1.1rem;font-weight:400;letter-spacing:0.08em;">Tu sueño</span>
       <div style="width:32px"></div>
     </div>
     <div class="result-wrap">
@@ -661,7 +651,7 @@
       <div class="result-actions" id="result-actions" style="display:flex;flex-direction:column;gap:10px;padding:1rem 1.25rem 1.5rem;">
         <button id="save-btn" onclick="saveDream()" style="display:flex;align-items:center;justify-content:center;gap:8px;background:linear-gradient(135deg,#8B6FFF,#6344E0);color:#fff;border:none;border-radius:100px;padding:0.85rem 1.5rem;font-size:0.95rem;font-weight:700;cursor:pointer;width:100%;font-family:'DM Sans',sans-serif;box-shadow:0 4px 20px rgba(124,92,255,0.35);">
           <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 21H5a2 2 0 01-2-2V5a2 2 0 012-2h11l5 5v11a2 2 0 01-2 2z"/><polyline points="17 21 17 13 7 13 7 21"/><polyline points="7 3 7 8 15 8"/></svg>
-          <span id="save-btn-txt">Guardar en mi diario</span>
+          <span id="save-btn-txt">Guardar en diario y feed</span>
         </button>
         <div style="display:flex;gap:10px;">
           <button onclick="downloadImageIfAllowed()" style="display:flex;align-items:center;justify-content:center;gap:6px;flex:1;background:linear-gradient(135deg,#8B6FFF,#6344E0);color:#fff;border:none;border-radius:100px;padding:0.75rem 1rem;font-size:0.85rem;font-weight:600;cursor:pointer;font-family:'DM Sans',sans-serif;box-shadow:0 2px 12px rgba(124,92,255,0.25);">
@@ -685,7 +675,7 @@
   <div class="screen" id="s-share">
     <div class="topbar">
       <button class="back-btn" onclick="go('result')">←</button>
-      <span id="share-topbar-title" style="font-family:'Playfair Display',serif;font-size:0.95rem;font-weight:400;">Compartir</span>
+      <span id="share-topbar-title" style="font-family:'Bebas Neue',sans-serif;font-size:1.1rem;font-weight:400;letter-spacing:0.08em;">Compartir</span>
       <div style="width:32px"></div>
     </div>
     <div class="share-screen">
@@ -755,8 +745,8 @@
       <div class="ins-wrap">
         <div class="ins-card" id="ins-user-card" style="display:none;cursor:pointer;" onclick="openOwnProfile()">
           <h3>Tu cuenta</h3>
-          <div class="ins-big" id="ins-username" style="font-size:1.2rem;">-</div>
-          <div class="ins-sub" id="ins-email" style="font-size:0.75rem;margin-top:2px;">-</div>
+          <div class="ins-big" id="ins-username" style="font-size:1.2rem;">—</div>
+          <div class="ins-sub" id="ins-email" style="font-size:0.75rem;margin-top:2px;">—</div>
           <div style="font-size:0.75rem;color:var(--purple-soft);margin-top:0.5rem;">Ver mi perfil →</div>
         </div>
         <!-- SELECTOR ESCUELA PSICOANALÍTICA -->
@@ -778,7 +768,7 @@
             <button id="lang-pt" onclick="setLang('pt')" style="flex:1;background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:0.75rem 0.5rem;cursor:pointer;font-family:'DM Sans',sans-serif;font-size:0.82rem;font-weight:500;color:var(--muted);transition:all 0.2s;">🇧🇷 Português</button>
           </div>
         </div>
-        <div class="ins-card"><h3 id="ins-emo-title">Emoción dominante</h3><div class="ins-big" id="ins-emo">-</div><div class="ins-sub" id="ins-emo-sub">Registrá sueños para ver patrones</div></div>
+        <div class="ins-card"><h3 id="ins-emo-title">Emoción dominante</h3><div class="ins-big" id="ins-emo">—</div><div class="ins-sub" id="ins-emo-sub">Registrá sueños para ver patrones</div></div>
         <div class="ins-card"><h3 id="ins-syms-title">Símbolos recurrentes</h3><div id="ins-syms" class="no-data">Todavía no hay datos suficientes</div></div>
         <div class="ins-card"><h3 id="ins-dreams-title">Sueños registrados</h3><div class="ins-big" id="ins-count">0</div><div class="ins-sub" id="ins-dreams-total">en total</div></div>
         <button class="ins-logout" onclick="logout()">Cerrar sesión</button>
@@ -823,7 +813,7 @@
     <div class="audio-popup-points">
       <div class="audio-popup-point">
         <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>
-        El audio se procesa <strong>localmente en tu celular</strong> - nunca sale de tu dispositivo.
+        El audio se procesa <strong>localmente en tu celular</strong> — nunca sale de tu dispositivo.
       </div>
       <div class="audio-popup-point">
         <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>
@@ -865,7 +855,7 @@
   <div class="profile-screen">
     <div class="profile-header">
       <div class="profile-avatar-big" id="profile-avatar-big">?</div>
-      <div class="profile-username-big" id="profile-username-big">-</div>
+      <div class="profile-username-big" id="profile-username-big">—</div>
       <div class="profile-count" id="profile-count">0 sueños</div>
     </div>
     <div class="profile-grid" id="profile-grid"></div>
@@ -913,15 +903,13 @@
     <div style="width:72px;height:72px;border-radius:50%;background:linear-gradient(135deg,#7C5CFF,#3A8DFF);display:flex;align-items:center;justify-content:center;">
       <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1.5"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
     </div>
-    <div id="upgrade-title" style="font-family:'Playfair Display',serif;font-size:1.7rem;font-weight:400;color:var(--text);">Unite a Soniar</div>
+    <div id="upgrade-title" style="font-family:'Bebas Neue',sans-serif;font-size:2.2rem;font-weight:400;color:var(--text);letter-spacing:0.05em;">Unite a Soniar</div>
     <div id="upgrade-sub" style="font-size:0.88rem;color:var(--muted);line-height:1.7;font-weight:300;max-width:280px;">Para guardar tus sueños, publicarlos en el feed y ser parte de la comunidad Soniar necesitás una suscripción.</div>
     <div style="display:flex;flex-direction:column;gap:0.6rem;width:100%;max-width:280px;">
-      <div id="upf-0" style="display:flex;align-items:center;gap:0.75rem;font-size:0.83rem;color:var(--text);background:var(--surface);border-radius:12px;padding:0.7rem 1rem;border:0.5px solid var(--border);"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#a78bfa" stroke-width="1.5"><polyline points="20 6 9 17 4 12"/></svg>Todo lo del plan Free</div>
-      <div id="upf-1" style="display:flex;align-items:center;gap:0.75rem;font-size:0.83rem;color:var(--text);background:var(--surface);border-radius:12px;padding:0.7rem 1rem;border:0.5px solid var(--border);"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#a78bfa" stroke-width="1.5"><polyline points="20 6 9 17 4 12"/></svg>Publicar en el feed (alias o anónimo)</div>
-      <div id="upf-2" style="display:flex;align-items:center;gap:0.75rem;font-size:0.83rem;color:var(--text);background:var(--surface);border-radius:12px;padding:0.7rem 1rem;border:0.5px solid var(--border);"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#a78bfa" stroke-width="1.5"><polyline points="20 6 9 17 4 12"/></svg>Interpretaciones ilimitadas</div>
-      <div id="upf-3" style="display:flex;align-items:center;gap:0.75rem;font-size:0.83rem;color:var(--text);background:var(--surface);border-radius:12px;padding:0.7rem 1rem;border:0.5px solid var(--border);"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#a78bfa" stroke-width="1.5"><polyline points="20 6 9 17 4 12"/></svg>Comparar Freud vs Jung</div>
-      <div id="upf-4" style="display:flex;align-items:center;gap:0.75rem;font-size:0.83rem;color:var(--text);background:var(--surface);border-radius:12px;padding:0.7rem 1rem;border:0.5px solid var(--border);"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#a78bfa" stroke-width="1.5"><polyline points="20 6 9 17 4 12"/></svg>Insights de patrones recurrentes</div>
-      <div id="upf-5" style="display:flex;align-items:center;gap:0.75rem;font-size:0.83rem;color:var(--text);background:var(--surface);border-radius:12px;padding:0.7rem 1rem;border:0.5px solid var(--border);"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#a78bfa" stroke-width="1.5"><polyline points="20 6 9 17 4 12"/></svg>Opciones visuales premium</div>
+      <div id="upf-0" style="display:flex;align-items:center;gap:0.75rem;font-size:0.83rem;color:var(--text);background:var(--surface);border-radius:12px;padding:0.7rem 1rem;border:0.5px solid var(--border);"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#a78bfa" stroke-width="1.5"><polyline points="20 6 9 17 4 12"/></svg>Publicá en el feed de la comunidad</div>
+      <div id="upf-1" style="display:flex;align-items:center;gap:0.75rem;font-size:0.83rem;color:var(--text);background:var(--surface);border-radius:12px;padding:0.7rem 1rem;border:0.5px solid var(--border);"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#a78bfa" stroke-width="1.5"><polyline points="20 6 9 17 4 12"/></svg>Sueños ilimitados por mes</div>
+      <div id="upf-2" style="display:flex;align-items:center;gap:0.75rem;font-size:0.83rem;color:var(--text);background:var(--surface);border-radius:12px;padding:0.7rem 1rem;border:0.5px solid var(--border);"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#a78bfa" stroke-width="1.5"><polyline points="20 6 9 17 4 12"/></svg>Historial completo guardado</div>
+      <div id="upf-3" style="display:flex;align-items:center;gap:0.75rem;font-size:0.83rem;color:var(--text);background:var(--surface);border-radius:12px;padding:0.7rem 1rem;border:0.5px solid var(--border);"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#a78bfa" stroke-width="1.5"><polyline points="20 6 9 17 4 12"/></svg>Reacciones y perfil propio</div>
     </div>
 
     
@@ -933,10 +921,9 @@
           <div style="font-size:0.85rem;color:var(--muted);font-weight:600;">$0</div>
         </div>
         <div style="display:flex;flex-direction:column;gap:0.3rem;">
-          <div id="upff-0" style="display:flex;align-items:center;gap:0.5rem;font-size:0.78rem;color:var(--muted);"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#6B7280" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>Ver el feed libremente</div>
-          <div id="upff-1" style="display:flex;align-items:center;gap:0.5rem;font-size:0.78rem;color:var(--muted);"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#6B7280" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>Reaccionar a publicaciones</div>
-          <div id="upff-2" style="display:flex;align-items:center;gap:0.5rem;font-size:0.78rem;color:var(--muted);"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#6B7280" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>Guardar en galería y compartir</div>
-          <div id="upff-3" style="display:flex;align-items:center;gap:0.5rem;font-size:0.78rem;color:var(--muted);"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#ef4444" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>3 interpretaciones (luego upgrade)</div>
+          <div id="upff-0" style="display:flex;align-items:center;gap:0.5rem;font-size:0.78rem;color:var(--muted);"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#6B7280" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>3 sueños interpretados</div>
+          <div id="upff-1" style="display:flex;align-items:center;gap:0.5rem;font-size:0.78rem;color:var(--muted);"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#ef4444" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>Sin feed comunitario</div>
+          <div id="upff-2" style="display:flex;align-items:center;gap:0.5rem;font-size:0.78rem;color:var(--muted);"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#ef4444" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>Sin historial de sueños</div>
         </div>
       </div>
       <div style="display:flex;align-items:center;gap:0.5rem;margin:0.25rem 0;"><div style="flex:1;height:0.5px;background:var(--border);"></div><span style="font-size:0.65rem;color:var(--dim);letter-spacing:0.08em;text-transform:uppercase;">Premium</span><div style="flex:1;height:0.5px;background:var(--border);"></div></div>
@@ -945,25 +932,14 @@
         <input id="coupon-input" type="text" placeholder="Código de descuento" style="flex:1;background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:0.65rem 1rem;font-size:0.82rem;color:var(--text);font-family:'DM Sans',sans-serif;outline:none;text-transform:uppercase;letter-spacing:0.05em;" oninput="this.value=this.value.toUpperCase()"/>
       </div>
       <!-- INICIO PLANES -->
-      <!-- Mensual -->
+      <!-- Mensual $49 - Stripe -->
       <button onclick="startCheckout('monthly')" style="background:linear-gradient(135deg,rgba(124,92,255,0.15),rgba(124,92,255,0.05));border:1.5px solid #7C5CFF;border-radius:16px;padding:1rem 1.25rem;cursor:pointer;text-align:left;width:100%;font-family:'DM Sans',sans-serif;position:relative;">
         <div style="display:flex;justify-content:space-between;align-items:center;">
           <div>
-            <div style="font-size:0.92rem;color:var(--text);font-weight:600;">Mensual</div>
-            <div style="font-size:0.72rem;color:var(--muted);margin-top:2px;">Cancelá cuando quieras</div>
+            <div style="font-size:0.92rem;color:var(--text);font-weight:600;" id="up-monthly-label">Arquitecto Mensual</div>
+            <div style="font-size:0.72rem;color:var(--muted);margin-top:2px;" id="up-monthly-sub">Tarjeta · Cancelá cuando quieras</div>
           </div>
-          <div style="font-size:1.3rem;color:#a78bfa;font-weight:700;">$4.90<span style="font-size:0.7rem;color:var(--muted);font-weight:400;">/mes</span></div>
-        </div>
-      </button>
-      <!-- Anual -->
-      <button onclick="startCheckout('annual')" style="background:linear-gradient(135deg,rgba(212,168,83,0.12),rgba(212,168,83,0.04));border:1.5px solid #d4a853;border-radius:16px;padding:1rem 1.25rem;cursor:pointer;text-align:left;width:100%;font-family:'DM Sans',sans-serif;position:relative;margin-top:0.5rem;">
-        <div style="position:absolute;top:-10px;left:50%;transform:translateX(-50%);background:linear-gradient(135deg,#d4a853,#e8b96a);color:#080810;font-size:0.6rem;font-weight:700;letter-spacing:0.1em;padding:2px 10px;border-radius:100px;white-space:nowrap;">MEJOR PRECIO</div>
-        <div style="display:flex;justify-content:space-between;align-items:center;">
-          <div>
-            <div style="font-size:0.92rem;color:var(--text);font-weight:600;">Anual</div>
-            <div style="font-size:0.72rem;color:var(--muted);margin-top:2px;">Solo $2.49/mes · -58% vs mensual</div>
-          </div>
-          <div style="font-size:1.3rem;color:#d4a853;font-weight:700;">$29.90<span style="font-size:0.7rem;color:var(--muted);font-weight:400;">/año</span></div>
+          <div style="font-size:1.3rem;color:#a78bfa;font-weight:700;">$49<span style="font-size:0.7rem;color:var(--muted);font-weight:400;">/mes</span></div>
         </div>
       </button>
       <!-- Crypto -->
@@ -993,18 +969,6 @@
   </div>
 </div>
 
-</div>
-
-
-<!-- PWA INSTALL BANNER -->
-<div id="pwa-banner" class="pwa-banner" style="display:none;">
-  <img src="icon-192.png" class="pwa-banner-icon" alt="Soniar" onerror="this.style.display='none'"/>
-  <div class="pwa-banner-text">
-    <div class="pwa-banner-title" id="pwa-banner-title">Instalá Soniar</div>
-    <div class="pwa-banner-sub" id="pwa-banner-sub">Tocá <strong>↑ Compartir</strong> y luego <strong>"Añadir a inicio"</strong></div>
-  </div>
-  <button class="pwa-banner-btn" onclick="dismissPWABanner()" id="pwa-banner-btn">Entendido</button>
-  <button class="pwa-banner-close" onclick="dismissPWABanner()">✕</button>
 </div>
 
 </main>
@@ -1044,7 +1008,7 @@
     </div>
   </div>
 
-  <!-- GENDER MODAL - aparece después del login de Google para usuarios nuevos -->
+  <!-- GENDER MODAL — aparece después del login de Google para usuarios nuevos -->
   <div id="gender-modal" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,0.85);z-index:200;align-items:flex-end;justify-content:center;">
     <div style="background:var(--surface);border:0.5px solid var(--border);border-radius:24px 24px 0 0;padding:2rem 1.5rem calc(3rem + env(safe-area-inset-bottom,0px));width:100%;max-width:430px;text-align:center;">
       <div style="width:40px;height:3px;background:var(--border);border-radius:100px;margin:0 auto 1.5rem;"></div>
@@ -1063,7 +1027,7 @@
   <!-- DREAM DETAIL MODAL -->
 <div class="dream-modal" id="dream-modal" onclick="closeDreamModal(event)">
   <div class="dream-modal-card">
-    <button class="dream-modal-close" onclick="closeDreamModal()">← volver</button>
+    <button class="dream-modal-close" onclick="closeDreamModal()">✕ cerrar</button>
     <div style="display:none;margin-bottom:1rem;padding-bottom:1rem;border-bottom:0.5px solid var(--border);">
       <span style="font-size:0.62rem;color:var(--muted);letter-spacing:0.12em;text-transform:uppercase;display:block;margin-bottom:0.4rem;">Lo que soñaste</span>
       <div id="dm-dream-text" style="font-size:0.85rem;color:#94a3b8;line-height:1.7;font-style:italic;"></div>
@@ -1089,7 +1053,7 @@
   <div class="dict-card" id="dict-card">
     <button class="dict-close" onclick="closeDictModal()">✕ cerrar</button>
     <div class="dict-tag" id="dict-tag">símbolo</div>
-    <div class="dict-symbol" id="dict-symbol">-</div>
+    <div class="dict-symbol" id="dict-symbol">—</div>
     <div class="dict-text" id="dict-text">Cargando interpretación...</div>
   </div>
 </div>
@@ -1116,7 +1080,7 @@ async function logError(context, message, extra) {
         'Prefer': 'return=minimal'
       },
       body: JSON.stringify(payload)
-    }).catch(function(){}); // silencioso - nunca romper la app por el logger
+    }).catch(function(){}); // silencioso — nunca romper la app por el logger
   } catch(e) {}
 }
 
@@ -1164,10 +1128,6 @@ try { savedLocal = JSON.parse(localStorage.getItem('soniar_local') || '[]'); } c
 var dreams = savedLocal.map(function(d) {
   return { dream: d.resumen, date: new Date(d.date), emo: d.emociones&&d.emociones[0]?d.emociones[0].nombre:'', cat: d.categoria||'', style: d.estilo||'', data: d, imgUrl: d.img_url || '' };
 }), curResult = null, curDreamText = '', selEmo = '', selCat = '', selStyle = 'Cinemático', curPrompt = '', feedbackHistory = [];
-try {
-  var _lr = localStorage.getItem('soniar_last_result');
-  if (_lr) { var _lrp = JSON.parse(_lr); curResult = {dream:_lrp.dream||'',date:new Date(),emo:_lrp.emo||'',cat:_lrp.cat||'',style:_lrp.style||'Cinematico',data:_lrp.data||{},prompt:_lrp.prompt||'',imgUrl:_lrp.imgUrl||''}; }
-} catch(e) {}
 
 var myLikes = {};
 
@@ -1221,7 +1181,7 @@ async function doNav() {
   splashDone = true;
 
   // Navegar YA sin esperar nada
-  if (localStorage.getItem('soniar_onboarded') || new URLSearchParams(window.location.search).get('feed')) { go('feed'); } else { go('feed'); }
+  if (localStorage.getItem('soniar_onboarded') || new URLSearchParams(window.location.search).get('feed')) { go('feed'); } else { go('feed'); _showOnboard(); }
 
   // Todo lo demás en background
   setTimeout(async function() {
@@ -1254,7 +1214,7 @@ async function doNav() {
 
 setTimeout(doNav, 2000);
 
-// Watchdog - si en 4s el splash sigue visible, forzar navegación
+// Watchdog — si en 4s el splash sigue visible, forzar navegación
 setTimeout(function() {
   var splash = document.getElementById('s-splash');
   if (splash && splash.classList.contains('active')) {
@@ -1398,7 +1358,16 @@ async function loadProfile() {
         currentProfile.plan = 'free';
       }
     }
-    // GRATIS: sin banner de límite
+    // Si registrado free con 3+ sueños, mostrar banner al volver al resultado
+    if (!isAnonUser() && currentProfile.plan === 'free' && (currentProfile.suenos_mes || 0) >= 3) {
+      setTimeout(function() {
+        var banner = document.getElementById('free-limit-banner');
+        var activeScreen = document.querySelector('.screen.active');
+        if (banner && activeScreen && activeScreen.id === 's-result') {
+          banner.style.display = 'flex';
+        }
+      }, 500);
+    }
   }
 }
 
@@ -2069,7 +2038,6 @@ function applyLang(lang) {
   // Auth subtitle
   var authSub = document.getElementById('auth-subtitle');
   if (authSub) authSub.textContent = t.splashTagline;
-  var obBtn = document.getElementById('onboard-btn');
   if (obBtn && t.onboardBtn) obBtn.textContent = t.onboardBtn;
   var obSkip = document.querySelector('.onboard-skip');
   if (obSkip && t.onboardSkip) obSkip.textContent = t.onboardSkip;
@@ -2098,7 +2066,7 @@ function applyLang(lang) {
   var trSkip = document.getElementById('trial-skip'); if (trSkip) trSkip.textContent = t.trialSkip;
 
   // Document title & meta
-  document.title = lang === 'en' ? 'Soniar - Discover what your dreams are telling you' : 'Soniar - Descubrí qué dicen tus sueños';
+  document.title = lang === 'en' ? 'Soniar — Discover what your dreams are telling you' : 'Soniar — Descubrí qué dicen tus sueños';
   var metaDesc = document.querySelector('meta[name="description"]');
   if (metaDesc) metaDesc.setAttribute('content', lang === 'en'
     ? 'Share your dreams with AI. Get a psychological interpretation and a unique image of your subconscious.'
@@ -2706,7 +2674,12 @@ async function loadMoreFeed() {
       logo.textContent = 'Soniar';
       imgWrap.appendChild(logo);
 
-
+      if (isLucido) {
+        var lucidoBadge = document.createElement('div');
+        lucidoBadge.style.cssText = 'position:absolute;top:12px;left:12px;background:linear-gradient(135deg,#f59e0b,#d97706);color:#fff;font-size:0.65rem;font-weight:700;padding:3px 8px;border-radius:100px;letter-spacing:0.5px;z-index:2;';
+        lucidoBadge.textContent = '✨ LÚCIDO';
+        imgWrap.appendChild(lucidoBadge);
+      }
 
       var heartAnim = document.createElement('div');
       heartAnim.id = 'heart-anim-' + d.id;
@@ -2828,7 +2801,7 @@ function handleFeedImgClick(e, idx) {
     doubleTapHeart(dreamId);
     return;
   }
-  // Simple tap - esperá para ver si viene un segundo
+  // Simple tap — esperá para ver si viene un segundo
   clearTimeout(_feedTapTimer[dreamId]);
   _feedTapTimer[dreamId] = setTimeout(function(){
     delete _feedTapTimer[dreamId];
@@ -2956,7 +2929,27 @@ async function submitDream() {
     return;
   }
 
-    go('loading'); resetSteps(); animSteps(); 
+  var isPremium = currentProfile && (currentProfile.plan === 'premium' || currentProfile.plan === 'trial');
+
+  // Check límite para usuarios no premium
+  if (!isPremium) {
+    // Siempre recargar el perfil para tener el contador actualizado
+    try { await loadProfile(); } catch(e) {}
+    var isAnon = isAnonUser();
+    var dreamCount = (currentProfile && currentProfile.suenos_mes) || 0;
+    // Visitante: 1 sueño máximo
+    if (isAnon && dreamCount >= 1) {
+      go('upgrade');
+      return;
+    }
+    // Free: 3 sueños máximo
+    if (!isAnon && dreamCount >= 3) {
+      go('upgrade');
+      return;
+    }
+  }
+
+  go('loading'); resetSteps(); animSteps(); 
   track('dream_submit', { lang: currentLang, emo: selEmo, cat: selCat, style: selStyle, chars: txt.length });
   callAI(txt, '');
 }
@@ -3011,8 +3004,8 @@ async function callAI(dreamText, feedback, isRegen, forceAbstract) {
 
   // Si el género es desconocido, usar 'a person' para no asumir
   var genderInstruction = userGender === 'unknown'
-    ? 'Gender unknown - use neutral "a person", "their silhouette", never assume gender.'
-    : 'Default gender is ' + userGender + '. Female: always "a woman", "her silhouette". Male: always "a man", "his silhouette". Non-binary: "a person", "their silhouette". STRICTLY enforce this - never switch gender.';
+    ? 'Gender unknown — use neutral "a person", "their silhouette", never assume gender.'
+    : 'Default gender is ' + userGender + '. Female: always "a woman", "her silhouette". Male: always "a man", "his silhouette". Non-binary: "a person", "their silhouette". STRICTLY enforce this — never switch gender.';
 
   var userSchool = (currentProfile && currentProfile.escuela) || localStorage.getItem('soniar_school') || 'freud';
   var isEn = currentLang === 'en';
@@ -3029,7 +3022,7 @@ async function callAI(dreamText, feedback, isRegen, forceAbstract) {
       'Tone: evocative, poetic, intimate. Avoid clinical jargon. Write as if speaking to a curious, open-minded person.\n' +
       'For flux_prompt: FIRST mentally list every person, place, object and action in the dream. THEN build a scene where each listed element appears visually. People must appear as people (silhouettes), never replaced by objects, trees or abstract shapes. Family members: grandmother/abuela=elderly female silhouette, grandfather/abuelo=elderly male silhouette, mother/madre=adult female silhouette, father/padre=adult male silhouette. Places must be literal: beach=beach, house=house, forest=forest.\n' +
       'CAMERA: medium shot or 3/4 body. NEVER wide shot. NEVER face close-up. 85mm lens, shallow depth of field. Style: ' + styleVibe + lucidBoost + '.\n' +
-      'RULES: (1) Every dream element must appear in the image - no omissions, no substitutions. (2) ' + genderInstruction + ' (3) Human figures as silhouettes only, no faces. (4) Atmospheric and evocative, never graphic.\n' +
+      'RULES: (1) Every dream element must appear in the image — no omissions, no substitutions. (2) ' + genderInstruction + ' (3) Human figures as silhouettes only, no faces. (4) Atmospheric and evocative, never graphic.\n' +
       '{"resumen":"poetic phrase max 15 words","emociones":[{"nombre":"Emotion","pct":65},{"nombre":"Emotion","pct":35}],"simbolos":["S1","S2","S3"],"lectura":"3 sentences in English: relational dynamic, connection to waking life, no clinical terms.","flux_prompt":"ENGLISH narrative scene max 75 words"}\n' +
       'Dream: "' + dreamText + '" | Emotion: ' + (selEmo||'none') + ' | Style: ' + selStyle + ' | Category: ' + (selCat||'none') + ' | Intensity: ' + document.getElementById('intensity').value + '/10' +
       (feedbackCtx ? feedbackCtx : '')
@@ -3039,7 +3032,7 @@ async function callAI(dreamText, feedback, isRegen, forceAbstract) {
       schoolPrompt + '\n' +
       'For flux_prompt: FIRST mentally list every person, place, object and action in the dream. THEN build a scene where each listed element appears visually. People must appear as people (silhouettes), never replaced by objects, trees or abstract shapes. Family members: grandmother/abuela=elderly female silhouette, grandfather/abuelo=elderly male silhouette, mother/madre=adult female silhouette, father/padre=adult male silhouette. Places must be literal: beach=beach, house=house, forest=forest.\n' +
       'CAMERA: medium shot or 3/4 body. NEVER wide shot. NEVER face close-up. 85mm lens, shallow depth of field. Style: ' + styleVibe + lucidBoost + '.\n' +
-      'RULES: (1) Every dream element must appear in the image - no omissions, no substitutions. (2) ' + genderInstruction + ' (3) Human figures as silhouettes only, no faces. (4) Atmospheric and evocative, never graphic.\n' +
+      'RULES: (1) Every dream element must appear in the image — no omissions, no substitutions. (2) ' + genderInstruction + ' (3) Human figures as silhouettes only, no faces. (4) Atmospheric and evocative, never graphic.\n' +
       '{"resumen":"frase poetica max 15 palabras","emociones":[{"nombre":"Emocion","pct":65},{"nombre":"Emocion","pct":35}],"simbolos":["S1","S2","S3"],"lectura":"3 oraciones espanol: dinamica relacional, conexion vida real, sin terminos clinicos.","flux_prompt":"ENGLISH narrative scene max 75 words"}\n' +
       'Dream: "' + dreamText + '" | Emotion: ' + (selEmo||'none') + ' | Style: ' + selStyle + ' | Category: ' + (selCat||'none') + ' | Intensity: ' + document.getElementById('intensity').value + '/10' +
       (feedbackCtx ? feedbackCtx : '');
@@ -3098,14 +3091,35 @@ async function callAI(dreamText, feedback, isRegen, forceAbstract) {
     var fp = parsed.flux_prompt || (dreamText.substring(0, 200) + ', ' + styleVibe + ', dreamlike atmosphere, no faces');
     curPrompt = fp;
     curResult = {dream: dreamText, date: new Date(), emo: selEmo, cat: selCat, style: selStyle, data: parsed, prompt: fp, imgUrl: ''};
-    try { localStorage.setItem('soniar_last_result', JSON.stringify({dream:dreamText,emo:selEmo,cat:selCat,style:selStyle,data:parsed,prompt:fp,imgUrl:''})); } catch(e) {}
 
-    // GRATIS: sin contador de límite
+    // Incrementar contador aquí — independiente de si guarda o no
+    if (!isRegen) {
+      var isPremC = currentProfile && (currentProfile.plan === 'premium' || currentProfile.plan === 'trial');
+      if (!isPremC) {
+        var isAnonUser2 = isAnonUser();
+        if (isAnonUser2) {
+          // Anónimos: solo contador en localStorage, popup al guardar
+          var anonCount = parseInt(localStorage.getItem('soniar_anon_count') || '0') + 1;
+          localStorage.setItem('soniar_anon_count', anonCount);
+        } else if (currentUser && currentProfile) {
+          // Registrados free: contador en Supabase
+          var newCount = (currentProfile.suenos_mes || 0) + 1;
+          currentProfile.suenos_mes = newCount;
+          try { await sb.from('profiles').update({ suenos_mes: newCount }).eq('id', currentUser.id); } catch(e){}
+          if (newCount >= 3) {
+            setTimeout(function() {
+              var banner = document.getElementById('free-limit-banner');
+              if (banner) banner.style.display = 'flex';
+            }, 1500);
+          }
+        }
+      }
+    }
 
     // Mostrar texto y disparar imagen con el prompt narrativo de Claude
     renderResultText(parsed);
 
-    // PASO 3: imagen con el prompt narrativo - mucho mejor calidad
+    // PASO 3: imagen con el prompt narrativo — mucho mejor calidad
     generateImage(fp, 'nude, nsfw, children, realistic faces, text, watermark', '');
   } catch(ex) { console.error(ex); logError('callAI', ex.message, { dream: dreamText.substring(0,100) }); }
 }
@@ -3121,7 +3135,7 @@ async function generateImage(prompt, negPrompt, artPrompt, isRetry) {
   var loadTxt = document.querySelector('.img-loading-txt');
   if (loadTxt) loadTxt.innerHTML = 'Pintando tu mundo interior...<br><span style="font-size:0.68rem;color:#4B5563">El arte onírico tarda unos segundos</span>';
 
-  // Sufijo dreamcore suave - si las imágenes son muy literales, esto añade profundidad onírica
+  // Sufijo dreamcore suave — si las imágenes son muy literales, esto añade profundidad onírica
   var dreamcoreSuffix = ', ethereal dreamcore atmosphere, symbolic and evocative';
   var finalPrompt = prompt + dreamcoreSuffix;
 
@@ -3172,11 +3186,6 @@ async function generateImage(prompt, negPrompt, artPrompt, isRetry) {
       document.getElementById('regen-loading').style.display = 'none';
       if (curResult) {
         curResult.imgUrl = data.imageUrl;
-        try { 
-          var _s = JSON.parse(localStorage.getItem('soniar_last_result')||'{}');
-          _s.imgUrl = data.imageUrl;
-          localStorage.setItem('soniar_last_result', JSON.stringify(_s));
-        } catch(e) {}
         // Subir imagen a Supabase Storage inmediatamente para que no expire
         if (currentUser && sb) {
           try {
@@ -3275,12 +3284,6 @@ async function playAudio() {
 
 // SAVE
 async function saveDream() {
-  if (!curResult) {
-    try {
-      var lr = localStorage.getItem('soniar_last_result');
-      if (lr) { var lrp = JSON.parse(lr); curResult = {dream:lrp.dream,date:new Date(),emo:lrp.emo,cat:lrp.cat,style:lrp.style,data:lrp.data,prompt:lrp.prompt,imgUrl:lrp.imgUrl||''}; }
-    } catch(e) {}
-  }
   if (!curResult) return;
   track('save_attempt');
 
@@ -3310,8 +3313,24 @@ async function saveDream() {
   }
 
   // Free: anónimo puede guardar 1, registrado puede guardar 2
-    // GRATIS: sin límite
-    var saveBtn = document.getElementById('save-btn');
+  var isPremium = currentProfile && (currentProfile.plan === 'premium' || currentProfile.plan === 'trial');
+  var dreamCount = (currentProfile && currentProfile.suenos_mes) || 0;
+
+  if (!isPremium) {
+    if (isAnonUser() && dreamCount >= 1) {
+      // Anónimo quiere guardar el 2do → popup de registro
+      showDream2Popup();
+      return;
+    }
+    if (!isAnonUser() && dreamCount >= 3) {
+      // Registrado free quiere guardar el 3er → upgrade
+      var banner = document.getElementById('free-limit-banner');
+      if (banner) banner.style.display = 'flex';
+      return;
+    }
+  }
+
+  var saveBtn = document.getElementById('save-btn');
   if (saveBtn) {
     saveBtn.disabled = true;
     saveBtn.style.opacity = '0.6';
@@ -3368,14 +3387,19 @@ async function saveDream() {
         estilo: curResult.style,
         categoria: curResult.cat,
         intensidad: parseInt(document.getElementById('intensity').value),
-        es_publico: true,
+        es_publico: isPrem || dreamCount <= 1,  // premium siempre, free solo el 1er sueño
         likes: 0
       });
       if (insertRes.error) console.error('Supabase insert error:', insertRes.error);
     } catch(e) { console.error('Error guardando en Supabase:', e); }
   }
 
-  // GRATIS: sin contador
+  // Increment dream counter after saving
+  if (currentUser && currentProfile && currentProfile.plan === 'free') {
+    var newCount = (currentProfile.suenos_mes || 0) + 1;
+    currentProfile.suenos_mes = newCount;
+    sb.from('profiles').update({ suenos_mes: newCount }).eq('id', currentUser.id).then(function(){}).catch(function(){});
+  }
 
   document.getElementById('dream-input').value = '';
   document.getElementById('char-n').textContent = '0';
@@ -3390,13 +3414,6 @@ async function saveDream() {
 
 // SHARE
 async function openShare() {
-  // Intentar restaurar desde localStorage si no hay curResult
-  if (!curResult) {
-    try {
-      var lr = localStorage.getItem('soniar_last_result');
-      if (lr) { var lrp = JSON.parse(lr); curResult = {dream:lrp.dream,date:new Date(),emo:lrp.emo,cat:lrp.cat,style:lrp.style,data:lrp.data,prompt:lrp.prompt,imgUrl:lrp.imgUrl||''}; }
-    } catch(e) {}
-  }
   // Si no hay resultado propio, intentar compartir el sueño visible en el feed
   if (!curResult) {
     var activeScreen = document.querySelector('.screen.active');
@@ -3417,8 +3434,33 @@ async function openShare() {
 
   var isAnon = isAnonUser();
   var plan = currentProfile ? currentProfile.plan : 'free';
-    // GRATIS: sin límite
-    go('share');
+  var isPremium = plan === 'premium' || plan === 'trial';
+
+  // Límite para anónimos: 1 compartido total (localStorage)
+  if (isAnon) {
+    var anonShares = parseInt(localStorage.getItem('soniar_anon_shares') || '0');
+    if (anonShares >= 1) {
+      alert((i18n[currentLang]||i18n.es).alertRegisterShare);
+      go('auth');
+      return;
+    }
+    localStorage.setItem('soniar_anon_shares', String(anonShares + 1));
+  }
+
+  // Límite para free: 3 compartidos por mes
+  if (!isAnon && !isPremium) {
+    var shares = currentProfile ? (currentProfile.shares_mes || 0) : 0;
+    if (shares >= 3) {
+      alert((i18n[currentLang]||i18n.es).alertShareLimit);
+      go('upgrade');
+      return;
+    }
+    shares++;
+    await sb.from('profiles').update({ shares_mes: shares }).eq('id', currentUser.id);
+    if (currentProfile) currentProfile.shares_mes = shares;
+  }
+
+  go('share');
   setTimeout(function(){ generateShareCard(); }, 300);
 }
 
@@ -3490,18 +3532,15 @@ async function shareNative() {
       await navigator.share({ files:[file], title:'Mi sueño en Soniar', text: shareText });
       track('image_shared', { method: 'native_files', lang: currentLang });
     } else if (navigator.share) {
-      await navigator.share({ title:'Mi sueño en Soniar', text: shareText, url: dataUrl });
-    } else {
-      var a = document.createElement('a'); a.href = dataUrl; a.download = 'onyra-sueno.png'; a.click();
-    }
-  } catch(e) {
-    if (e.name !== 'AbortError') {
-      var a = document.createElement('a'); a.href = dataUrl; a.download = 'onyra-sueno.png'; a.click();
-    }
-  }
+      await navigator.share({ title:'Mi sueño en Soniar', text:(curResult&&curResult.data&&curResult.data.resumen?curResult.data.resumen:'')+' — Soniar', url:'https://soniar.app/' });
+    } else { downloadImage(); }
+  } catch(e) { if (e.name !== 'AbortError') downloadImage(); }
 }
 
 function downloadImageIfAllowed() {
+  var plan = currentProfile ? currentProfile.plan : 'free';
+  var hasPremium = (plan === 'premium' || plan === 'trial');
+  if (!hasPremium) { go('upgrade'); return; }
   downloadImage();
 }
 
@@ -3563,7 +3602,7 @@ function quickAdjust(el, instr) {
   feedbackHistory.push(instr);
   document.getElementById('regen-loading').style.display = 'flex';
   lockAdjustSection();
-  // Solo regenerar imagen con el ajuste - no llamar callAI completo
+  // Solo regenerar imagen con el ajuste — no llamar callAI completo
   var adjustedPrompt = (curPrompt || curDreamText) + '. Adjustment: ' + instr;
   generateImage(adjustedPrompt, 'nude, nsfw, children, realistic faces, text, watermark', '');
 }
@@ -3643,787 +3682,13 @@ function renderHistory() {
     return; 
   }
 
-  // GRATIS: historial ilimitado
-  var dreamsToShow = dreams;
-  var hasMore = false;
-
-  c.innerHTML = '';
-  dreamsToShow.forEach(function(d) {
-    var div = document.createElement('div'); div.className = 'hgrid-item';
-    var titulo = d.data && d.data.resumen ? d.data.resumen : (d.dream || '');
-    var thumbHtml = d.imgUrl 
-      ? '<img src="'+d.imgUrl+'" onerror="this.remove();">' 
-      : '<div class="hgrid-placeholder"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#2A1B3D" stroke-width="1"><path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"/></svg></div>';
-    div.innerHTML = thumbHtml + '<div class="hgrid-overlay"><div class="hgrid-txt">'+titulo.substring(0,40)+'</div></div>';
-    div.onclick = (function(dream){ return function(){ reopenDream(dream); }; })(d);
-    c.appendChild(div);
-  });
-
-  // Mostrar banner de upgrade si hay más sueños bloqueados
-
-
-function renderInsights() {
-  // Show user info if logged in
-  var userCard = document.getElementById('ins-user-card');
-  if (currentUser && currentProfile) {
-    userCard.style.display = 'block';
-    document.getElementById('ins-username').textContent = '@' + currentProfile.username;
-    document.getElementById('ins-email').textContent = currentUser.email || currentUser.user_metadata?.email || '';
-  } else if (currentUser) {
-    userCard.style.display = 'block';
-    document.getElementById('ins-username').textContent = currentUser.email ? currentUser.email.split('@')[0] : (currentUser.user_metadata?.name || currentUser.user_metadata?.full_name || 'usuario');
-    document.getElementById('ins-email').textContent = currentUser.email || currentUser.user_metadata?.email || '';
-  } else {
-    userCard.style.display = 'none';
-  }
-  document.getElementById('ins-count').textContent = dreams.length;
-  if (dreams.length === 0) return;
-  var eC = {}, sC = {};
-  dreams.forEach(function(dr){ if(dr.data&&dr.data.emociones) dr.data.emociones.forEach(function(e){ eC[e.nombre]=(eC[e.nombre]||0)+e.pct; }); if(dr.data&&dr.data.simbolos) dr.data.simbolos.forEach(function(s){ sC[s]=(sC[s]||0)+1; }); });
-  var tE = Object.keys(eC).sort(function(a,b){ return eC[b]-eC[a]; })[0];
-  if (tE) { document.getElementById('ins-emo').textContent = tE; document.getElementById('ins-emo-sub').textContent = 'Emoción más frecuente en tus sueños'; }
-  var tS = Object.keys(sC).sort(function(a,b){ return sC[b]-sC[a]; }).slice(0,5);
-  var sEl = document.getElementById('ins-syms');
-  if (tS.length > 0) { sEl.innerHTML = ''; tS.forEach(function(s){ var sp = document.createElement('span'); sp.className = 'sym'; sp.style.margin = '2px'; sp.textContent = s; sEl.appendChild(sp); }); }
-}
-
-// DICCIONARIO
-var DICCIONARIO = {
-  'Agua':{tag:'Emociones',texto:'El agua representa el mundo emocional y el inconsciente.'},
-  'Fuego':{tag:'Transformación',texto:'El fuego simboliza transformación, pasión y energía.'},
-  'Caída':{tag:'Ansiedad',texto:'Generalmente refleja ansiedad, sensación de pérdida de control.'},
-  'Vuelo':{tag:'Libertad',texto:'Volar en sueños suele asociarse con libertad y ambición.'},
-  'Casa':{tag:'Identidad',texto:'La casa representa el yo interior.'},
-  'Muerte':{tag:'Cambio',texto:'Generalmente simboliza el fin de una etapa o transformación.'},
-};
-
-async function openDictModal(symbol) {
-  document.getElementById('dict-tag').textContent = 'Analizando...';
-  document.getElementById('dict-symbol').textContent = symbol;
-  document.getElementById('dict-text').textContent = 'Interpretando este símbolo en el contexto de tu sueño...';
-  document.getElementById('dict-modal').classList.add('open');
-  var dreamContext = curResult ? curResult.dream : '';
-  var emotionContext = curResult && curResult.data ? (curResult.data.lectura || '') : '';
-  try {
-    var prompt = 'Analiza el simbolo ' + symbol + ' en el contexto de este sueno. Responde SOLO con JSON: usar categoria e interpretacion como claves. Sueno: ' + dreamContext.substring(0,400);
-    var res = await fetchWithRetry('https://oniria-backend.almacenmujica.workers.dev/anthropic', { method:'POST', headers:{'Content-Type':'application/json','x-soniar-token':SONIAR_TOKEN}, body: JSON.stringify({model:'claude-sonnet-4-5', max_tokens:400, messages:[{role:'user', content:prompt}]}) });
-    var data = await res.json();
-    var raw = (data.content && data.content[0] && data.content[0].text) ? data.content[0].text : '';
-    var bt = String.fromCharCode(96); var cleaned = raw.split(bt+bt+bt+'json').join('').split(bt+bt+bt).join('').trim();
-    var parsed = JSON.parse(cleaned);
-    document.getElementById('dict-tag').textContent = parsed.categoria || 'Símbolo';
-    document.getElementById('dict-text').textContent = parsed.interpretacion || cleaned;
-  } catch(e) {
-    var info = DICCIONARIO[symbol];
-    if (info) { document.getElementById('dict-tag').textContent = info.tag; document.getElementById('dict-text').textContent = info.texto; }
-    else { document.getElementById('dict-tag').textContent = 'Símbolo'; document.getElementById('dict-text').textContent = 'No se pudo interpretar este símbolo.'; }
-  }
-}
-
-// NOTIFICATIONS
-var reactionEmoji = { heart: '❤️', laugh: '😂', wow: '😮', sad: '😢' };
-
-async function createNotification(dreamId, dreamResumen, ownerId, reaction) {
-  if (!currentUser || !currentProfile) return;
-  if (ownerId === currentUser.id) return; // no notificar al mismo usuario
-  try {
-    await sb.from('notifications').insert({
-      user_id: ownerId,
-      from_username: currentProfile.username,
-      dream_id: dreamId,
-      dream_resumen: dreamResumen,
-      reaction: reaction
-    });
-  } catch(e) {}
-}
-
-async function loadNotifications() {
-  if (!currentUser) return;
-  try {
-    var r = await sb.from('notifications').select('*').eq('user_id', currentUser.id).order('created_at', {ascending: false}).limit(30);
-    if (r.data && r.data.some(function(n){ return !n.leida; })) {
-      document.getElementById('notif-badge').style.display = 'block';
-    }
-  } catch(e) {}
-}
-
-async function renderNotifications() {
-  if (!currentUser) { go('auth'); return; }
-  var list = document.getElementById('notif-list');
-  list.innerHTML = '<div style="padding:2rem;text-align:center;color:var(--muted);font-size:0.85rem;">Cargando...</div>';
-  try {
-    var r = await sb.from('notifications').select('*').eq('user_id', currentUser.id).order('created_at', {ascending: false}).limit(30);
-    // Marcar como leidas
-    await sb.from('notifications').update({leida: true}).eq('user_id', currentUser.id);
-    document.getElementById('notif-badge').style.display = 'none';
-    if (!r.data || r.data.length === 0) {
-      list.innerHTML = '<div style="padding:3rem;text-align:center;color:var(--muted);font-size:0.85rem;">Sin notificaciones todavía</div>';
-      return;
-    }
-    list.innerHTML = '';
-    r.data.forEach(function(n) {
-      var div = document.createElement('div');
-      div.className = 'notif-item' + (n.leida ? '' : ' unread');
-      var initials = n.from_username ? n.from_username.substring(0,2).toUpperCase() : '?';
-      var fecha = new Date(n.created_at).toLocaleDateString('es-AR', {day:'numeric', month:'short'});
-      var emoji = reactionEmoji[n.reaction] || '❤️';
-      div.innerHTML = '<div class="notif-avatar">'+initials+'</div>' +
-        '<div class="notif-text"><span>@'+n.from_username+'</span> reaccionó a tu sueño con '+emoji+'<div class="notif-time">"'+(n.dream_resumen||'').substring(0,40)+'" · '+fecha+'</div></div>' +
-        '<div class="notif-reaction">'+emoji+'</div>';
-      list.appendChild(div);
-    });
-  } catch(e) {
-    list.innerHTML = '<div style="padding:2rem;text-align:center;color:var(--muted);">No se pudieron cargar las notificaciones</div>';
-  }
-}
-
-function openOwnProfile() {
-  if (currentProfile) openProfile(currentProfile.username);
-  else if (currentUser) openProfile(currentUser.email ? currentUser.email.split('@')[0] : (currentUser.user_metadata?.name || 'usuario'));
-}
-
-async function openProfile(username) {
-  go('profile');
-  document.getElementById('profile-topbar-name').textContent = '@' + username;
-  document.getElementById('profile-username-big').textContent = '@' + username;
-  document.getElementById('profile-avatar-big').textContent = username.substring(0,2).toUpperCase();
-  var grid = document.getElementById('profile-grid');
-  grid.innerHTML = '<div style="grid-column:1/-1;padding:2rem;text-align:center;color:var(--muted);font-size:0.85rem;">Cargando...</div>';
-  try {
-    var r = await sb.from('dreams').select('*').eq('username', username).eq('es_publico', true).order('created_at', {ascending: false});
-    document.getElementById('profile-count').textContent = (r.data ? r.data.length : 0) + ' sueños';
-    if (!r.data || r.data.length === 0) {
-      grid.innerHTML = '<div style="grid-column:1/-1;padding:2rem;text-align:center;color:var(--muted);font-size:0.85rem;">Sin sueños públicos</div>';
-      return;
-    }
-    grid.innerHTML = '';
-    r.data.forEach(function(d) {
-      var div = document.createElement('div'); div.className = 'hgrid-item';
-      var thumbHtml = d.img_url 
-        ? '<img src="'+d.img_url+'" onerror="this.remove()">' 
-        : '<div class="hgrid-placeholder"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#2A1B3D" stroke-width="1"><path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"/></svg></div>';
-      div.innerHTML = thumbHtml + '<div class="hgrid-overlay"><div class="hgrid-txt">'+(d.resumen||'').substring(0,40)+'</div></div>';
-      grid.appendChild(div);
-    });
-  } catch(e) {
-    grid.innerHTML = '<div style="grid-column:1/-1;padding:2rem;text-align:center;color:var(--muted);">No se pudo cargar el perfil</div>';
-  }
-}
-
-function openFeedDream(idx) {
-  var d = window._feedCache && window._feedCache[idx];
-  if (!d) return;
-  openDreamModal({
-    resumen: d.resumen,
-    lectura: d.lectura,
-    emociones: d.emociones,
-    simbolos: d.simbolos,
-    dream: d.dream_text || ''
-  });
-}
-
-async function shareFeedDream(imgUrl, resumen) {
-  if (!imgUrl) { alert((i18n[currentLang]||i18n.es).alertNoImage); return; }
-  var shareText = '🌙 ' + (resumen || '') + '\n\n✨ Interpretá tus sueños con IA en Soniar\n👉 https://soniar.app/app.html';
-  if (navigator.share) {
-    try {
-      var res = await fetch(imgUrl);
-      var blob = await res.blob();
-      var file = new File([blob], 'soniar-sueno.png', {type: blob.type || 'image/webp'});
-      if (navigator.canShare && navigator.canShare({files:[file]})) {
-        await navigator.share({ files:[file], title:'Sueño en Soniar', text: shareText });
-      } else {
-        await navigator.share({ title:'Sueño en Soniar', text: shareText, url: imgUrl });
-      }
-      track('image_shared', { method: 'feed_card', lang: currentLang });
-    } catch(e) {
-      if (e.name !== 'AbortError') {
-        try { await navigator.clipboard.writeText(imgUrl); showToast('🔗 Link copiado'); } catch(e2) {}
-      }
-    }
-  } else {
-    try { await navigator.clipboard.writeText(imgUrl); showToast('🔗 Link de imagen copiado'); } catch(e) { showToast('No se pudo compartir'); }
-  }
-}
-
-function openDreamModal(data) {
-  if (!data) return;
-  // Show original dream text if available
-  var dreamTextEl = document.getElementById('dm-dream-text');
-  if (dreamTextEl) {
-    if (data.dream) {
-      dreamTextEl.textContent = data.dream;
-      dreamTextEl.parentElement.style.display = 'block';
-    } else {
-      dreamTextEl.parentElement.style.display = 'none';
-    }
-  }
-  document.getElementById('dm-resumen').textContent = '"' + (data.resumen || '') + '"';
-  document.getElementById('dm-lectura').textContent = data.lectura || '';
-  var eEl = document.getElementById('dm-emociones');
-  eEl.innerHTML = '';
-  if (data.emociones) data.emociones.forEach(function(e) {
-    var s = document.createElement('span'); s.className = 'dream-modal-tag'; s.textContent = e.nombre + ' ' + Math.round(e.pct) + '%'; eEl.appendChild(s);
-  });
-  var sEl = document.getElementById('dm-simbolos');
-  sEl.innerHTML = '';
-  if (data.simbolos) data.simbolos.forEach(function(s) {
-    var sp = document.createElement('span'); sp.className = 'dream-modal-tag'; sp.textContent = s; sEl.appendChild(sp);
-  });
-  document.getElementById('dream-modal').classList.add('open');
-}
-
-function goTrial() {
-  if (currentProfile && currentProfile.trial_usado) {
-    alert(currentLang === 'en' ? 'You already used your free trial. Subscribe to a plan to continue.' : 'Ya usaste el período de prueba gratuito. Para continuar, suscribite a un plan.');
-    return;
-  }
-  go('trial');
-}
-
-async function startTrial() {
-  var email = document.getElementById('trial-email').value.trim();
-  var errEl = document.getElementById('trial-err');
-  var btn = document.getElementById('trial-btn');
-  errEl.style.display = 'none';
-
-  if (!email) { errEl.textContent = 'Ingresá tu email'; errEl.style.display = 'block'; return; }
-
-  btn.textContent = 'Activando...'; btn.disabled = true;
-
-  try {
-    // Check if trial already used
-    if (currentProfile && currentProfile.trial_usado) {
-      errEl.textContent = 'Ya usaste el período de prueba gratuito.';
-      errEl.style.display = 'block';
-      btn.textContent = 'Activar 7 días gratis'; btn.disabled = false;
-      return;
-    }
-
-    // Sign up or sign in with email
-    var r = await sb.auth.signInWithOtp({ 
-      email: email,
-      options: { emailRedirectTo: 'https://soniar.app/?trial=activate' }
-    });
-    
-    if (r.error) throw r.error;
-
-    // Show success message
-    document.getElementById('trial-err').style.color = '#a78bfa';
-    document.getElementById('trial-err').textContent = '✓ Te enviamos un link a tu email. Tocalo para activar tu prueba gratuita.';
-    document.getElementById('trial-err').style.display = 'block';
-    btn.textContent = '✓ Email enviado';
-
-  } catch(e) {
-    errEl.style.color = '#ef4444';
-    errEl.textContent = e.message || 'Error al activar el trial';
-    errEl.style.display = 'block';
-    btn.textContent = 'Activar 7 días gratis'; btn.disabled = false;
-  }
-}
-
-async function startCryptoCheckout(plan) {
-  plan = plan || 'monthly';
-  if (isAnonUser()) {
-    go('auth');
-    document.getElementById('auth-subtitle').textContent = 'Registrate para pagar con crypto';
-    setAuthMode('register');
-    return;
-  }
-  try {
-    var userId = currentUser ? currentUser.id : 'anonymous';
-    var res = await fetch('https://oniria-backend.almacenmujica.workers.dev/crypto-checkout', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json', 'x-soniar-token': 'snr_2024_s3cr3t_t0k3n' },
-      body: JSON.stringify({ userId: userId, plan: plan })
-    });
-    var data = await res.json();
-    if (data.url) {
-      window.location.href = data.url;
-    } else {
-      alert('Error al iniciar el pago crypto: ' + (data.error || 'Error desconocido'));
-    }
-  } catch(e) {
-    alert('Error al iniciar el pago crypto: ' + e.message);
-  }
-}
-
-function showUsernameModal() {
-  var modal = document.getElementById('username-modal');
-  if (modal) modal.style.display = 'flex';
-  var input = document.getElementById('username-input');
-  if (input) input.focus();
-}
-
-async function saveUsername() {
-  var input = document.getElementById('username-input');
-  var errEl = document.getElementById('username-modal-err');
-  var val = (input ? input.value : '').trim().toLowerCase();
-  if (!val || val.length < 3) {
-    if (errEl) errEl.textContent = 'Mínimo 3 caracteres';
-    return;
-  }
-  if (val.length > 20) {
-    if (errEl) errEl.textContent = 'Máximo 20 caracteres';
-    return;
-  }
-  // Verificar que no esté tomado
-  try {
-    var check = await sb.from('profiles').select('id').eq('username', val).maybeSingle();
-    if (check.data && check.data.id !== currentUser.id) {
-      if (errEl) errEl.textContent = 'Ese nombre ya está en uso, probá otro';
-      return;
-    }
-  } catch(e) {}
-  // Guardar
-  try {
-    await sb.from('profiles').update({ username: val }).eq('id', currentUser.id);
-    if (currentProfile) currentProfile.username = val;
-    document.getElementById('username-modal').style.display = 'none';
-    go('home');
-  } catch(e) {
-    if (errEl) errEl.textContent = 'Error al guardar, intentá de nuevo';
-  }
-}
-
-function skipUsername() {
-  document.getElementById('username-modal').style.display = 'none';
-  go('home');
-}
-
-var STRIPE_PRICES = {
-  monthly: 'price_1TajOa2fy49WJZAKp01Jpb6p',
-  annual: 'price_1TajbX2fy49WJZAKbqA5Yszk'
-};
-
-async function startCheckout(plan) {
-  plan = plan || 'monthly';
-  track('checkout_start', { plan: plan });
-
-  if (plan === 'trial') {
-    if (isAnonUser()) { go('auth'); return; }
-    if (currentProfile && currentProfile.trial_usado) {
-      alert('Ya usaste tu prueba gratuita.');
-      return;
-    }
-    await activateTrial();
-    return;
-  }
-
-  if (isAnonUser()) { go('auth'); return; }
-
-  try {
-    var userId = currentUser ? currentUser.id : 'anonymous';
-    var priceId = STRIPE_PRICES[plan] || STRIPE_PRICES['monthly'];
-    var res = await fetch('https://oniria-backend.almacenmujica.workers.dev/checkout', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json', 'x-soniar-token': 'snr_2024_s3cr3t_t0k3n' },
-      body: JSON.stringify({ plan: plan, priceId: priceId, userId: userId })
-    });
-    var data = await res.json();
-    if (data.url) {
-      window.location.href = data.url;
-    } else {
-      throw new Error(data.error || 'Error al iniciar el checkout');
-    }
-  } catch(e) {
-    alert('Error al iniciar el pago: ' + e.message);
-  }
-}
-
-async function activateTrial() {
-  try {
-    // Activar Premium por 7 días
-    var trialEnd = new Date();
-    trialEnd.setDate(trialEnd.getDate() + 7);
-    await sb.from('profiles').update({ 
-      plan: 'premium', 
-      trial_usado: true,
-      trial_vence: trialEnd.toISOString()
-    }).eq('id', currentUser.id);
-    if (currentProfile) {
-      currentProfile.plan = 'premium';
-      currentProfile.trial_usado = true;
-    }
-    go('home');
-    setTimeout(function() {
-      alert((i18n[currentLang]||i18n.es).welcomePremiumTrial);
-    }, 500);
-  } catch(e) {
-    alert(currentLang === 'en' ? 'Error activating trial. Please try again.' : 'Error activando el trial. Intentá de nuevo.');
-  }
-}
-
-// Handle upgrade success/cancel from Stripe redirect
-(function() {
-  var params = new URLSearchParams(window.location.search);
-  if (params.get('trial') === 'activate') {
-    // Activate trial when user clicks email link
-    setTimeout(async function() {
-      if (currentUser && sb) {
-        var trialVence = new Date();
-        trialVence.setDate(trialVence.getDate() + 7);
-        await sb.from('profiles').update({ 
-          plan: 'trial', 
-          trial_usado: true, 
-          trial_vence: trialVence.toISOString() 
-        }).eq('id', currentUser.id);
-        if (currentProfile) { 
-          currentProfile.plan = 'trial'; 
-          currentProfile.trial_usado = true;
-          currentProfile.trial_vence = trialVence.toISOString();
-        }
-        alert(currentLang === 'en' ? 'Your 7-day free trial is now active! 🎉' : '¡Tu prueba gratuita de 7 días está activa! 🎉');
-      }
-    }, 2000);
-  }
-  if (params.get('crypto') === 'success') {
-    setTimeout(async function() {
-      if (currentUser && sb) {
-        await sb.from('profiles').update({ plan: 'premium' }).eq('id', currentUser.id);
-        if (currentProfile) currentProfile.plan = 'premium';
-        track('payment_success', { method: 'crypto' });
-        showUsernameModal();
-      }
-    }, 2000);
-  }
-  if (params.get('upgrade') === 'success') {
-    setTimeout(async function() {
-      if (currentUser && sb) {
-        await sb.from('profiles').update({ plan: 'premium' }).eq('id', currentUser.id);
-        if (currentProfile) currentProfile.plan = 'premium';
-        track('payment_success', { method: 'stripe' });
-        showUsernameModal();
-      }
-    }, 2000);
-  }
-})();
-
-function closeDreamModal(e) {
-  if (!e || e.target === document.getElementById('dream-modal')) {
-    document.getElementById('dream-modal').classList.remove('open');
-  }
-}
-
-function closeDictModal(e) {
-  if (!e || e.target === document.getElementById('dict-modal')) {
-    document.getElementById('dict-modal').classList.remove('open');
-  }
-}
-
-// ── PWA INSTALL BANNER ──────────────────────────────────────────
-(function() {
-  // No mostrar si ya fue instalado o descartado
-  if (localStorage.getItem('pwa_dismissed')) return;
-  // Detectar si ya está instalada como PWA
-  if (window.navigator.standalone || window.matchMedia('(display-mode: standalone)').matches) return;
-  
-  var isIOS = /iphone|ipad|ipod/i.test(navigator.userAgent);
-  var isAndroid = /android/i.test(navigator.userAgent);
-  
-  if (!isIOS && !isAndroid) return; // solo móvil
-  
-  var deferredPrompt = null;
-  
-  // Android: capturar evento beforeinstallprompt
-  window.addEventListener('beforeinstallprompt', function(e) {
-    e.preventDefault();
-    deferredPrompt = e;
-    showPWABanner('android');
-  });
-  
-  // iOS: no tiene beforeinstallprompt, mostrar instrucciones manuales
-  if (isIOS) {
-    // Mostrar después de 30 segundos para no interrumpir la primera vez
-    setTimeout(function() {
-      if (!localStorage.getItem('pwa_dismissed')) {
-        showPWABanner('ios');
-      }
-    }, 30000);
-  }
-  
-  window.showPWABanner = function(platform) {
-    var banner = document.getElementById('pwa-banner');
-    if (!banner) return;
-    
-    var lang = localStorage.getItem('soniar_lang') || 'es';
-    var title, sub, btnText;
-    
-    if (platform === 'android') {
-      if (lang === 'en') { title = 'Install Soniar'; sub = 'Add to your home screen for quick access'; btnText = 'Install'; }
-      else if (lang === 'pt') { title = 'Instalar Soniar'; sub = 'Adicione à tela inicial para acesso rápido'; btnText = 'Instalar'; }
-      else { title = 'Instalá Soniar'; sub = 'Agregala a tu pantalla de inicio para acceso rápido'; btnText = 'Instalar'; }
-      
-      document.getElementById('pwa-banner-btn').textContent = btnText;
-      document.getElementById('pwa-banner-btn').onclick = function() {
-        if (deferredPrompt) {
-          deferredPrompt.prompt();
-          deferredPrompt.userChoice.then(function(r) {
-            if (r.outcome === 'accepted') localStorage.setItem('pwa_dismissed', '1');
-            deferredPrompt = null;
-          });
-        }
-        dismissPWABanner();
-      };
-    } else {
-      // iOS
-      if (lang === 'en') { title = 'Install Soniar'; sub = 'Tap ↑ Share → "Add to Home Screen"'; btnText = 'Got it'; }
-      else if (lang === 'pt') { title = 'Instalar Soniar'; sub = 'Toque ↑ Compartilhar → "Adicionar à Tela de Início"'; btnText = 'Entendi'; }
-      else { title = 'Instalá Soniar'; sub = 'Tocá ↑ Compartir → "Añadir a inicio"'; btnText = 'Entendido'; }
-      
-      document.getElementById('pwa-banner-btn').textContent = btnText;
-      document.getElementById('pwa-banner-btn').onclick = dismissPWABanner;
-    }
-    
-    document.getElementById('pwa-banner-title').textContent = title;
-    document.getElementById('pwa-banner-sub').innerHTML = sub;
-    banner.style.display = 'flex';
-  };
-  
-  window.dismissPWABanner = function() {
-    var banner = document.getElementById('pwa-banner');
-    if (banner) banner.style.display = 'none';
-    localStorage.setItem('pwa_dismissed', '1');
-  };
-})();
-
-</script>
-
-
-
-
-</body>
-</html>
-
-  // GRATIS: sin límite de compartidos
-    go('share');
-  setTimeout(function(){ generateShareCard(); }, 300);
-}
-
-function generateShareCard() {
-  var dreamImg = document.getElementById('dream-img');
-  if (!dreamImg || !dreamImg.src) return;
-  var canvas = document.getElementById('share-canvas');
-  var W = 540, H = 960;
-  canvas.width = W; canvas.height = H;
-  var ctx = canvas.getContext('2d');
-  var bg = new Image();
-  bg.crossOrigin = 'anonymous';
-  bg.onload = function() {
-    ctx.drawImage(bg, 0, 0, W, H);
-    var grad = ctx.createLinearGradient(0, H*0.35, 0, H);
-    grad.addColorStop(0, 'rgba(11,11,15,0)'); grad.addColorStop(0.5, 'rgba(11,11,15,0.7)'); grad.addColorStop(1, 'rgba(11,11,15,0.97)');
-    ctx.fillStyle = grad; ctx.fillRect(0, 0, W, H);
-    ctx.textAlign = 'left';
-    // Watermark bar at bottom
-    ctx.fillStyle = 'rgba(0,0,0,0.5)'; ctx.fillRect(0, H - 50, W, 50);
-    ctx.font = 'bold 15px DM Sans, system-ui, sans-serif'; ctx.fillStyle = '#ffffff'; ctx.textAlign = 'left'; ctx.fillText('✦ soniar.app', 30, H - 18);
-    ctx.font = '300 12px DM Sans, system-ui, sans-serif'; ctx.fillStyle = 'rgba(255,255,255,0.5)'; ctx.textAlign = 'right'; ctx.fillText('Descubrí qué dicen tus sueños', W - 30, H - 18);
-    ctx.textAlign = 'left';
-    ctx.font = '500 18px Georgia, serif'; ctx.fillStyle = '#7C5CFF'; ctx.fillText('Soniar', 40, H - 270);
-    ctx.font = '300 14px Georgia, serif'; ctx.fillStyle = '#6B7280'; ctx.fillText('Descubrí qué dicen tus sueños', 40, H - 245);
-    ctx.fillStyle = 'rgba(42,27,61,0.6)'; ctx.fillRect(30, H - 215, W - 60, 1);
-    var resumen = curResult.data && curResult.data.resumen ? curResult.data.resumen : '';
-    ctx.font = '400 22px Georgia, serif'; ctx.fillStyle = '#F5F5F5';
-    var words = resumen.split(' '), line = '', lines = [], maxW = W - 80;
-    for (var i = 0; i < words.length; i++) { var test = line + words[i] + ' '; if (ctx.measureText(test).width > maxW && line !== '') { lines.push(line.trim()); line = words[i] + ' '; } else { line = test; } }
-    if (line) lines.push(line.trim());
-    lines.slice(0, 3).forEach(function(l, idx){ ctx.fillText(l, 40, H - 180 + idx * 32); });
-    ctx.font = '400 12px system-ui, sans-serif'; ctx.fillStyle = '#4B5563'; ctx.textAlign = 'center';
-    ctx.fillText('soniar.app', W/2, H - 28);
-    var dataUrl = canvas.toDataURL('image/png');
-    document.getElementById('share-preview-img').src = dataUrl;
-    canvas.dataset.url = dataUrl;
-  };
-  bg.onerror = function() { document.getElementById('share-preview-img').src = dreamImg.src; canvas.dataset.url = dreamImg.src; };
-  bg.src = dreamImg.src;
-}
-
-async function shareNative() {
-  // Primero intentar generar el share card, si no usar la imagen directo
-  var dreamImg = document.getElementById('dream-img');
-  if (!dreamImg || !dreamImg.src || !dreamImg.classList.contains('loaded')) {
-    alert(currentLang === 'en' ? 'The image is still generating, please wait a moment.' : 'La imagen todavía se está generando, esperá un momento.');
-    return;
-  }
-  var canvas = document.getElementById('share-canvas');
-  if (!canvas.dataset.url) { generateShareCard(); await new Promise(function(r){ setTimeout(r, 500); }); }
-  var dataUrl = canvas.dataset.url || dreamImg.src;
-  if (!dataUrl) { alert((i18n[currentLang]||i18n.es).alertNoImage); return; }
-  try {
-    var res = await fetch(dataUrl);
-    var blob = await res.blob();
-    var file = new File([blob], 'onyra-sueno.png', {type:'image/png'});
-    if (navigator.share && navigator.canShare && navigator.canShare({files:[file]})) {
-      var d = curResult && curResult.data ? curResult.data : {};
-      var resumen = d.resumen || '';
-      var lectura = d.lectura || '';
-      var emociones = d.emociones ? d.emociones.map(function(e){ return e.nombre; }).join(', ') : '';
-      var simbolos = d.simbolos ? d.simbolos.join(', ') : '';
-      var shareText = '🌙 ' + resumen + '\n\n';
-      if (lectura) shareText += '💭 ' + lectura + '\n\n';
-      if (emociones) shareText += '🎭 Emociones: ' + emociones + '\n';
-      if (simbolos) shareText += '🔮 Símbolos: ' + simbolos + '\n\n';
-      shareText += '✨ Interpretá tus sueños con IA en Soniar\n👉 https://soniar.app/';
-      await navigator.share({ files:[file], title:'Mi sueño en Soniar', text: shareText });
-      track('image_shared', { method: 'native_files', lang: currentLang });
-    } else if (navigator.share) {
-      await navigator.share({ title:'Mi sueño en Soniar', text: shareText, url: dataUrl });
-    } else {
-      var a = document.createElement('a'); a.href = dataUrl; a.download = 'onyra-sueno.png'; a.click();
-    }
-  } catch(e) {
-    if (e.name !== 'AbortError') {
-      var a = document.createElement('a'); a.href = dataUrl; a.download = 'onyra-sueno.png'; a.click();
-    }
-  }
-}
-
-function downloadImageIfAllowed() {
-  downloadImage();
-}
-
-function downloadImage() {
-  var canvas = document.getElementById('share-canvas');
-  var dataUrl = canvas.dataset.url || document.getElementById('dream-img').src;
-  if (!dataUrl) { alert((i18n[currentLang]||i18n.es).alertNoImage); return; }
-  track('image_downloaded', { lang: currentLang });
-  var a = document.createElement('a'); a.href = dataUrl; a.download = 'onyra-sueno.png'; a.click();
-}
-
-// AUDIO
-var audioCtx = null;
-
-
-function retryImg() { if (curPrompt) generateImage(curPrompt, 'nude, nsfw, children, realistic faces, text, watermark', ''); }
-function regenImg() {
-  if (!curPrompt) return;
-  document.getElementById('regen-loading').style.display = 'flex';
-  lockAdjustSection();
-  generateImage(curPrompt, 'nude, nsfw, children, realistic faces, text, watermark', '');
-}
-
-function renderResultText(d) {
-  document.getElementById('r-summary').textContent = '\u201c' + (d.resumen || '') + '\u201d';
-  var eEl = document.getElementById('r-emotions'); eEl.innerHTML = '';
-  (d.emociones || []).forEach(function(e) {
-    var row = document.createElement('div'); row.className = 'ebar';
-    var uid = 'ef-' + Math.random().toString(36).substr(2,6);
-    row.innerHTML = '<span class="ebar-name">'+e.nombre+'</span><div class="ebar-track"><div class="ebar-fill" id="'+uid+'"></div></div><span class="ebar-pct">'+Math.round(e.pct)+'%</span>';
-    eEl.appendChild(row);
-    setTimeout(function(){ var f = document.getElementById(uid); if(f) f.style.width = Math.round(e.pct)+'%'; }, 150);
-  });
-  var sEl = document.getElementById('r-symbols'); sEl.innerHTML = '';
-  (d.simbolos || []).forEach(function(s){ var sp = document.createElement('span'); sp.className = 'sym'; sp.textContent = s; sp.onclick = function(){ openDictModal(s); }; sEl.appendChild(sp); });
-  document.getElementById('r-reading').textContent = d.lectura || '';
-  document.getElementById('regen-loading').style.display = 'none';
-  document.querySelectorAll('.qchip').forEach(function(c){ c.classList.remove('on'); });
-}
-
-function lockAdjustSection() {
-  document.querySelectorAll('.qchip').forEach(function(c){
-    c.onclick = null;
-    c.style.opacity = '0.35';
-    c.style.cursor = 'not-allowed';
-  });
-  var adjBtn = document.querySelector('.adjust-btn');
-  var adjInput = document.getElementById('adjust-input');
-  if (adjBtn) { adjBtn.disabled = true; adjBtn.style.opacity = '0.35'; adjBtn.style.cursor = 'not-allowed'; }
-  if (adjInput) { adjInput.disabled = true; adjInput.placeholder = 'Solo se permite un ajuste por sueño'; }
-  var lbl = document.querySelector('.feedback-label');
-  if (lbl) lbl.textContent = 'Ajuste aplicado ✓';
-}
-
-function quickAdjust(el, instr) {
-  if (el.style.cursor === 'not-allowed') return;
-  document.querySelectorAll('.qchip').forEach(function(c){ c.classList.remove('on'); });
-  el.classList.add('on');
-  feedbackHistory.push(instr);
-  document.getElementById('regen-loading').style.display = 'flex';
-  lockAdjustSection();
-  // Solo regenerar imagen con el ajuste - no llamar callAI completo
-  var adjustedPrompt = (curPrompt || curDreamText) + '. Adjustment: ' + instr;
-  generateImage(adjustedPrompt, 'nude, nsfw, children, realistic faces, text, watermark', '');
-}
-
-function customAdjust() {
-  var val = document.getElementById('adjust-input').value.trim();
-  if (!val) return;
-  feedbackHistory.push(val);
-  document.getElementById('adjust-input').value = '';
-  document.getElementById('regen-loading').style.display = 'flex';
-  lockAdjustSection();
-  // Solo regenerar imagen con el ajuste
-  var adjustedPrompt = (curPrompt || curDreamText) + '. Adjustment: ' + val;
-  generateImage(adjustedPrompt, 'nude, nsfw, children, realistic faces, text, watermark', '');
-}
-
-function reopenDream(d) {
-  curResult = d;
-  curPrompt = d.prompt || '';
-  curDreamText = d.dream || '';
-  selEmo = d.emo || '';
-  selCat = d.cat || '';
-  selStyle = d.style || 'Cinemático';
-  renderResultText(d.data);
-  go('result');
-  // Si viene del historial (ya guardado), cambiar botón guardar a "Ver feed"
-  setTimeout(function() {
-    var saveBtn = document.getElementById('save-btn');
-    if (saveBtn) {
-      saveBtn.style.background = 'linear-gradient(135deg, #22c55e, #16a34a)';
-      saveBtn.innerHTML = '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 00-3-3.87M16 3.13a4 4 0 010 7.75"/></svg>';
-      saveBtn.onclick = function(){ go('feed'); };
-      saveBtn.title = 'Ver en el feed';
-      saveBtn.disabled = false;
-    }
-  }, 300);
-  // Show saved image or hide image area
-  var imgEl = document.getElementById('dream-img');
-  var loadEl = document.getElementById('img-loading');
-  var overlayEl = document.getElementById('img-overlay');
-  var badgeEl = document.getElementById('img-badge');
-  var errEl = document.getElementById('img-error');
-  if (d.imgUrl) {
-    imgEl.src = d.imgUrl; imgEl.style.display = 'block'; imgEl.classList.add('loaded');
-    loadEl.style.display = 'none'; overlayEl.style.display = 'block'; badgeEl.style.display = 'block'; errEl.style.display = 'none';
-  } else {
-    imgEl.style.display = 'none'; imgEl.classList.remove('loaded');
-    loadEl.style.display = 'none'; errEl.style.display = 'none'; overlayEl.style.display = 'none'; badgeEl.style.display = 'none';
-  }
-}
-
-async function loadHistoryFromSupabase() {
-  if (!currentUser) return;
-  try {
-    var r = await sb.from('dreams').select('id, user_id, username, resumen, lectura, emociones, simbolos, img_url, reactions, created_at, dream_text').eq('user_id', currentUser.id).order('created_at', {ascending: false}).limit(50);
-    if (r.data && r.data.length > 0) {
-      dreams = r.data.map(function(d) {
-        return {
-          dream: d.resumen,
-          date: new Date(d.created_at),
-          emo: d.emociones && d.emociones[0] ? d.emociones[0].nombre : '',
-          cat: d.categoria || '',
-          style: d.estilo || '',
-          data: { resumen: d.resumen, lectura: d.lectura, emociones: d.emociones, simbolos: d.simbolos },
-          imgUrl: d.img_url || ''
-        };
-      });
-      renderHistory();
-    }
-  } catch(e) { console.error('Error loading history:', e); }
-}
-
-function renderHistory() {
-  var c = document.getElementById('hist-grid');
-  if (dreams.length === 0) { 
-    c.innerHTML = '<div class="empty" style="grid-column:1/-1"><svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#374151" stroke-width="1.5"><path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"/></svg><p>Todavía no guardaste ningún sueño</p></div>'; 
-    return; 
-  }
-
-  // GRATIS: historial ilimitado
-  var dreamsToShow = dreams;
-  var hasMore = false;
+  // Límite de historial según plan
+  var plan = currentProfile ? currentProfile.plan : null;
+  var isPremium = plan === 'premium' || plan === 'trial';
+  var isAnon = isAnonUser();
+  var limit = isPremium ? dreams.length : isAnon ? 1 : 3;
+  var dreamsToShow = dreams.slice(0, limit);
+  var hasMore = dreams.length > limit;
 
   c.innerHTML = '';
   dreamsToShow.forEach(function(d) {
@@ -4611,25 +3876,23 @@ function openFeedDream(idx) {
 
 async function shareFeedDream(imgUrl, resumen) {
   if (!imgUrl) { alert((i18n[currentLang]||i18n.es).alertNoImage); return; }
-  var shareText = '🌙 ' + (resumen || '') + '\n\n✨ Interpretá tus sueños con IA en Soniar\n👉 https://soniar.app/app.html';
-  if (navigator.share) {
-    try {
-      var res = await fetch(imgUrl);
-      var blob = await res.blob();
-      var file = new File([blob], 'soniar-sueno.png', {type: blob.type || 'image/webp'});
-      if (navigator.canShare && navigator.canShare({files:[file]})) {
-        await navigator.share({ files:[file], title:'Sueño en Soniar', text: shareText });
-      } else {
-        await navigator.share({ title:'Sueño en Soniar', text: shareText, url: imgUrl });
-      }
+  try {
+    var res = await fetch(imgUrl);
+    var blob = await res.blob();
+    var file = new File([blob], 'soniar-sueno.png', {type: blob.type || 'image/webp'});
+    var shareText = '🌙 ' + (resumen || '') + '\n\n✨ Interpretá tus sueños con IA en Soniar\n👉 https://soniar.app/';
+    if (navigator.share && navigator.canShare && navigator.canShare({files:[file]})) {
+      await navigator.share({ files:[file], title:'Sueño en Soniar', text: shareText });
       track('image_shared', { method: 'feed_card', lang: currentLang });
-    } catch(e) {
-      if (e.name !== 'AbortError') {
-        try { await navigator.clipboard.writeText(imgUrl); showToast('🔗 Link copiado'); } catch(e2) {}
-      }
+    } else if (navigator.share) {
+      await navigator.share({ title:'Sueño en Soniar', text: shareText, url:'https://soniar.app/' });
+    } else {
+      var a = document.createElement('a'); a.href = imgUrl; a.download = 'soniar-sueno.png'; a.click();
     }
-  } else {
-    try { await navigator.clipboard.writeText(imgUrl); showToast('🔗 Link de imagen copiado'); } catch(e) { showToast('No se pudo compartir'); }
+  } catch(e) {
+    if (e.name !== 'AbortError') {
+      var a = document.createElement('a'); a.href = imgUrl; a.download = 'soniar-sueno.png'; a.click();
+    }
   }
 }
 
@@ -4645,7 +3908,7 @@ function openDreamModal(data) {
       dreamTextEl.parentElement.style.display = 'none';
     }
   }
-  document.getElementById('dm-resumen').textContent = '"' + (data.resumen || '') + '"';
+  document.getElementById('dm-resumen').textContent = '“' + (data.resumen || '') + '”';
   document.getElementById('dm-lectura').textContent = data.lectura || '';
   var eEl = document.getElementById('dm-emociones');
   eEl.innerHTML = '';
@@ -4778,43 +4041,55 @@ function skipUsername() {
   go('home');
 }
 
-var STRIPE_PRICES = {
-  monthly: 'price_1TajOa2fy49WJZAKp01Jpb6p',
-  annual: 'price_1TajbX2fy49WJZAKbqA5Yszk'
-};
-
 async function startCheckout(plan) {
   plan = plan || 'monthly';
   track('checkout_start', { plan: plan });
 
+  // Si es trial
   if (plan === 'trial') {
-    if (isAnonUser()) { go('auth'); return; }
+    if (isAnonUser()) {
+      go('auth');
+      document.getElementById('auth-subtitle').textContent = 'Registrate para activar tu prueba gratuita';
+      setAuthMode('register');
+      return;
+    }
     if (currentProfile && currentProfile.trial_usado) {
-      alert('Ya usaste tu prueba gratuita.');
+      alert(currentLang === 'en' ? 'You already used your free trial. Choose a plan to continue.' : 'Ya usaste tu periodo de prueba gratuita. Elegi un plan para continuar.');
       return;
     }
     await activateTrial();
     return;
   }
 
-  if (isAnonUser()) { go('auth'); return; }
+  // Para planes pagos usar Stripe via Worker
+  if (isAnonUser()) {
+    go('auth');
+    document.getElementById('auth-subtitle').textContent = 'Registrate para suscribirte';
+    setAuthMode('register');
+    return;
+  }
 
   try {
     var userId = currentUser ? currentUser.id : 'anonymous';
-    var priceId = STRIPE_PRICES[plan] || STRIPE_PRICES['monthly'];
+    var btn = event && event.target ? event.target : null;
+    if (btn) { btn.textContent = 'Redirigiendo...'; btn.disabled = true; }
+
     var res = await fetch('https://oniria-backend.almacenmujica.workers.dev/checkout', {
       method: 'POST',
-      headers: { 'Content-Type': 'application/json', 'x-soniar-token': 'snr_2024_s3cr3t_t0k3n' },
-      body: JSON.stringify({ plan: plan, priceId: priceId, userId: userId })
+      headers: { 'Content-Type': 'application/json', 'x-soniar-token': SONIAR_TOKEN },
+      body: JSON.stringify({ plan: plan, userId: userId })
     });
     var data = await res.json();
     if (data.url) {
       window.location.href = data.url;
     } else {
-      throw new Error(data.error || 'Error al iniciar el checkout');
+      throw new Error(data.error || 'No se pudo iniciar el checkout');
     }
   } catch(e) {
-    alert('Error al iniciar el pago: ' + e.message);
+    logError('startCheckout', e.message, { plan: plan });
+    alert((currentLang === 'en' ? 'Payment error: ' : 'Error al iniciar el pago: ') + e.message);
+    var btn2 = document.querySelector('[onclick*="startCheckout"]');
+    if (btn2) { btn2.disabled = false; }
   }
 }
 
@@ -4897,87 +4172,56 @@ function closeDictModal(e) {
     document.getElementById('dict-modal').classList.remove('open');
   }
 }
-
-// ── PWA INSTALL BANNER ──────────────────────────────────────────
-(function() {
-  // No mostrar si ya fue instalado o descartado
-  if (localStorage.getItem('pwa_dismissed')) return;
-  // Detectar si ya está instalada como PWA
-  if (window.navigator.standalone || window.matchMedia('(display-mode: standalone)').matches) return;
-  
-  var isIOS = /iphone|ipad|ipod/i.test(navigator.userAgent);
-  var isAndroid = /android/i.test(navigator.userAgent);
-  
-  if (!isIOS && !isAndroid) return; // solo móvil
-  
-  var deferredPrompt = null;
-  
-  // Android: capturar evento beforeinstallprompt
-  window.addEventListener('beforeinstallprompt', function(e) {
-    e.preventDefault();
-    deferredPrompt = e;
-    showPWABanner('android');
-  });
-  
-  // iOS: no tiene beforeinstallprompt, mostrar instrucciones manuales
-  if (isIOS) {
-    // Mostrar después de 30 segundos para no interrumpir la primera vez
-    setTimeout(function() {
-      if (!localStorage.getItem('pwa_dismissed')) {
-        showPWABanner('ios');
-      }
-    }, 30000);
-  }
-  
-  window.showPWABanner = function(platform) {
-    var banner = document.getElementById('pwa-banner');
-    if (!banner) return;
-    
-    var lang = localStorage.getItem('soniar_lang') || 'es';
-    var title, sub, btnText;
-    
-    if (platform === 'android') {
-      if (lang === 'en') { title = 'Install Soniar'; sub = 'Add to your home screen for quick access'; btnText = 'Install'; }
-      else if (lang === 'pt') { title = 'Instalar Soniar'; sub = 'Adicione à tela inicial para acesso rápido'; btnText = 'Instalar'; }
-      else { title = 'Instalá Soniar'; sub = 'Agregala a tu pantalla de inicio para acceso rápido'; btnText = 'Instalar'; }
-      
-      document.getElementById('pwa-banner-btn').textContent = btnText;
-      document.getElementById('pwa-banner-btn').onclick = function() {
-        if (deferredPrompt) {
-          deferredPrompt.prompt();
-          deferredPrompt.userChoice.then(function(r) {
-            if (r.outcome === 'accepted') localStorage.setItem('pwa_dismissed', '1');
-            deferredPrompt = null;
-          });
-        }
-        dismissPWABanner();
-      };
-    } else {
-      // iOS
-      if (lang === 'en') { title = 'Install Soniar'; sub = 'Tap ↑ Share → "Add to Home Screen"'; btnText = 'Got it'; }
-      else if (lang === 'pt') { title = 'Instalar Soniar'; sub = 'Toque ↑ Compartilhar → "Adicionar à Tela de Início"'; btnText = 'Entendi'; }
-      else { title = 'Instalá Soniar'; sub = 'Tocá ↑ Compartir → "Añadir a inicio"'; btnText = 'Entendido'; }
-      
-      document.getElementById('pwa-banner-btn').textContent = btnText;
-      document.getElementById('pwa-banner-btn').onclick = dismissPWABanner;
-    }
-    
-    document.getElementById('pwa-banner-title').textContent = title;
-    document.getElementById('pwa-banner-sub').innerHTML = sub;
-    banner.style.display = 'flex';
-  };
-  
-  window.dismissPWABanner = function() {
-    var banner = document.getElementById('pwa-banner');
-    if (banner) banner.style.display = 'none';
-    localStorage.setItem('pwa_dismissed', '1');
-  };
-})();
-
 </script>
 
 
-
+<!-- ONBOARDING OVERLAY -->
+<div id="_ob" style="display:none;position:fixed;top:0;left:0;right:0;bottom:0;z-index:99999;overflow:hidden;-webkit-overflow-scrolling:none;">
+  <img src="https://onyraapp.github.io/Oniria/imagen_sueno_volar.webp" style="position:absolute;top:0;left:0;width:100%;height:100%;object-fit:cover;opacity:0.38;" alt="" loading="eager"/>
+  <div style="position:absolute;top:0;left:0;right:0;bottom:0;background:radial-gradient(ellipse 80% 55% at 50% 35%,rgba(124,92,191,0.3) 0%,transparent 70%);"></div>
+  <div style="position:absolute;top:0;left:0;right:0;bottom:0;background:linear-gradient(to top,#080810 0%,rgba(8,8,16,0.75) 45%,rgba(8,8,16,0.1) 100%);"></div>
+  <div style="position:absolute;top:0;left:0;right:0;bottom:0;display:flex;flex-direction:column;align-items:center;justify-content:flex-end;padding:2rem 1.75rem;padding-bottom:max(3.5rem, calc(2.5rem + env(safe-area-inset-bottom)));text-align:center;box-sizing:border-box;">
+    <!-- Logo -->
+    <div style="font-family:'Bebas Neue',sans-serif;font-size:0.9rem;font-weight:400;letter-spacing:0.45em;color:rgba(255,255,255,0.5);margin-bottom:1.75rem;">SONIAR</div>
+    <!-- Titulo -->
+    <div style="font-family:'Cormorant Garamond',serif;font-size:clamp(2.5rem,11.5vw,4.5rem);font-weight:300;line-height:0.88;color:#f0ece0;letter-spacing:-0.01em;margin-bottom:0.3rem;">ARQUITECTANDO</div>
+    <div style="font-family:'Cormorant Garamond',serif;font-size:clamp(2.5rem,11.5vw,4.5rem);font-weight:300;font-style:italic;line-height:0.88;color:#a78bfa;letter-spacing:-0.01em;margin-bottom:1.5rem;">EL INCONSCIENTE</div>
+    <!-- Stats -->
+    <div style="display:flex;gap:2rem;margin-bottom:1.75rem;justify-content:center;">
+      <div style="text-align:center;">
+        <div style="font-family:'Cormorant Garamond',serif;font-size:1.6rem;font-weight:300;color:#7c5cbf;line-height:1;">293ms</div>
+        <div style="font-size:0.58rem;letter-spacing:0.15em;color:rgba(255,255,255,0.35);text-transform:uppercase;margin-top:3px;">LATENCIA</div>
+      </div>
+      <div style="text-align:center;">
+        <div style="font-family:'Cormorant Garamond',serif;font-size:1.6rem;font-weight:300;color:#d4a853;line-height:1;">3 taps</div>
+        <div style="font-size:0.58rem;letter-spacing:0.15em;color:rgba(255,255,255,0.35);text-transform:uppercase;margin-top:3px;">DEL SUEÑO</div>
+      </div>
+      <div style="text-align:center;">
+        <div style="font-family:'Cormorant Garamond',serif;font-size:1.6rem;font-weight:300;color:#22c55e;line-height:1;">∞</div>
+        <div style="font-size:0.58rem;letter-spacing:0.15em;color:rgba(255,255,255,0.35);text-transform:uppercase;margin-top:3px;">ARCHIVO</div>
+      </div>
+    </div>
+    <!-- Botones -->
+    <button id="_ob_upgrade" style="width:100%;max-width:340px;background:#8B6FFF;color:#fff;border:none;border-radius:100px;padding:1.1rem 1.5rem;font-family:'DM Sans',sans-serif;font-size:0.75rem;font-weight:700;letter-spacing:0.13em;cursor:pointer;box-shadow:0 0 50px rgba(139,111,255,0.5);margin-bottom:0.75rem;line-height:1.6;">CONVERTIRME EN ARQUITECTO<br><span style="font-size:0.65rem;font-weight:400;opacity:0.7;letter-spacing:0.08em;">$49 / MES</span></button>
+    <button id="_ob_feed" style="width:100%;max-width:340px;background:transparent;color:rgba(255,255,255,0.5);border:1px solid rgba(255,255,255,0.15);border-radius:100px;padding:1rem 1.5rem;font-family:'DM Sans',sans-serif;font-size:0.75rem;font-weight:500;letter-spacing:0.13em;cursor:pointer;">EXPLORAR EL FEED PÚBLICO</button>
+  </div>
+</div>
+<script>
+function _showOnboard() {
+  var ob = document.getElementById('_ob');
+  if (ob) { ob.style.display = 'block'; document.body.style.overflow = 'hidden'; }
+}
+function _hideOnboard() {
+  var ob = document.getElementById('_ob');
+  if (ob) { ob.style.display = 'none'; document.body.style.overflow = ''; }
+}
+document.addEventListener('DOMContentLoaded', function() {
+  var btnUp = document.getElementById('_ob_upgrade');
+  var btnFd = document.getElementById('_ob_feed');
+  if (btnUp) btnUp.addEventListener('click', function() { _hideOnboard(); go('upgrade'); });
+  if (btnFd) btnFd.addEventListener('click', function() { localStorage.setItem('soniar_onboarded','1'); _hideOnboard(); });
+});
+</script>
 
 </body>
 </html>
