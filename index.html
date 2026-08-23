@@ -522,28 +522,6 @@ footer {
   </div>
 </section>
 
-<div class="divider"></div>
-
-<section class="section reveal" id="section-pricing">
-  <span class="section-label" id="label-pricing">Simple pricing</span>
-  <h2 class="section-title" id="pricing-title">One plan.<br><em>No limits.</em></h2>
-</section>
-
-<div class="pricing-card reveal">
-  <span class="pricing-label" id="pricing-tier">Premium</span>
-  <div class="pricing-price">$2.99</div>
-  <div class="pricing-period" id="pricing-period">/ month · cancel anytime</div>
-  <ul class="pricing-features">
-    <li id="pf1">Unlimited dream visualizations</li>
-    <li id="pf2">Freud, Jung & Neuroscience interpretations</li>
-    <li id="pf3">Publish to the global dream feed</li>
-    <li id="pf4">Recurring pattern analysis</li>
-    <li id="pf5">High-resolution image export</li>
-  </ul>
-  <button class="btn-checkout" onclick="openCheckout()" id="btn-checkout">START VISUALIZING</button>
-  <div class="pricing-note" id="pricing-note">Free tier available · No credit card required to explore</div>
-</div>
-
 <footer>
   <div class="footer-logo">Soniar</div>
   <div class="footer-copy" id="footer-copy">© 2026 Soniar · All rights reserved</div>
@@ -659,23 +637,7 @@ function applyLang(t) {
   document.getElementById('step2-desc').textContent = t.step2Desc;
   document.getElementById('step3-title').textContent = t.step3Title;
   document.getElementById('step3-desc').textContent = t.step3Desc;
-  document.getElementById('label-pricing').textContent = t.labelPricing;
-  document.getElementById('pricing-title').innerHTML = t.pricingTitle;
-  document.getElementById('pricing-tier').textContent = t.pricingTier;
-  document.getElementById('pricing-period').textContent = t.pricingPeriod;
-  document.getElementById('pf1').textContent = t.pf1;
-  document.getElementById('pf2').textContent = t.pf2;
-  document.getElementById('pf3').textContent = t.pf3;
-  document.getElementById('pf4').textContent = t.pf4;
-  document.getElementById('pf5').textContent = t.pf5;
-  document.getElementById('btn-checkout').textContent = t.btnCheckout;
-  document.getElementById('pricing-note').textContent = t.pricingNote;
   document.getElementById('footer-copy').textContent = t.footerCopy;
-}
-
-// ── CHECKOUT ──────────────────────────────────────────────
-async function openCheckout() {
-  window.location.href = 'app.html';
 }
 
 // ── REVEAL ON SCROLL ──────────────────────────────────────
