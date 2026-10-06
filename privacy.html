@@ -1,65 +1,330 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="UTF-8"/>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Política de Privacidad — Soniar</title>
-  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet"/>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Política de Privacidad – Soniar</title>
   <style>
-    :root { --bg: #080810; --surface: #12121f; --border: #2a2a45; --purple: #8B6FFF; --purple-soft: #c4b5fd; --text: #F5F3FF; --muted: #9CA3AF; }
+    :root {
+      --bg: #0d0d1a;
+      --card: #1a1a2e;
+      --accent: #7c5cbf;
+      --text: #e8e0f0;
+      --muted: #9988bb;
+      --border: #2e2e4a;
+    }
     * { box-sizing: border-box; margin: 0; padding: 0; }
-    body { background: var(--bg); color: var(--text); font-family: 'DM Sans', sans-serif; font-weight: 300; line-height: 1.8; }
-    .wrap { max-width: 720px; margin: 0 auto; padding: 4rem 2rem; }
-    .logo { font-family: 'Cormorant Garamond', serif; font-size: 1.8rem; font-weight: 300; letter-spacing: 0.3em; color: var(--text); text-decoration: none; display: block; margin-bottom: 3rem; }
-    h1 { font-family: 'Cormorant Garamond', serif; font-size: 2.2rem; font-weight: 300; margin-bottom: 0.5rem; }
-    .date { color: var(--muted); font-size: 0.85rem; margin-bottom: 3rem; }
-    h2 { font-size: 1rem; font-weight: 500; color: var(--purple-soft); margin: 2.5rem 0 0.75rem; }
-    p { color: var(--muted); margin-bottom: 1rem; font-size: 0.92rem; }
-    ul { color: var(--muted); font-size: 0.92rem; padding-left: 1.5rem; margin-bottom: 1rem; }
-    li { margin-bottom: 0.4rem; }
-    a { color: var(--purple-soft); }
-    .back { display: inline-block; margin-top: 3rem; color: var(--muted); font-size: 0.85rem; text-decoration: none; }
-    .back:hover { color: var(--text); }
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+      line-height: 1.7;
+      padding: 24px 16px 60px;
+    }
+    .container { max-width: 720px; margin: 0 auto; }
+    header {
+      text-align: center;
+      padding: 40px 0 32px;
+    }
+    .logo {
+      font-size: 2rem;
+      font-weight: 800;
+      background: linear-gradient(135deg, #b08af0, #7c5cbf);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      letter-spacing: -0.5px;
+    }
+    .lang-switcher {
+      display: flex;
+      justify-content: center;
+      gap: 12px;
+      margin: 20px 0 8px;
+    }
+    .lang-btn {
+      background: var(--card);
+      border: 1px solid var(--border);
+      color: var(--muted);
+      padding: 8px 18px;
+      border-radius: 20px;
+      cursor: pointer;
+      font-size: 0.9rem;
+      transition: all 0.2s;
+    }
+    .lang-btn.active {
+      background: var(--accent);
+      border-color: var(--accent);
+      color: #fff;
+    }
+    h1 { font-size: 1.6rem; font-weight: 700; margin-bottom: 8px; }
+    .updated { color: var(--muted); font-size: 0.85rem; margin-bottom: 32px; }
+    section { margin-bottom: 28px; }
+    h2 {
+      font-size: 1.1rem;
+      font-weight: 700;
+      color: #b08af0;
+      margin-bottom: 10px;
+      padding-bottom: 6px;
+      border-bottom: 1px solid var(--border);
+    }
+    p { color: #d0c8e8; margin-bottom: 10px; }
+    ul { color: #d0c8e8; padding-left: 20px; }
+    ul li { margin-bottom: 6px; }
+    a { color: #b08af0; text-decoration: none; }
+    a:hover { text-decoration: underline; }
+    .card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 16px 20px;
+      margin-bottom: 12px;
+    }
+    .card strong { color: #c9b8f0; }
+    footer {
+      text-align: center;
+      color: var(--muted);
+      font-size: 0.82rem;
+      margin-top: 48px;
+      padding-top: 24px;
+      border-top: 1px solid var(--border);
+    }
+    [data-lang] { display: none; }
+    [data-lang].visible { display: block; }
   </style>
 </head>
 <body>
-<div class="wrap">
-  <a href="https://soniar.app" class="logo">SONIAR</a>
-  <h1>Política de Privacidad</h1>
-  <p class="date">Última actualización: mayo 2025</p>
+<div class="container">
+  <header>
+    <div class="logo">✦ Soniar</div>
+    <div class="lang-switcher">
+      <button class="lang-btn" id="btn-es" onclick="setLang('es')">🇦🇷 Español</button>
+      <button class="lang-btn" id="btn-en" onclick="setLang('en')">🇺🇸 English</button>
+    </div>
+  </header>
 
-  <h2>1. Datos que recopilamos</h2>
-  <ul>
-    <li>Email y datos de cuenta al registrarte</li>
-    <li>Sueños que ingresás en la app (para generar interpretaciones)</li>
-    <li>Datos de uso anónimos para mejorar el servicio</li>
-    <li>Datos de pago procesados por Paddle (no almacenamos datos de tarjeta)</li>
-  </ul>
+  <!-- ESPAÑOL -->
+  <div data-lang="es">
+    <h1>Política de Privacidad</h1>
+    <p class="updated">Última actualización: octubre de 2026</p>
 
-  <h2>2. Cómo usamos tus datos</h2>
-  <ul>
-    <li>Para generar interpretaciones de tus sueños</li>
-    <li>Para gestionar tu cuenta y suscripción</li>
-    <li>Para mejorar el servicio</li>
-    <li>Para enviarte comunicaciones relacionadas al servicio (podés darte de baja)</li>
-  </ul>
+    <section>
+      <h2>1. Introducción</h2>
+      <p>Soniar ("nosotros", "la app") es una aplicación de interpretación de sueños con inteligencia artificial. Esta política de privacidad explica qué datos recopilamos, cómo los usamos y cómo los protegemos cuando usás Soniar en web (<a href="https://soniar.app">soniar.app</a>) o en la app de Android.</p>
+      <p>Al usar Soniar, aceptás los términos de esta política.</p>
+    </section>
 
-  <h2>3. Compartir datos</h2>
-  <p>No vendemos tus datos. Compartimos información solo con proveedores necesarios para operar el servicio: Anthropic (IA), Supabase (base de datos), Paddle (pagos).</p>
+    <section>
+      <h2>2. Información que recopilamos</h2>
+      <div class="card">
+        <strong>Datos de cuenta</strong>
+        <p>Cuando te registrás con Google, recibimos tu nombre y dirección de correo electrónico.</p>
+      </div>
+      <div class="card">
+        <strong>Contenido de sueños</strong>
+        <p>Los textos que ingresás para que la IA los interprete. Estos se almacenan en nuestra base de datos para que puedas acceder a tu historial.</p>
+      </div>
+      <div class="card">
+        <strong>Imágenes generadas</strong>
+        <p>Las imágenes que la IA crea a partir de tus sueños. Se almacenan en nuestro servidor de archivos asociadas a tu cuenta.</p>
+      </div>
+      <div class="card">
+        <strong>Datos de uso</strong>
+        <p>Información técnica como tu dirección IP (usada únicamente para control de límites de velocidad), tipo de dispositivo y errores de la app.</p>
+      </div>
+      <div class="card">
+        <strong>Datos de pago</strong>
+        <p>Si te suscribís al plan Premium, el pago es procesado por Stripe. Soniar no almacena datos de tarjetas de crédito. Solo guardamos tu estado de suscripción (activo/inactivo).</p>
+      </div>
+    </section>
 
-  <h2>4. Tus derechos</h2>
-  <p>Podés acceder, corregir o eliminar tus datos en cualquier momento. Para hacerlo, contactanos en <a href="mailto:hola@soniar.app">hola@soniar.app</a>.</p>
+    <section>
+      <h2>3. Cómo usamos tu información</h2>
+      <ul>
+        <li>Interpretar tus sueños con IA (Claude de Anthropic)</li>
+        <li>Generar imágenes visuales de tus sueños (FLUX de fal.ai)</li>
+        <li>Guardar tu historial de sueños para que puedas acceder en cualquier momento</li>
+        <li>Gestionar tu suscripción y acceso a funciones Premium</li>
+        <li>Prevenir el abuso y mantener la seguridad del servicio</li>
+      </ul>
+      <p style="margin-top:12px"><strong>No vendemos ni compartimos tus datos personales con terceros para publicidad.</strong></p>
+    </section>
 
-  <h2>5. Cookies</h2>
-  <p>Usamos cookies esenciales para el funcionamiento de la app. No usamos cookies de publicidad.</p>
+    <section>
+      <h2>4. Terceros que procesan tus datos</h2>
+      <div class="card">
+        <strong>Anthropic (Claude AI)</strong> — <a href="https://www.anthropic.com/privacy" target="_blank">Privacy Policy</a>
+        <p>Procesa el texto de tus sueños para generar interpretaciones. Los datos se envían de forma cifrada y no se almacenan permanentemente en sus servidores para fines de entrenamiento sin consentimiento.</p>
+      </div>
+      <div class="card">
+        <strong>fal.ai</strong> — <a href="https://fal.ai/privacy" target="_blank">Privacy Policy</a>
+        <p>Genera las imágenes visuales de tus sueños. Recibe el prompt de texto y devuelve la imagen.</p>
+      </div>
+      <div class="card">
+        <strong>Supabase</strong> — <a href="https://supabase.com/privacy" target="_blank">Privacy Policy</a>
+        <p>Nuestra base de datos y sistema de autenticación. Almacena tu perfil, sueños e imágenes de forma segura.</p>
+      </div>
+      <div class="card">
+        <strong>Stripe</strong> — <a href="https://stripe.com/privacy" target="_blank">Privacy Policy</a>
+        <p>Procesa los pagos de suscripción. Cumple con PCI DSS y no nos transmite datos completos de tarjetas.</p>
+      </div>
+      <div class="card">
+        <strong>Cloudflare</strong> — <a href="https://www.cloudflare.com/privacypolicy/" target="_blank">Privacy Policy</a>
+        <p>Infraestructura de red y seguridad. Puede procesar tu IP como parte del servicio de distribución.</p>
+      </div>
+    </section>
 
-  <h2>6. Seguridad</h2>
-  <p>Tus datos se almacenan de forma segura en Supabase con encriptación en tránsito y en reposo.</p>
+    <section>
+      <h2>5. Retención y eliminación de datos</h2>
+      <p>Tus datos se conservan mientras tengas una cuenta activa en Soniar. Podés solicitar la eliminación de tu cuenta y todos los datos asociados escribiéndonos a <a href="mailto:privacidad@soniar.app">privacidad@soniar.app</a>. Procesamos las solicitudes en un plazo de 30 días.</p>
+    </section>
 
-  <h2>7. Contacto</h2>
-  <p><a href="mailto:hola@soniar.app">hola@soniar.app</a></p>
+    <section>
+      <h2>6. Seguridad</h2>
+      <p>Todas las comunicaciones entre la app y nuestros servidores están cifradas con TLS/HTTPS. Los datos almacenados en Supabase están protegidos con Row Level Security (RLS), lo que garantiza que cada usuario solo puede acceder a sus propios datos.</p>
+    </section>
 
-  <a href="https://soniar.app" class="back">← Volver a Soniar</a>
+    <section>
+      <h2>7. Menores de edad</h2>
+      <p>Soniar no está dirigida a menores de 13 años. No recopilamos intencionalmente información de menores. Si detectamos que un menor ha creado una cuenta, la eliminamos de inmediato.</p>
+    </section>
+
+    <section>
+      <h2>8. Cambios a esta política</h2>
+      <p>Podemos actualizar esta política ocasionalmente. Te notificaremos sobre cambios significativos a través de la app o por correo electrónico. El uso continuado de Soniar tras los cambios implica la aceptación de la nueva política.</p>
+    </section>
+
+    <section>
+      <h2>9. Contacto</h2>
+      <p>Para preguntas o solicitudes relacionadas con tu privacidad, escribinos a:<br>
+      📧 <a href="mailto:privacidad@soniar.app">privacidad@soniar.app</a></p>
+    </section>
+  </div>
+
+  <!-- ENGLISH -->
+  <div data-lang="en">
+    <h1>Privacy Policy</h1>
+    <p class="updated">Last updated: October 2026</p>
+
+    <section>
+      <h2>1. Introduction</h2>
+      <p>Soniar ("we", "the app") is an AI-powered dream interpretation application. This privacy policy explains what data we collect, how we use it, and how we protect it when you use Soniar on the web (<a href="https://soniar.app">soniar.app</a>) or on Android.</p>
+      <p>By using Soniar, you agree to the terms of this policy.</p>
+    </section>
+
+    <section>
+      <h2>2. Information We Collect</h2>
+      <div class="card">
+        <strong>Account Data</strong>
+        <p>When you sign in with Google, we receive your name and email address.</p>
+      </div>
+      <div class="card">
+        <strong>Dream Content</strong>
+        <p>The text you enter for AI interpretation. This is stored in our database so you can access your dream history.</p>
+      </div>
+      <div class="card">
+        <strong>Generated Images</strong>
+        <p>The AI-generated visual representations of your dreams. These are stored on our file server linked to your account.</p>
+      </div>
+      <div class="card">
+        <strong>Usage Data</strong>
+        <p>Technical information such as your IP address (used solely for rate limiting), device type, and app errors.</p>
+      </div>
+      <div class="card">
+        <strong>Payment Data</strong>
+        <p>If you subscribe to the Premium plan, payments are processed by Stripe. Soniar does not store credit card data. We only store your subscription status (active/inactive).</p>
+      </div>
+    </section>
+
+    <section>
+      <h2>3. How We Use Your Information</h2>
+      <ul>
+        <li>Interpret your dreams using AI (Anthropic's Claude)</li>
+        <li>Generate visual dream imagery (fal.ai's FLUX)</li>
+        <li>Save your dream history for anytime access</li>
+        <li>Manage your subscription and Premium feature access</li>
+        <li>Prevent abuse and maintain service security</li>
+      </ul>
+      <p style="margin-top:12px"><strong>We do not sell or share your personal data with third parties for advertising purposes.</strong></p>
+    </section>
+
+    <section>
+      <h2>4. Third Parties That Process Your Data</h2>
+      <div class="card">
+        <strong>Anthropic (Claude AI)</strong> — <a href="https://www.anthropic.com/privacy" target="_blank">Privacy Policy</a>
+        <p>Processes your dream text to generate interpretations. Data is sent encrypted and is not permanently stored on their servers for training purposes without consent.</p>
+      </div>
+      <div class="card">
+        <strong>fal.ai</strong> — <a href="https://fal.ai/privacy" target="_blank">Privacy Policy</a>
+        <p>Generates visual images from your dreams. Receives the text prompt and returns the generated image.</p>
+      </div>
+      <div class="card">
+        <strong>Supabase</strong> — <a href="https://supabase.com/privacy" target="_blank">Privacy Policy</a>
+        <p>Our database and authentication system. Securely stores your profile, dreams, and images.</p>
+      </div>
+      <div class="card">
+        <strong>Stripe</strong> — <a href="https://stripe.com/privacy" target="_blank">Privacy Policy</a>
+        <p>Processes subscription payments. PCI DSS compliant — full card data is never transmitted to us.</p>
+      </div>
+      <div class="card">
+        <strong>Cloudflare</strong> — <a href="https://www.cloudflare.com/privacypolicy/" target="_blank">Privacy Policy</a>
+        <p>Network infrastructure and security. May process your IP as part of content delivery services.</p>
+      </div>
+    </section>
+
+    <section>
+      <h2>5. Data Retention and Deletion</h2>
+      <p>Your data is retained as long as you have an active Soniar account. You may request deletion of your account and all associated data by contacting us at <a href="mailto:privacy@soniar.app">privacy@soniar.app</a>. We process deletion requests within 30 days.</p>
+    </section>
+
+    <section>
+      <h2>6. Security</h2>
+      <p>All communications between the app and our servers are encrypted with TLS/HTTPS. Data stored in Supabase is protected with Row Level Security (RLS), ensuring each user can only access their own data.</p>
+    </section>
+
+    <section>
+      <h2>7. Children's Privacy</h2>
+      <p>Soniar is not directed at children under the age of 13. We do not knowingly collect information from minors. If we detect that a minor has created an account, we will promptly delete it.</p>
+    </section>
+
+    <section>
+      <h2>8. Changes to This Policy</h2>
+      <p>We may update this policy from time to time. We will notify you of significant changes through the app or via email. Continued use of Soniar after changes constitutes acceptance of the updated policy.</p>
+    </section>
+
+    <section>
+      <h2>9. Contact</h2>
+      <p>For privacy-related questions or requests, contact us at:<br>
+      📧 <a href="mailto:privacy@soniar.app">privacy@soniar.app</a></p>
+    </section>
+  </div>
+
+  <footer>
+    <p>© 2026 Soniar · <a href="https://soniar.app">soniar.app</a></p>
+  </footer>
 </div>
+
+<script>
+  function setLang(lang) {
+    document.querySelectorAll('[data-lang]').forEach(el => {
+      el.classList.toggle('visible', el.dataset.lang === lang);
+    });
+    document.getElementById('btn-es').classList.toggle('active', lang === 'es');
+    document.getElementById('btn-en').classList.toggle('active', lang === 'en');
+    document.documentElement.lang = lang;
+    localStorage.setItem('soniar_lang', lang);
+  }
+
+  function detectLang() {
+    const params = new URLSearchParams(window.location.search);
+    if (params.get('lang') === 'en') return 'en';
+    if (params.get('lang') === 'es') return 'es';
+    const saved = localStorage.getItem('soniar_lang');
+    if (saved) return saved;
+    const nav = (navigator.language || navigator.userLanguage || 'es').toLowerCase();
+    return nav.startsWith('en') ? 'en' : 'es';
+  }
+
+  setLang(detectLang());
+</script>
 </body>
 </html>
