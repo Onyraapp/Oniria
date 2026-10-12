@@ -1,0 +1,669 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <script>
+  if (location.hash.includes('access_token') || location.search.includes('code=')) {
+    location.replace('/app.html' + location.search + location.hash);
+  }
+</script>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0"/>
+<title>Soniar — Visualize Your Dreams</title>
+<meta name="description" content="Describe your dream and watch AI turn it into a cinematic reality. Join a global community exploring the subconscious."/>
+<meta name="theme-color" content="#0a0a0f"/>
+
+<!-- Open Graph -->
+<meta property="og:title" content="Soniar — Visualize Your Dreams"/>
+<meta property="og:description" content="Describe your dream, see it come to life with AI, and share your inner world with a global community."/>
+<meta property="og:image" content="https://soniar.app/hero-bg.jpg"/>
+<meta property="og:url" content="https://soniar.app/"/>
+<meta property="og:type" content="website"/>
+<meta name="twitter:card" content="summary_large_image"/>
+<meta name="twitter:title" content="Soniar — Visualize Your Dreams"/>
+<meta name="twitter:description" content="Describe your dream, see it come to life with AI, and share your inner world."/>
+<meta name="twitter:image" content="https://soniar.app/hero-bg.jpg"/>
+
+<!-- JSON-LD -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "SoftwareApplication",
+  "name": "Soniar",
+  "applicationCategory": "LifestyleApplication",
+  "operatingSystem": "Web",
+  "description": "AI-powered dream visualization and interpretation platform. Describe your dream and watch it come to life.",
+  "url": "https://soniar.app",
+  "offers": {
+    "@type": "Offer",
+    "price": "2.99",
+    "priceCurrency": "USD"
+  }
+}
+</script>
+
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='20' fill='%237B5CE6'/><text y='75' font-size='65' text-anchor='middle' x='50'>🌙</text></svg>"/>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,300;0,400;1,300;1,400&family=Inter:wght@300;400;500&display=swap" rel="stylesheet"/>
+
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --vivid: #7c5cbf;
+  --vivid-glow: rgba(124, 92, 191, 0.5);
+  --bone: #f0ece4;
+  --muted: rgba(240,236,228,0.55);
+  --font-display: 'Playfair Display', serif;
+  --font-body: 'Inter', sans-serif;
+}
+
+html, body {
+  height: 100%;
+  background: #0a0a0f;
+  color: var(--bone);
+  font-family: var(--font-body);
+  -webkit-font-smoothing: antialiased;
+  overflow-x: hidden;
+}
+
+a { text-decoration: none; color: inherit; }
+button { cursor: pointer; font-family: var(--font-body); border: none; background: none; }
+
+/* ── HERO ── */
+.hero {
+  position: relative;
+  min-height: 100dvh;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  overflow: hidden;
+}
+
+.hero-bg {
+  position: absolute;
+  inset: 0;
+  background-image: url('hero-bg.jpg');
+  background-size: cover;
+  background-position: center top;
+  background-repeat: no-repeat;
+  z-index: 0;
+}
+
+.hero-bg::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    to bottom,
+    rgba(10,10,15,0.35) 0%,
+    rgba(10,10,15,0.1) 30%,
+    rgba(10,10,15,0.5) 65%,
+    rgba(10,10,15,0.95) 100%
+  );
+}
+
+/* ── NAV ── */
+nav {
+  position: relative;
+  z-index: 10;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1.5rem 1.75rem;
+}
+
+.nav-logo {
+  font-family: var(--font-body);
+  font-size: 0.8rem;
+  font-weight: 500;
+  letter-spacing: 0.25em;
+  text-transform: uppercase;
+  color: var(--bone);
+}
+
+.nav-links {
+  display: flex;
+  gap: 1.5rem;
+  align-items: center;
+}
+
+.nav-link {
+  font-size: 0.72rem;
+  font-weight: 400;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--muted);
+  transition: color 0.2s;
+}
+.nav-link:hover { color: var(--bone); }
+
+.nav-login {
+  font-size: 0.72rem;
+  font-weight: 500;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--bone);
+  padding: 0.5rem 1rem;
+  border: 1px solid rgba(240,236,228,0.2);
+  border-radius: 100px;
+  transition: all 0.2s;
+}
+.nav-login:hover {
+  border-color: rgba(240,236,228,0.5);
+  background: rgba(240,236,228,0.05);
+}
+
+/* ── HERO CONTENT ── */
+.hero-content {
+  position: relative;
+  z-index: 5;
+  padding: 0 1.75rem 3rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: 1.5rem;
+}
+
+.hero-title {
+  font-family: var(--font-display);
+  font-size: clamp(2.6rem, 11vw, 6.5rem);
+  font-weight: 300;
+  line-height: 1.05;
+  letter-spacing: -0.01em;
+  color: var(--bone);
+}
+
+.hero-title em {
+  font-style: italic;
+  color: var(--bone);
+  display: block;
+  text-shadow:
+    0 0 40px rgba(157,111,255,0.7),
+    0 2px 30px rgba(0,0,0,0.95),
+    0 0 80px rgba(124,92,191,0.4);
+}
+
+.hero-sub {
+  font-size: clamp(0.9rem, 2.5vw, 1.05rem);
+  font-weight: 300;
+  color: var(--muted);
+  line-height: 1.6;
+  max-width: 400px;
+}
+
+/* ── CTAs ── */
+.hero-cta {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.85rem;
+  width: 100%;
+  max-width: 340px;
+}
+
+.btn-primary {
+  width: 100%;
+  padding: 1rem 2rem;
+  background: rgba(124, 92, 191, 0.6);
+  border: 1px solid rgba(157, 111, 255, 0.6);
+  border-radius: 100px;
+  color: #fff;
+  font-size: 0.82rem;
+  font-weight: 500;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  backdrop-filter: blur(10px);
+  box-shadow: 0 0 28px rgba(124,92,191,0.35);
+  transition: all 0.25s;
+  display: block;
+  text-align: center;
+}
+.btn-primary:hover {
+  background: rgba(124, 92, 191, 0.8);
+  box-shadow: 0 0 40px rgba(124,92,191,0.55);
+  transform: translateY(-1px);
+}
+
+.btn-secondary {
+  font-size: 0.72rem;
+  font-weight: 400;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: #fff;
+  padding: 0.75rem 1.75rem;
+  background: rgba(124, 92, 191, 0.45);
+  border: 1px solid rgba(157, 111, 255, 0.45);
+  border-radius: 100px;
+  backdrop-filter: blur(10px);
+  transition: all 0.25s;
+  display: inline-block;
+}
+.btn-secondary:hover {
+  background: rgba(124, 92, 191, 0.65);
+  border-color: rgba(157, 111, 255, 0.65);
+}
+
+/* ── SOCIAL PROOF ── */
+.social-proof {
+  position: relative;
+  z-index: 5;
+  text-align: center;
+  padding-bottom: 2rem;
+  font-size: 0.68rem;
+  font-weight: 400;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: rgba(240,236,228,0.3);
+}
+
+/* ── HOW IT WORKS ── */
+.section {
+  padding: 5rem 1.75rem;
+  max-width: 480px;
+  margin: 0 auto;
+}
+
+.section-label {
+  font-size: 0.62rem;
+  font-weight: 500;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--vivid);
+  margin-bottom: 1.5rem;
+  display: block;
+}
+
+.section-title {
+  font-family: var(--font-display);
+  font-size: clamp(1.8rem, 7vw, 3rem);
+  font-weight: 300;
+  line-height: 1.15;
+  color: var(--bone);
+  margin-bottom: 2rem;
+}
+
+.section-title em { font-style: italic; color: rgba(240,236,228,0.55); }
+
+/* Steps */
+.steps {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+
+.step {
+  display: flex;
+  gap: 1.25rem;
+  align-items: flex-start;
+}
+
+.step-num {
+  font-family: var(--font-display);
+  font-size: 0.72rem;
+  font-weight: 300;
+  color: var(--vivid);
+  opacity: 0.8;
+  min-width: 1.5rem;
+  padding-top: 0.15rem;
+}
+
+.step-body {}
+.step-title {
+  font-size: 0.9rem;
+  font-weight: 500;
+  color: var(--bone);
+  margin-bottom: 0.35rem;
+}
+.step-desc {
+  font-size: 0.8rem;
+  font-weight: 300;
+  color: var(--muted);
+  line-height: 1.6;
+}
+
+/* Divider */
+.divider {
+  height: 1px;
+  background: linear-gradient(to right, transparent, rgba(124,92,191,0.25), transparent);
+  margin: 0 1.75rem;
+}
+
+/* ── PRICING ── */
+.pricing-card {
+  margin: 0 1.75rem 5rem;
+  padding: 2rem;
+  background: rgba(124,92,191,0.08);
+  border: 1px solid rgba(124,92,191,0.25);
+  border-radius: 1.5rem;
+  text-align: center;
+}
+
+.pricing-label {
+  font-size: 0.62rem;
+  font-weight: 500;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--vivid);
+  margin-bottom: 1rem;
+  display: block;
+}
+
+.pricing-price {
+  font-family: var(--font-display);
+  font-size: 3.5rem;
+  font-weight: 300;
+  color: var(--bone);
+  line-height: 1;
+  margin-bottom: 0.5rem;
+}
+
+.pricing-period {
+  font-size: 0.75rem;
+  color: var(--muted);
+  margin-bottom: 1.75rem;
+}
+
+.pricing-features {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  margin-bottom: 2rem;
+  text-align: left;
+}
+
+.pricing-features li {
+  font-size: 0.82rem;
+  font-weight: 300;
+  color: var(--muted);
+  display: flex;
+  gap: 0.75rem;
+  align-items: flex-start;
+}
+
+.pricing-features li::before {
+  content: '✦';
+  color: var(--vivid);
+  font-size: 0.6rem;
+  margin-top: 0.15rem;
+  flex-shrink: 0;
+}
+
+.btn-checkout {
+  width: 100%;
+  padding: 1rem;
+  background: var(--bone);
+  color: #0a0a0f;
+  border-radius: 100px;
+  font-size: 0.82rem;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  transition: all 0.2s;
+}
+.btn-checkout:hover {
+  background: #fff;
+  transform: translateY(-1px);
+}
+
+.pricing-note {
+  font-size: 0.65rem;
+  color: rgba(240,236,228,0.25);
+  margin-top: 1rem;
+  letter-spacing: 0.08em;
+}
+
+/* ── FOOTER ── */
+footer {
+  padding: 2rem 1.75rem;
+  text-align: center;
+  border-top: 1px solid rgba(240,236,228,0.06);
+}
+
+.footer-logo {
+  font-size: 0.72rem;
+  font-weight: 400;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: rgba(240,236,228,0.2);
+  margin-bottom: 0.5rem;
+}
+
+.footer-copy {
+  font-size: 0.62rem;
+  color: rgba(240,236,228,0.15);
+  letter-spacing: 0.08em;
+}
+
+/* ── ANIMATIONS ── */
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(16px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+.hero-title { animation: fadeUp 1s ease forwards 0.2s; opacity: 0; }
+.hero-sub   { animation: fadeUp 1s ease forwards 0.45s; opacity: 0; }
+.hero-cta   { animation: fadeUp 1s ease forwards 0.65s; opacity: 0; }
+
+.reveal {
+  opacity: 0;
+  transform: translateY(24px);
+  transition: opacity 0.7s ease, transform 0.7s ease;
+}
+.reveal.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* ── DESKTOP ── */
+@media (min-width: 640px) {
+  nav { padding: 2rem 3rem; }
+  .hero-content { padding: 0 3rem 4rem; }
+  .section { padding: 6rem 3rem; max-width: 560px; }
+  .pricing-card { margin: 0 3rem 6rem; }
+  footer { padding: 2.5rem 3rem; }
+}
+</style>
+</head>
+<body>
+
+<section class="hero">
+  <div class="hero-bg"></div>
+
+  <nav>
+    <div class="nav-logo">Soniar</div>
+    <div class="nav-links">
+      <a href="app.html?feed=true" class="nav-link" id="nav-feed">Feed</a>
+      <a href="app.html" class="nav-login" id="nav-login">Login</a>
+    </div>
+  </nav>
+
+  <div class="hero-content">
+    <h1 class="hero-title" id="hero-title">
+      Visualize Your Dreams.<br>
+      <em id="hero-em">Share Your Inner World.</em>
+    </h1>
+    <p class="hero-sub" id="hero-sub">
+      Describe your dream, watch AI bring it to life, and connect with a global community exploring the subconscious.
+    </p>
+    <div class="hero-cta">
+      <a href="app.html?new=true" class="btn-primary" id="btn-visualize">VISUALIZE YOUR DREAM</a>
+      <a href="app.html?feed=true" class="btn-secondary" id="btn-feed">Explore the Global Feed</a>
+    </div>
+  </div>
+
+  <div class="social-proof" id="social-proof">
+    A community of dreamers sharing their subconscious
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<section class="section reveal" id="section-how">
+  <span class="section-label" id="label-how">How it works</span>
+  <h2 class="section-title" id="how-title">Three steps to <em>clarity.</em></h2>
+  <div class="steps">
+    <div class="step">
+      <span class="step-num">01</span>
+      <div class="step-body">
+        <div class="step-title" id="step1-title">Recall</div>
+        <div class="step-desc" id="step1-desc">Write what you remember from your dream — fragments, feelings, images. There are no rules.</div>
+      </div>
+    </div>
+    <div class="step">
+      <span class="step-num">02</span>
+      <div class="step-body">
+        <div class="step-title" id="step2-title">Visualize</div>
+        <div class="step-desc" id="step2-desc">Our AI turns your words into a cinematic image and reveals the psychological meaning behind it.</div>
+      </div>
+    </div>
+    <div class="step">
+      <span class="step-num">03</span>
+      <div class="step-body">
+        <div class="step-title" id="step3-title">Share</div>
+        <div class="step-desc" id="step3-desc">Publish to the global feed and discover what the collective mind is dreaming right now.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="footer-logo">Soniar</div>
+  <div class="footer-copy" id="footer-copy">© 2026 Soniar · All rights reserved</div>
+</footer>
+
+<script>
+// ── i18n ──────────────────────────────────────────────────
+const i18n = {
+  en: {
+    navFeed: 'Feed',
+    navLogin: 'Login',
+    heroTitle: 'Visualize Your Dreams.',
+    heroEm: 'Share Your Inner World.',
+    heroSub: 'Describe your dream, watch AI bring it to life, and connect with a global community exploring the subconscious.',
+    btnVisualize: 'VISUALIZE YOUR DREAM',
+    btnFeed: 'Explore the Global Feed',
+    socialProof: 'A community of dreamers sharing their subconscious',
+    labelHow: 'How it works',
+    howTitle: 'Three steps to <em>clarity.</em>',
+    step1Title: 'Recall', step1Desc: 'Write what you remember from your dream — fragments, feelings, images. There are no rules.',
+    step2Title: 'Visualize', step2Desc: 'Our AI turns your words into a cinematic image and reveals the psychological meaning behind it.',
+    step3Title: 'Share', step3Desc: 'Publish to the global feed and discover what the collective mind is dreaming right now.',
+    labelPricing: 'Simple pricing',
+    pricingTitle: 'One plan.<br><em>No limits.</em>',
+    pricingTier: 'Premium',
+    pricingPeriod: '/ month · cancel anytime',
+    pf1: 'Unlimited dream visualizations',
+    pf2: 'Freud, Jung & Neuroscience interpretations',
+    pf3: 'Publish to the global dream feed',
+    pf4: 'Recurring pattern analysis',
+    pf5: 'High-resolution image export',
+    btnCheckout: 'START VISUALIZING',
+    pricingNote: 'Free tier available · No credit card required to explore',
+    footerCopy: '© 2026 Soniar · All rights reserved',
+  },
+  es: {
+    navFeed: 'Feed',
+    navLogin: 'Entrar',
+    heroTitle: 'Visualizá tus Sueños.',
+    heroEm: 'Compartí tu Mundo Interior.',
+    heroSub: 'Describí tu sueño, mirá cómo la IA lo convierte en realidad y conectate con una comunidad global explorando el subconsciente.',
+    btnVisualize: 'VISUALIZAR MI SUEÑO',
+    btnFeed: 'Explorar el Feed Global',
+    socialProof: 'Una comunidad de soñadores compartiendo su subconsciente',
+    labelHow: 'Cómo funciona',
+    howTitle: 'Tres pasos hacia la <em>claridad.</em>',
+    step1Title: 'Recordar', step1Desc: 'Escribí lo que recordás de tu sueño — fragmentos, sensaciones, imágenes. Sin reglas.',
+    step2Title: 'Visualizar', step2Desc: 'Nuestra IA convierte tus palabras en una imagen cinematográfica y revela su significado psicológico.',
+    step3Title: 'Compartir', step3Desc: 'Publicá en el feed global y descubrí qué está soñando la mente colectiva ahora mismo.',
+    labelPricing: 'Precio simple',
+    pricingTitle: 'Un plan.<br><em>Sin límites.</em>',
+    pricingTier: 'Premium',
+    pricingPeriod: '/ mes · cancelá cuando quieras',
+    pf1: 'Visualizaciones de sueños ilimitadas',
+    pf2: 'Interpretaciones de Freud, Jung y Neurociencia',
+    pf3: 'Publicar en el feed global de sueños',
+    pf4: 'Análisis de patrones recurrentes',
+    pf5: 'Exportación de imágenes en alta resolución',
+    btnCheckout: 'EMPEZAR AHORA',
+    pricingNote: 'Tier gratuito disponible · No se requiere tarjeta para explorar',
+    footerCopy: '© 2026 Soniar · Todos los derechos reservados',
+  },
+  pt: {
+    navFeed: 'Feed',
+    navLogin: 'Entrar',
+    heroTitle: 'Visualize Seus Sonhos.',
+    heroEm: 'Compartilhe Seu Mundo Interior.',
+    heroSub: 'Descreva seu sonho, veja a IA trazê-lo à vida e conecte-se com uma comunidade global explorando o subconsciente.',
+    btnVisualize: 'VISUALIZAR MEU SONHO',
+    btnFeed: 'Explorar o Feed Global',
+    socialProof: 'Uma comunidade de sonhadores compartilhando seu subconsciente',
+    labelHow: 'Como funciona',
+    howTitle: 'Três passos para a <em>clareza.</em>',
+    step1Title: 'Lembrar', step1Desc: 'Escreva o que você se lembra do seu sonho — fragmentos, sentimentos, imagens. Sem regras.',
+    step2Title: 'Visualizar', step2Desc: 'Nossa IA transforma suas palavras em uma imagem cinematográfica e revela o significado psicológico.',
+    step3Title: 'Compartilhar', step3Desc: 'Publique no feed global e descubra o que a mente coletiva está sonhando agora.',
+    labelPricing: 'Preço simples',
+    pricingTitle: 'Um plano.<br><em>Sem limites.</em>',
+    pricingTier: 'Premium',
+    pricingPeriod: '/ mês · cancele quando quiser',
+    pf1: 'Visualizações ilimitadas de sonhos',
+    pf2: 'Interpretações de Freud, Jung e Neurociência',
+    pf3: 'Publicar no feed global de sonhos',
+    pf4: 'Análise de padrões recorrentes',
+    pf5: 'Exportação de imagens em alta resolução',
+    btnCheckout: 'COMEÇAR AGORA',
+    pricingNote: 'Nível gratuito disponível · Não precisa de cartão para explorar',
+    footerCopy: '© 2026 Soniar · Todos os direitos reservados',
+  }
+};
+
+function detectLang() {
+  var lang = (navigator.language || navigator.userLanguage || 'en').toLowerCase().substring(0, 2);
+  if (lang === 'es') return 'es';
+  if (lang === 'pt') return 'pt';
+  return 'en';
+}
+
+function applyLang(t) {
+  document.getElementById('nav-feed').textContent = t.navFeed;
+  document.getElementById('nav-login').textContent = t.navLogin;
+  document.getElementById('hero-title').childNodes[0].textContent = t.heroTitle + ' ';
+  document.getElementById('hero-em').textContent = t.heroEm;
+  document.getElementById('hero-sub').textContent = t.heroSub;
+  document.getElementById('btn-visualize').textContent = t.btnVisualize;
+  document.getElementById('btn-feed').textContent = t.btnFeed;
+  document.getElementById('social-proof').textContent = t.socialProof;
+  document.getElementById('label-how').textContent = t.labelHow;
+  document.getElementById('how-title').innerHTML = t.howTitle;
+  document.getElementById('step1-title').textContent = t.step1Title;
+  document.getElementById('step1-desc').textContent = t.step1Desc;
+  document.getElementById('step2-title').textContent = t.step2Title;
+  document.getElementById('step2-desc').textContent = t.step2Desc;
+  document.getElementById('step3-title').textContent = t.step3Title;
+  document.getElementById('step3-desc').textContent = t.step3Desc;
+  document.getElementById('footer-copy').textContent = t.footerCopy;
+}
+
+// ── REVEAL ON SCROLL ──────────────────────────────────────
+function initReveal() {
+  var els = document.querySelectorAll('.reveal');
+  var obs = new IntersectionObserver(function(entries) {
+    entries.forEach(function(e) {
+      if (e.isIntersecting) { e.target.classList.add('visible'); obs.unobserve(e.target); }
+    });
+  }, { threshold: 0.15 });
+  els.forEach(function(el) { obs.observe(el); });
+}
+
+// ── INIT ──────────────────────────────────────────────────
+(function() {
+  var lang = detectLang();
+  var t = i18n[lang] || i18n.en;
+  applyLang(t);
+  document.documentElement.lang = lang;
+  initReveal();
+})();
+</script>
+</body>
+</html>
